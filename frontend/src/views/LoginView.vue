@@ -60,6 +60,10 @@ async function handleSubmit() {
           {{ loading ? "Signing in…" : "Sign In" }}
         </button>
       </form>
+      <p class="register-link">
+        Don't have an account?
+        <RouterLink to="/register">Create one</RouterLink>
+      </p>
     </div>
   </div>
 </template>
@@ -137,5 +141,11 @@ button[type="submit"]:hover:not(:disabled) {
 button[type="submit"]:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.register-link {
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  text-align: center;
 }
 </style>
