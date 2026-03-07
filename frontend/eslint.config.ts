@@ -44,5 +44,13 @@ export default [
       ],
     },
   },
+  {
+    files: ["vite.config.ts", "eslint.config.ts"],
+    languageOptions: {
+      globals: {
+        process: "readonly",
+      },
+    },
+  },
   prettier,
 ];
