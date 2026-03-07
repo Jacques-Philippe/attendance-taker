@@ -20,6 +20,8 @@ def create_app() -> FastAPI:
     # `health` is already an APIRouter instance
     app.include_router(health)
 
+    print("hello")
+
     return app
 
 
