@@ -1,6 +1,5 @@
 """Application entry point and factory."""
 
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
