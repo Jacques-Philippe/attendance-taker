@@ -44,7 +44,8 @@ def logout(request: Request, response: Response, db: Session = Depends(get_db)):
 
 
 @router.post("/register", response_model=UserResponse, status_code=201)
-def register(body: RegisterRequest, db: Session = Depends(get_db)):
+def register(body: RegisterRequest, response: Response, db: Session = Depends(get_db)):
+    settings = get_settings()
     existing = db.query(User).filter(User.username == body.username).first()
     if existing:
         raise HTTPException(status_code=409, detail="Username already taken")
@@ -56,6 +57,14 @@ def register(body: RegisterRequest, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
+    token = create_session(db, user.id)
+    response.set_cookie(
+        key="session_token",
+        value=token,
+        httponly=True,
+        samesite="lax",
+        secure=not settings.debug,
+    )
     return UserResponse.model_validate(user)
 
 
