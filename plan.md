@@ -333,7 +333,7 @@ attendance-taker/
 
 ## 4. CI/CD & Development Workflow
 
-### 3.1 Pre-commit Hooks
+### 4.1 Pre-commit Hooks
 
 Local checks run before each commit to catch issues early.
 
@@ -363,7 +363,7 @@ pre-commit install
 
 On next commit, hooks run automatically. Developers can bypass with `git commit --no-verify` if needed (not recommended).
 
-### 3.2 GitHub Actions CI/CD Pipeline
+### 4.2 GitHub Actions CI/CD Pipeline
 
 Automated workflows run on push and pull requests.
 
@@ -402,7 +402,7 @@ Automated workflows run on push and pull requests.
   3. Push to Docker Hub or container registry
   4. Deploy to hosting platform (e.g., Heroku, Railway, AWS)
 
-### 3.3 Repository Setup
+### 4.3 Repository Setup
 
 **Required files & folders:**
 
@@ -423,7 +423,7 @@ attendance-taker/
 └── .gitignore                   # Ignore node_modules, venv, __pycache__, .env, etc.
 ```
 
-### 3.4 Local Development Setup
+### 4.4 Local Development Setup
 
 # First-time setup:
 
