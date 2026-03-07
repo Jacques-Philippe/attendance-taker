@@ -1,0 +1,77 @@
+repos:
+  # Frontend: Prettier (code formatter)
+  - repo: https://github.com/prettier/pre-commit
+    rev: v1.14.3
+    hooks:
+      - id: prettier
+
+  # Frontend: ESLint (code linter)
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.55.0
+    hooks:
+      - id: eslint
+        files: '\.(js|jsx|ts|tsx|vue)$'
+        additional_dependencies:
+          - "eslint@8.55.0"
+          - "eslint-plugin-vue@9.19.2"
+          - "@typescript-eslint/eslint-plugin@6.15.0"
+          - "@typescript-eslint/parser@6.15.0"
+          - "@vue/eslint-config-typescript@12.0.0"
+          - "@vue/eslint-config-prettier@9.0.0"
+
+  # # Backend: Black (Python formatter)
+  # - repo: https://github.com/psf/black
+  #   rev: 23.12.0
+  #   hooks:
+  #     - id: black
+
+  # # Backend: isort (Python import sorter)
+  # - repo: https://github.com/pycqa/isort
+  #   rev: 5.11.2
+  #   hooks:
+  #     - id: isort
+  #       name: isort (python)
+
+  # # Backend: Flake8 (Python linter)
+  # - repo: https://github.com/PyCQA/flake8
+  #   rev: 6.1.0
+  #   hooks:
+  #     - id: flake8
+  #       additional_dependencies:
+  #         - flake8-docstrings
+  #         - flake8-bugbear
+
+  # # Backend: mypy (Python type checker)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.7.1
+  #   hooks:
+  #     - id: mypy
+  #       additional_dependencies:
+  #         - types-all
+  #         - pydantic
+  #       args: [--ignore-missing-imports]
+
+  # General: Check for large files
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key
+
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit.com hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ""
+  autoupdate_commit_msg: "[pre-commit.ci] pre-commit autoupdate"
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
