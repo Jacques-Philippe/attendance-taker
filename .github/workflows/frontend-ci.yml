@@ -48,7 +48,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd frontend
-          npm test -- --run
+          npm run test
 
       - name: Build for production
         run: |
