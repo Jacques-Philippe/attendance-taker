@@ -8,17 +8,16 @@ const authStore = useAuthStore();
   <div class="dashboard">
     <header class="dashboard-header">
       <h1>Dashboard</h1>
-      <button @click="authStore.logout()">Sign Out</button>
     </header>
     <!-- TODO Phase 2+: role-specific dashboard content -->
+    <div class="actions">
+      <button @click="authStore.logout()">Sign Out</button>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .dashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid #e2e8f0;
 }
@@ -26,6 +25,12 @@ const authStore = useAuthStore();
 h1 {
   font-size: 1.25rem;
   margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 button {
