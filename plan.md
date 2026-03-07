@@ -286,15 +286,15 @@ attendance-taker/
 
 **App Structure**
 
-- [ ] `frontend/src/main.ts` — Vue app bootstrap, mount to #app
-- [ ] `frontend/src/App.vue` — Root component with RouterView, basic layout shell
-- [ ] `frontend/src/router/index.ts` — Vue Router config with routes: /, /login, /dashboard, /404
+- [x] `frontend/src/main.ts` — Vue app bootstrap, mount to #app
+- [x] `frontend/src/App.vue` — Root component with RouterView, basic layout shell
+- [x] `frontend/src/router/index.ts` — Vue Router config with routes: /, /login, /dashboard, /404
 
 **Views**
 
-- [ ] `frontend/src/views/LoginView.vue` — Login form skeleton (username, password fields, submit button)
-- [ ] `frontend/src/views/DashboardView.vue` — Empty dashboard placeholder (to be filled in Phase 2+)
-- [ ] `frontend/src/views/NotFoundView.vue` — 404 page
+- [x] `frontend/src/views/LoginView.vue` — Login form skeleton (username, password fields, submit button)
+- [x] `frontend/src/views/DashboardView.vue` — Empty dashboard placeholder (to be filled in Phase 2+)
+- [x] `frontend/src/views/NotFoundView.vue` — 404 page
 
 **State Management (Pinia)**
 
@@ -312,12 +312,12 @@ attendance-taker/
 
 **Styling**
 
-- [ ] `frontend/src/style.css` — Global CSS variables (colors, fonts), resets, basic layout
+- [x] `frontend/src/style.css` — Global CSS variables (colors, fonts), resets, basic layout
 
 **Testing**
 
 - [ ] `frontend/tests/unit/views/LoginView.spec.ts` — Basic snapshot or structure test
-- [ ] `frontend/vitest.config.ts` — Vitest configuration (optional, can be in vite.config.ts)
+- [x] `frontend/vitest.config.ts` — Vitest configuration (optional, can be in vite.config.ts)
 
 ### 3.3 Phase 1 Success Criteria
 
