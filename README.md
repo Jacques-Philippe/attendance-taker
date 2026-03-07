@@ -5,7 +5,9 @@ The purpose of this project will be to build an attendance taker web application
 # Stack
 
 - Frontend; Vue.js + TypeScript application
-- Backend; .NET server
+- Frontend dependency manager; npm
+- Backend; FastAPI server
+- Backend dependency manager; pip
 
 # Developer environment
 

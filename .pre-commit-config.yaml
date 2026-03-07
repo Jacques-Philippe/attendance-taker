@@ -1,0 +1,60 @@
+repos:
+  - repo: local
+    hooks:
+      - id: eslint
+        name: Frontend lint
+        entry: bash -c "cd frontend && npm run lint"
+        language: system
+        pass_filenames: false
+        files: ^frontend/
+
+      - id: prettier
+        name: Frontend format
+        entry: bash -c "cd frontend && npm run format"
+        language: system
+        pass_filenames: false
+        files: ^frontend/
+
+  # Backend: Black (Python formatter)
+  - repo: https://github.com/psf/black
+    rev: 23.12.0
+    hooks:
+      - id: black
+
+  # Backend: isort (Python import sorter)
+  - repo: https://github.com/pycqa/isort
+    rev: 8.0.0
+    hooks:
+      - id: isort
+        name: isort (python)
+
+  # # Backend: Flake8 (Python linter)
+  # - repo: https://github.com/PyCQA/flake8
+  #   rev: 6.1.0
+  #   hooks:
+  #     - id: flake8
+  #       additional_dependencies:
+  #         - flake8-docstrings
+  #         - flake8-bugbear
+
+  # # Backend: mypy (Python type checker)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.19.1
+  #   hooks:
+  #     - id: mypy
+  #       additional_dependencies:
+  #         - pydantic
+  #       args: [--ignore-missing-imports]
+
+  # General: Check for large files
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+      - id: detect-private-key

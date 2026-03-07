@@ -20,6 +20,51 @@ This is a classroom/school attendance-taking web application being developed as 
 - Frontend entry point: `frontend/src/main.ts`
 - Frontend component hierarchy starts in `frontend/src/App.vue`
 
+## Authentication
+
+Session-based auth using an HTTP-only cookie set by the backend.
+
+**Flow:**
+1. Frontend POSTs credentials to `POST /api/auth/login` via `src/api/auth.ts`
+2. Backend verifies password hash, creates a server-side session, returns a `Set-Cookie` header
+3. All subsequent requests include the cookie automatically (`withCredentials: true` in `src/api/client.ts`)
+4. `GET /api/auth/me` is called on app load to restore session state into the Pinia auth store
+5. `POST /api/auth/logout` destroys the server session; the frontend clears `user` in the store
+
+**Key files:**
+- `frontend/src/api/auth.ts` — `login()`, `logout()`, `getMe()` API calls
+- `frontend/src/stores/auth.ts` — Pinia store: `user`, `isAuthenticated`, `login`, `logout`, `fetchCurrentUser`
+- `frontend/src/api/client.ts` — Axios instance with `baseURL: /api` and `withCredentials: true`
+- `backend/app/services/auth.py` — password hashing + session logic (Phase 2)
+- `backend/app/routers/auth.py` — `/api/auth/*` endpoints (Phase 2)
+- `backend/app/middleware/auth.py` — FastAPI dependency for protected routes (Phase 2)
+
+**User roles:** `admin` | `teacher` | `student` — stored as a string column on `users` and returned by `/api/auth/me`.
+
+---
+
+## Backend Database
+
+**Stack:** PostgreSQL + SQLAlchemy (ORM) + Alembic (migrations)
+
+**Configuration** (`backend/app/config.py`): reads `DATABASE_URL`, `SECRET_KEY`, and `DEBUG` from the environment via `pydantic-settings`. Settings are cached with `@lru_cache`.
+
+**Engine & sessions** (`backend/app/database.py`):
+- `get_engine()` — cached SQLAlchemy engine built from `settings.database_url`
+- `get_session_local()` — cached `sessionmaker` bound to the engine
+- `get_db()` — FastAPI dependency (`Depends(get_db)`); yields a session and closes it on exit
+
+**ORM models** (`backend/app/models/`):
+- `User` — `id`, `username`, `email`, `password_hash`, `role`, `created_at` (table: `users`)
+- `School`, `Class`/`Enrollment`, `AttendanceSession`/`AttendanceRecord` — added in later phases
+
+**Migrations** (`backend/alembic/`):
+- `001_initial.py` — creates the `users` table
+- Apply: `cd backend && alembic upgrade head`
+- Generate new: `alembic revision --autogenerate -m "description"`
+
+---
+
 ## Implementation Status
 
 See [plan.md](./plan.md) for the suggested six-phase build order:
