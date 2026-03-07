@@ -38,7 +38,7 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Testing**
 
-- [ ] `backend/tests/test_auth.py` — tests using in-memory SQLite via existing `client` fixture:
+- [x] `backend/tests/test_auth.py` — tests using in-memory SQLite via existing `client` fixture:
   - Seed a hashed-password user before tests
   - `POST /api/auth/login` with valid credentials → 200, cookie set
   - `POST /api/auth/login` with wrong password → 401
@@ -52,14 +52,14 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Auth Store — wire up**
 
-- [ ] `frontend/src/stores/auth.ts` — implement the three stubs:
+- [x] `frontend/src/stores/auth.ts` — implement the three stubs:
   - `login(username, password)` — calls `api/auth.login()`, sets `user.value` from response, redirects to `/dashboard`
   - `logout()` — calls `api/auth.logout()`, clears `user.value`, redirects to `/login`
   - `fetchCurrentUser()` — calls `api/auth.getMe()`, sets `user.value`; on 401 sets `user.value = null` without throwing
 
 **Login View — wire up**
 
-- [ ] `frontend/src/views/LoginView.vue` — implement `handleSubmit`:
+- [x] `frontend/src/views/LoginView.vue` — implement `handleSubmit`:
   - Call `authStore.login(username, password)`
   - Show inline error message on failure (wrong credentials)
   - Show loading state on the submit button while request is in-flight

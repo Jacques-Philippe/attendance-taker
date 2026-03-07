@@ -1,11 +1,32 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "../stores/auth";
+
+const router = useRouter();
+const authStore = useAuthStore();
 
 const username = ref("");
 const password = ref("");
+const error = ref("");
+const loading = ref(false);
 
-function handleSubmit() {
-  // TODO Phase 2: wire up auth store login action
+onMounted(() => {
+  if (authStore.isAuthenticated) {
+    router.push("/dashboard");
+  }
+});
+
+async function handleSubmit() {
+  error.value = "";
+  loading.value = true;
+  try {
+    await authStore.login(username.value, password.value);
+  } catch {
+    error.value = "Invalid username or password.";
+  } finally {
+    loading.value = false;
+  }
 }
 </script>
 
@@ -34,7 +55,10 @@ function handleSubmit() {
             required
           />
         </div>
-        <button type="submit">Sign In</button>
+        <p v-if="error" class="error">{{ error }}</p>
+        <button type="submit" :disabled="loading">
+          {{ loading ? "Signing in…" : "Sign In" }}
+        </button>
       </form>
     </div>
   </div>
@@ -87,6 +111,12 @@ input:focus {
   outline-offset: 1px;
 }
 
+.error {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
 button[type="submit"] {
   width: 100%;
   margin-top: 0.5rem;
@@ -100,7 +130,12 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+button[type="submit"]:hover:not(:disabled) {
   background-color: #535bf2;
+}
+
+button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>

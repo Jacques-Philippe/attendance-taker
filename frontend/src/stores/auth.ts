@@ -1,25 +1,33 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+import * as authApi from "../api/auth";
 import type { User } from "../types/user";
 
 export const useAuthStore = defineStore("auth", () => {
   const user = ref<User | null>(null);
+  const router = useRouter();
 
   const isAuthenticated = computed(() => user.value !== null);
 
-  async function login(_username: string, _password: string): Promise<void> {
-    // TODO Phase 2: call api/auth.ts login(), set user from response
-    throw new Error("Not implemented");
+  async function login(username: string, password: string): Promise<void> {
+    const response = await authApi.login({ username, password });
+    user.value = response.user;
+    await router.push("/dashboard");
   }
 
   async function logout(): Promise<void> {
-    // TODO Phase 2: call api/auth.ts logout(), clear user
+    await authApi.logout();
     user.value = null;
+    await router.push("/login");
   }
 
   async function fetchCurrentUser(): Promise<void> {
-    // TODO Phase 2: call api/auth.ts getMe(), restore session on page reload
-    throw new Error("Not implemented");
+    try {
+      user.value = await authApi.getMe();
+    } catch {
+      user.value = null;
+    }
   }
 
   return { user, isAuthenticated, login, logout, fetchCurrentUser };
