@@ -9,7 +9,7 @@
 **Schemas**
 
 - [x] `backend/app/schemas/__init__.py` — export all schemas
-- [x] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse), `RegisterRequest` (username, password)
+- [x] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse), `RegisterRequest` (username, password) with validation: username 3–50 chars, letters/numbers/underscores only; password min 8 chars
 
 **Auth Service**
 
@@ -48,10 +48,13 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
   - `GET /api/auth/me` with no cookie → 401
   - `POST /api/auth/logout` → 204, cookie cleared
   - `GET /api/auth/me` after logout → 401
-- [ ] `backend/tests/test_register.py` — registration tests:
+- [x] `backend/tests/test_register.py` — registration tests:
   - `POST /api/auth/register` with new username → 201, `UserResponse` body, `role == "teacher"`
   - `POST /api/auth/register` with duplicate username → 409
   - Registered user can immediately log in via `POST /api/auth/login`
+  - `POST /api/auth/register` with username shorter than 3 chars → 422
+  - `POST /api/auth/register` with username containing invalid characters (e.g. space or `@`) → 422
+  - `POST /api/auth/register` with password shorter than 8 chars → 422
 
 ### Frontend Phase 2 Deliverables
 
