@@ -228,12 +228,14 @@ attendance-taker/
 ### 3.1 Backend Phase 1 Deliverables
 
 **Project Setup & Config**
+
 - [ ] `backend/pyproject.toml` — Python project metadata, dependencies (FastAPI, SQLAlchemy, Pydantic, Alembic, pytest, black, flake8, mypy, isort)
 - [ ] `backend/requirements.txt` — Generated from pyproject.toml or pinned versions
 - [ ] `backend/.env.example` — Template for environment variables (DB_URL, SECRET_KEY, DEBUG, etc.)
-- [ ] `backend/.gitignore` — Ignores venv/, __pycache__/, .env, *.db, .pytest_cache/
+- [ ] `backend/.gitignore` — Ignores venv/, **pycache**/, .env, \*.db, .pytest_cache/
 
 **Database & ORM**
+
 - [ ] `backend/app/config.py` — Load settings from environment, database URL, secret key
 - [ ] `backend/app/database.py` — SQLAlchemy engine, SessionLocal, Base declarative class
 - [ ] `backend/alembic.ini` — Alembic configuration
@@ -241,6 +243,7 @@ attendance-taker/
 - [ ] `backend/alembic/versions/001_initial.py` — Initial migration creating all tables
 
 **Models**
+
 - [ ] `backend/app/models/__init__.py` — Export all models
 - [ ] `backend/app/models/user.py` — User (id, username, email, password_hash, role, created_at)
 - [ ] `backend/app/models/school.py` — School (id, name, created_at)
@@ -248,6 +251,7 @@ attendance-taker/
 - [ ] `backend/app/models/attendance.py` — AttendanceSession (id, class_id, date, period, taken_by, created_at), AttendanceRecord (id, session_id, student_id, status, created_at)
 
 **Schemas (Request/Response Models)**
+
 - [ ] `backend/app/schemas/__init__.py` — Export all schemas
 - [ ] `backend/app/schemas/user.py` — UserCreate, UserResponse, UserUpdate
 - [ ] `backend/app/schemas/school.py` — SchoolCreate, SchoolResponse
@@ -255,20 +259,23 @@ attendance-taker/
 - [ ] `backend/app/schemas/attendance.py` — AttendanceSessionCreate, AttendanceRecordCreate, AttendanceSessionResponse
 
 **API & App**
+
 - [ ] `backend/app/__init__.py` — Package marker
 - [ ] `backend/app/main.py` — FastAPI app initialization, CORS middleware, health check endpoint (`GET /api/health`), router registrations
 - [ ] `backend/app/routers/__init__.py` — Export all routers
 - [ ] `backend/app/routers/health.py` — Simple health check endpoint (optional, can be in main.py)
 
 **Testing**
+
 - [ ] `backend/tests/conftest.py` — pytest fixtures (test database, app client, test data)
 - [ ] `backend/tests/test_health.py` — Test health check endpoint
 
 ### 3.2 Frontend Phase 1 Deliverables
 
 **Project Setup**
+
 - [ ] `frontend/package.json` — Vue 3, TypeScript, Vite, Pinia, Vue Router, Axios, Prettier, ESLint
-- [ ] `frontend/tsconfig.json` — TypeScript configuration
+- [x] `frontend/tsconfig.json` — TypeScript configuration
 - [ ] `frontend/vite.config.ts` — Vite configuration with proxy to backend API
 - [ ] `frontend/.env.example` — Template (VITE_API_URL)
 - [ ] `frontend/.gitignore` — Ignores node_modules/, dist/, .env.local
@@ -277,30 +284,37 @@ attendance-taker/
 - [ ] `frontend/index.html` — Root HTML (div#app)
 
 **App Structure**
+
 - [ ] `frontend/src/main.ts` — Vue app bootstrap, mount to #app
 - [ ] `frontend/src/App.vue` — Root component with RouterView, basic layout shell
 - [ ] `frontend/src/router/index.ts` — Vue Router config with routes: /, /login, /dashboard, /404
 
 **Views**
+
 - [ ] `frontend/src/views/LoginView.vue` — Login form skeleton (username, password fields, submit button)
 - [ ] `frontend/src/views/DashboardView.vue` — Empty dashboard placeholder (to be filled in Phase 2+)
 - [ ] `frontend/src/views/NotFoundView.vue` — 404 page
 
 **State Management (Pinia)**
+
 - [ ] `frontend/src/stores/auth.ts` — Auth store (user state, login action, logout action, isAuthenticated getter)
 
 **API Layer**
+
 - [ ] `frontend/src/api/client.ts` — Axios instance with base URL, interceptors for auth
 - [ ] `frontend/src/api/auth.ts` — Auth API functions (login, logout, getMe)
 
 **Type Definitions**
+
 - [ ] `frontend/src/types/user.ts` — User, LoginRequest, LoginResponse interfaces
 - [ ] `frontend/src/types/common.ts` — ApiResponse, ApiError (if needed)
 
 **Styling**
+
 - [ ] `frontend/src/style.css` — Global CSS variables (colors, fonts), resets, basic layout
 
 **Testing**
+
 - [ ] `frontend/tests/unit/views/LoginView.spec.ts` — Basic snapshot or structure test
 - [ ] `frontend/vitest.config.ts` — Vitest configuration (optional, can be in vite.config.ts)
 
