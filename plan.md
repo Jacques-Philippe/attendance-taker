@@ -261,7 +261,7 @@ attendance-taker/
 **API & App**
 
 - [x] `backend/app/__init__.py` — Package marker
-- [x] `backend/app/main.py` — FastAPI app initialization, CORS middleware, health check endpoint (`GET /api/health`), router registrations
+- [x] `backend/app/main.py` — FastAPI app initialization, CORS middleware (must set `allow_credentials=True` and list trusted origins explicitly — `allow_origins=["*"]` is incompatible with credentialed requests), health check endpoint (`GET /api/health`), router registrations
 - [x] `backend/app/routers/__init__.py` — Export all routers
 - [x] `backend/app/routers/health.py` — Simple health check endpoint (optional, can be in main.py)
 
@@ -302,7 +302,7 @@ attendance-taker/
 
 **API Layer**
 
-- [x] `frontend/src/api/client.ts` — Axios instance with base URL, interceptors for auth
+- [x] `frontend/src/api/client.ts` — Axios instance with base URL, `withCredentials: true` (required so session cookies are sent on every cross-origin request), interceptors for auth
 - [x] `frontend/src/api/auth.ts` — Auth API functions (login, logout, getMe)
 
 **Type Definitions**
@@ -325,7 +325,8 @@ attendance-taker/
 - Frontend builds without errors: `npm run build`
 - Health check endpoint responds: `GET http://localhost:8000/api/health` → `{"status": "ok"}`
 - Login form displays on frontend: Navigate to http://localhost:5173 → see login page
-- API client is wired up: frontend can import and use `api/auth.ts`
+- API client is wired up: frontend can import and use `api/auth.ts`; Axios instance has `withCredentials: true` so session cookies are included in requests
+- Credentialed CORS is configured: backend CORS middleware sets `allow_credentials=True` with an explicit `allow_origins` allowlist (not `"*"`), so the browser accepts `Set-Cookie` headers from the API
 - Database migrations work: Alembic can create fresh schema from migration files
 - Tests run: `pytest` (backend) and `npm test` (frontend) pass
 
