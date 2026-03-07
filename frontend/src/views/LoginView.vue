@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const username = ref('')
-const password = ref('')
+const username = ref("");
+const password = ref("");
 
 function handleSubmit() {
   // TODO Phase 2: wire up auth store login action
@@ -87,7 +87,7 @@ input:focus {
   outline-offset: 1px;
 }
 
-button[type='submit'] {
+button[type="submit"] {
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.6rem;
@@ -100,7 +100,7 @@ button[type='submit'] {
   cursor: pointer;
 }
 
-button[type='submit']:hover {
+button[type="submit"]:hover {
   background-color: #535bf2;
 }
 </style>

@@ -1,23 +1,19 @@
 repos:
-  # Frontend: Prettier (code formatter)
-  - repo: https://github.com/prettier/pre-commit
-    rev: v1.14.3
-    hooks:
-      - id: prettier
-
-  # Frontend: ESLint (code linter)
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.55.0
+  - repo: local
     hooks:
       - id: eslint
-        files: '\.(js|jsx|ts|tsx|vue)$'
-        additional_dependencies:
-          - "eslint@8.55.0"
-          - "eslint-plugin-vue@9.19.2"
-          - "@typescript-eslint/eslint-plugin@6.15.0"
-          - "@typescript-eslint/parser@6.15.0"
-          - "@vue/eslint-config-typescript@12.0.0"
-          - "@vue/eslint-config-prettier@9.0.0"
+        name: Frontend lint
+        entry: bash -c "cd frontend && npm run lint"
+        language: system
+        pass_filenames: false
+        files: ^frontend/
+
+      - id: prettier
+        name: Frontend format
+        entry: bash -c "cd frontend && npm run format"
+        language: system
+        pass_filenames: false
+        files: ^frontend/
 
   # Backend: Black (Python formatter)
   - repo: https://github.com/psf/black
