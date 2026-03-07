@@ -19,9 +19,9 @@
 
 Session tokens are stored in a `sessions` table (id, user_id, token, created_at, expires_at). Add a migration:
 
-- [ ] `backend/alembic/versions/002_sessions.py` — creates `sessions` table
-- [ ] `backend/app/models/session.py` — `Session` ORM model (id, user_id FK→users, token String unique, created_at, expires_at)
-- [ ] Export `Session` from `backend/app/models/__init__.py`
+- [x] `backend/alembic/versions/002_sessions.py` — creates `sessions` table
+- [x] `backend/app/models/session.py` — `Session` ORM model (id, user_id FK→users, token String unique, created_at, expires_at)
+- [x] Export `Session` from `backend/app/models/__init__.py`
 
 **Auth Router**
 
