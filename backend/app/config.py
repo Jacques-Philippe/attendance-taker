@@ -1,22 +1,24 @@
-# pydantic v2 splits settings into a separate package; import
-# BaseSettings from there to keep mypy happy and avoid the
-# "Variable ... is not valid as a type" error.
-try:
-    from pydantic_settings import BaseSettings
-except ImportError:  # backwards compatibility
-    from pydantic import BaseSettings  # type: ignore[assignment]
-
-from pydantic import PostgresDsn
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    database_url: PostgresDsn
+    database_url: str
     secret_key: str
     debug: bool = False
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
 
-settings = Settings()
+from functools import lru_cache
+
+
+@lru_cache(maxsize=1)
+def get_settings() -> Settings:
+    """Return a cached :class:`Settings` instance.
+
+    Calling this function multiple times returns the same object, ensuring
+    that environment variables are read only once and allowing callers to
+    obtain configuration lazily (e.g. during app startup rather than at
+    import time).
+    """
+    return Settings()

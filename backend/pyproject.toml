@@ -25,6 +25,9 @@ isort = "5.13.2"
 # type stubs for mypy
 python-dateutil = {version = "2.8.19.14", optional = true}
 
+[tool.isort]
+profile = "black"
+
 [build-system]
 requires = ["poetry-core>=1.5.1"]
 build-backend = "poetry.core.masonry.api"
