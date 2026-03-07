@@ -4,16 +4,16 @@
 
 **Config**
 
-- [ ] `backend/app/config.py` — add `session_ttl_hours: int = 24` to `Settings`; add `SESSION_TTL_HOURS=24` to `backend/.env.example`
+- [x] `backend/app/config.py` — add `session_ttl_hours: int = 24` to `Settings`; add `SESSION_TTL_HOURS=24` to `backend/.env.example`
 
 **Schemas**
 
-- [ ] `backend/app/schemas/__init__.py` — export all schemas
-- [ ] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse)
+- [x] `backend/app/schemas/__init__.py` — export all schemas
+- [x] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse)
 
 **Auth Service**
 
-- [ ] `backend/app/services/auth.py` — password hashing with `passlib[bcrypt]`; `hash_password(plain: str) -> str`; `verify_password(plain: str, hashed: str) -> bool`; `create_session(db, user_id) -> str` (generates a `secrets.token_hex(32)` token, stores it with `expires_at = now() + SESSION_TTL_HOURS`); `resolve_session(db, token: str) -> User | None` (must filter `expires_at > now()` — expired tokens return `None`)
+- [x] `backend/app/services/auth.py` — password hashing with `passlib[bcrypt]`; `hash_password(plain: str) -> str`; `verify_password(plain: str, hashed: str) -> bool`; `create_session(db, user_id) -> str` (generates a `secrets.token_hex(32)` token, stores it with `expires_at = now() + SESSION_TTL_HOURS`); `resolve_session(db, token: str) -> User | None` (must filter `expires_at > now()` — expired tokens return `None`)
 
 **Session Storage**
 

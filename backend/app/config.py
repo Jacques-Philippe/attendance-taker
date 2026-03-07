@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     database_url: str
     secret_key: str
     debug: bool = False
+    session_ttl_hours: int = 24
     cors_origins: list[str] = ["http://localhost:5173"]
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
