@@ -34,7 +34,7 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Auth Middleware / Dependency**
 
-- [ ] `backend/app/middleware/auth.py` — `get_current_user(request: Request, db: Session = Depends(get_db)) -> User` FastAPI dependency; reads `session_token` cookie, calls `resolve_session`, raises `HTTPException(401)` if missing or expired; used by all protected routes
+- [x] `backend/app/middleware/auth.py` — `get_current_user(request: Request, db: Session = Depends(get_db)) -> User` FastAPI dependency; reads `session_token` cookie, calls `resolve_session`, raises `HTTPException(401)` if missing or expired; used by all protected routes
 
 **Testing**
 
