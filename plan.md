@@ -282,6 +282,7 @@ attendance-taker/
 - [x] `frontend/.eslintrc.cjs` — ESLint config with Vue 3 + TypeScript rules
 - [x] `frontend/.prettierrc.json` — Prettier config
 - [x] `frontend/index.html` — Root HTML (div#app)
+- [x] frontend pre-commit hooks
 
 **App Structure**
 
