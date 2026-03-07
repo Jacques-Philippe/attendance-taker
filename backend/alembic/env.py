@@ -4,8 +4,9 @@ import os
 import sys
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
+
+from alembic import context
 
 # Add parent directory to path for app imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -18,11 +19,17 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
+from app.config import get_settings  # noqa: E402
+
 # add your model's MetaData object here
 # for 'autogenerate' support
 from app.database import Base  # noqa: E402
 
 target_metadata = Base.metadata
+
+# Override the sqlalchemy.url from alembic.ini with the value from settings
+# so that migrations always use the same DATABASE_URL as the app.
+config.set_main_option("sqlalchemy.url", get_settings().database_url)
 
 
 # other values from the config, defined by the needs of env.py,
