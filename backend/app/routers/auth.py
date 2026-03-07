@@ -5,8 +5,13 @@ from ..config import get_settings
 from ..database import get_db
 from ..models.session import Session as SessionModel
 from ..models.user import User
-from ..schemas.user import LoginRequest, LoginResponse, UserResponse
-from ..services.auth import create_session, resolve_session, verify_password
+from ..schemas.user import LoginRequest, LoginResponse, RegisterRequest, UserResponse
+from ..services.auth import (
+    create_session,
+    hash_password,
+    resolve_session,
+    verify_password,
+)
 
 router = APIRouter(prefix="/api/auth")
 
@@ -36,6 +41,22 @@ def logout(request: Request, response: Response, db: Session = Depends(get_db)):
         db.query(SessionModel).filter(SessionModel.token == token).delete()
         db.commit()
     response.delete_cookie(key="session_token")
+
+
+@router.post("/register", response_model=UserResponse, status_code=201)
+def register(body: RegisterRequest, db: Session = Depends(get_db)):
+    existing = db.query(User).filter(User.username == body.username).first()
+    if existing:
+        raise HTTPException(status_code=409, detail="Username already taken")
+    user = User(
+        username=body.username,
+        password_hash=hash_password(body.password),
+        role="teacher",
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return UserResponse.model_validate(user)
 
 
 @router.get("/me", response_model=UserResponse)

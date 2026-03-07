@@ -22,7 +22,6 @@ def setup_db(app):
     db.add(
         User(
             username=TEST_USERNAME,
-            email="teacher1@example.com",
             password_hash=hash_password(TEST_PASSWORD),
             role="teacher",
         )

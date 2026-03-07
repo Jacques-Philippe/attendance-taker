@@ -22,3 +22,8 @@ class LoginRequest(BaseModel):
 
 class LoginResponse(BaseModel):
     user: UserResponse
+
+
+class RegisterRequest(BaseModel):
+    username: str
+    password: str
