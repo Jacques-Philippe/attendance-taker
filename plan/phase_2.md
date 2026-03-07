@@ -25,12 +25,12 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Auth Router**
 
-- [ ] `backend/app/routers/auth.py` — `APIRouter(prefix="/api/auth")`
+- [x] `backend/app/routers/auth.py` — `APIRouter(prefix="/api/auth")`
   - `POST /login` — look up user by username (return 401 if not found — do not 404, to avoid username enumeration), verify password (return 401 if wrong), create session, set `session_token` cookie (HttpOnly, SameSite=Lax, Secure=not settings.debug), return `LoginResponse`
   - `POST /logout` — delete session from DB, clear cookie, return 204
   - `GET /me` — resolve session cookie, return `UserResponse` or 401
-- [ ] Register auth router in `backend/app/main.py`
-- [ ] Export auth router from `backend/app/routers/__init__.py`
+- [x] Register auth router in `backend/app/main.py`
+- [x] Export auth router from `backend/app/routers/__init__.py`
 
 **Auth Middleware / Dependency**
 
