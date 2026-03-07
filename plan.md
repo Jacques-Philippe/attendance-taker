@@ -236,8 +236,8 @@ attendance-taker/
 
 **Database & ORM**
 
-- [ ] `backend/app/config.py` — Load settings from environment, database URL, secret key
-- [ ] `backend/app/database.py` — SQLAlchemy engine, SessionLocal, Base declarative class
+- [x] `backend/app/config.py` — Load settings from environment, database URL, secret key
+- [x] `backend/app/database.py` — SQLAlchemy engine, SessionLocal, Base declarative class
 - [x] `backend/alembic.ini` — Alembic configuration
 - [x] `backend/alembic/env.py` — Auto-generate migrations on model changes
 - [x] `backend/alembic/versions/001_initial.py` — Initial migration creating all tables
@@ -246,9 +246,9 @@ attendance-taker/
 
 - [x] `backend/app/models/__init__.py` — Export all models
 - [x] `backend/app/models/user.py` — User (id, username, email, password_hash, role, created_at)
-- [ ] `backend/app/models/school.py` — School (id, name, created_at)
-- [ ] `backend/app/models/class_.py` — Class (id, school_id, name, period, teacher_id), Enrollment (class_id, student_id)
-- [ ] `backend/app/models/attendance.py` — AttendanceSession (id, class_id, date, period, taken_by, created_at), AttendanceRecord (id, session_id, student_id, status, created_at)
+- [x] `backend/app/models/school.py` — School (id, name, created_at)
+- [x] `backend/app/models/class_.py` — Class (id, school_id, name, period, teacher_id), Enrollment (class_id, student_id)
+- [x] `backend/app/models/attendance.py` — AttendanceSession (id, class_id, date, period, taken_by, created_at), AttendanceRecord (id, session_id, student_id, status, created_at)
 
 **Schemas (Request/Response Models)**
 
@@ -298,16 +298,16 @@ attendance-taker/
 
 **State Management (Pinia)**
 
-- [ ] `frontend/src/stores/auth.ts` — Auth store (user state, login action, logout action, isAuthenticated getter)
+- [x] `frontend/src/stores/auth.ts` — Auth store (user state, login action, logout action, isAuthenticated getter)
 
 **API Layer**
 
-- [ ] `frontend/src/api/client.ts` — Axios instance with base URL, interceptors for auth
-- [ ] `frontend/src/api/auth.ts` — Auth API functions (login, logout, getMe)
+- [x] `frontend/src/api/client.ts` — Axios instance with base URL, interceptors for auth
+- [x] `frontend/src/api/auth.ts` — Auth API functions (login, logout, getMe)
 
 **Type Definitions**
 
-- [ ] `frontend/src/types/user.ts` — User, LoginRequest, LoginResponse interfaces
+- [x] `frontend/src/types/user.ts` — User, LoginRequest, LoginResponse interfaces
 - [ ] `frontend/src/types/common.ts` — ApiResponse, ApiError (if needed)
 
 **Styling**
@@ -316,7 +316,7 @@ attendance-taker/
 
 **Testing**
 
-- [ ] `frontend/tests/unit/views/LoginView.spec.ts` — Basic snapshot or structure test
+- [x] `frontend/tests/unit/views/LoginView.spec.ts` — Basic snapshot or structure test
 - [x] `frontend/vitest.config.ts` — Vitest configuration (optional, can be in vite.config.ts)
 
 ### 3.3 Phase 1 Success Criteria
