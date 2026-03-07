@@ -277,8 +277,8 @@ attendance-taker/
 - [ ] `frontend/package.json` — Vue 3, TypeScript, Vite, Pinia, Vue Router, Axios, Prettier, ESLint
 - [x] `frontend/tsconfig.json` — TypeScript configuration
 - [ ] `frontend/vite.config.ts` — Vite configuration with proxy to backend API
-- [ ] `frontend/.env.example` — Template (VITE_API_URL)
-- [ ] `frontend/.gitignore` — Ignores node_modules/, dist/, .env.local
+- [x] `frontend/.env.example` — Template (VITE_API_URL)
+- [x] `frontend/.gitignore` — Ignores node_modules/, dist/, .env.local
 - [ ] `frontend/.eslintrc.cjs` — ESLint config with Vue 3 + TypeScript rules
 - [ ] `frontend/.prettierrc.json` — Prettier config
 - [ ] `frontend/index.html` — Root HTML (div#app)
