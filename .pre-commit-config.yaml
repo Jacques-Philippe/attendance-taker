@@ -32,24 +32,23 @@ repos:
       - id: isort
         name: isort (python)
 
-  # # Backend: Flake8 (Python linter)
-  # - repo: https://github.com/PyCQA/flake8
-  #   rev: 6.1.0
-  #   hooks:
-  #     - id: flake8
-  #       additional_dependencies:
-  #         - flake8-docstrings
-  #         - flake8-bugbear
+  # Backend: Flake8 (Python linter)
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-docstrings
+          - flake8-bugbear
 
-  # # Backend: mypy (Python type checker)
-  # - repo: https://github.com/pre-commit/mirrors-mypy
-  #   rev: v1.7.1
-  #   hooks:
-  #     - id: mypy
-  #       additional_dependencies:
-  #         - types-all
-  #         - pydantic
-  #       args: [--ignore-missing-imports]
+  # Backend: mypy (Python type checker)
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        additional_dependencies:
+          - pydantic
+        args: [--ignore-missing-imports]
 
   # General: Check for large files
   - repo: https://github.com/pre-commit/pre-commit-hooks
