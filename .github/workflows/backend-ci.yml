@@ -60,4 +60,5 @@ jobs:
           DATABASE_URL: postgresql://test_user:test_password@localhost:5432/attendance_test
         run: |
           cd backend
+          cp .env.example .env # temporary measure
           pytest .
