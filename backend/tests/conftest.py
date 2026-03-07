@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 # ensure backend/app module is importable when tests run from within backend/
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from app.main import create_app
 

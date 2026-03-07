@@ -4,21 +4,22 @@ This project contains the backend for the attendance-taker system.
 
 # Instructions
 
-## Installation instructions
+## Virtualenv Installation instructions
 
-Install dependencies with
+Create virtual env and install dependencies with
 
 ```
 cd backend
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ## Run instructions
 
-Run the server with
+Run the server after installing dependencies with
 
 ```
 cd backend
-source .venv/bin/activate
 uvicorn app.main:app --reload
 ```
