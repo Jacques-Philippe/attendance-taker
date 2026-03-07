@@ -15,6 +15,11 @@ const router = createRouter({
       component: LoginView,
     },
     {
+      path: "/register",
+      name: "register",
+      component: () => import("../views/RegisterView.vue"),
+    },
+    {
       path: "/dashboard",
       name: "dashboard",
       component: () => import("../views/DashboardView.vue"),
@@ -37,11 +42,13 @@ router.beforeEach(async (to) => {
     sessionRestored = true;
   }
 
-  if (to.name === "login" && authStore.isAuthenticated) {
+  const publicRoutes = ["login", "register"];
+
+  if (publicRoutes.includes(to.name as string) && authStore.isAuthenticated) {
     return "/dashboard";
   }
 
-  if (to.name !== "login" && !authStore.isAuthenticated) {
+  if (!publicRoutes.includes(to.name as string) && !authStore.isAuthenticated) {
     return "/login";
   }
 });

@@ -22,6 +22,12 @@ export const useAuthStore = defineStore("auth", () => {
     await router.push("/login");
   }
 
+  async function register(username: string, password: string): Promise<void> {
+    const registeredUser = await authApi.register({ username, password });
+    user.value = registeredUser;
+    await router.push("/dashboard");
+  }
+
   async function fetchCurrentUser(): Promise<void> {
     try {
       user.value = await authApi.getMe();
@@ -30,5 +36,5 @@ export const useAuthStore = defineStore("auth", () => {
     }
   }
 
-  return { user, isAuthenticated, login, logout, fetchCurrentUser };
+  return { user, isAuthenticated, login, logout, register, fetchCurrentUser };
 });
