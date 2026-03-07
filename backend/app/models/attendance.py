@@ -1,6 +1,6 @@
 import enum
 
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer
+from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String
 from sqlalchemy.sql import func
 
 from ..database import Base
@@ -19,7 +19,7 @@ class AttendanceSession(Base):
     id = Column(Integer, primary_key=True, index=True)
     class_id = Column(Integer, ForeignKey("classes.id"), nullable=False)
     date = Column(DateTime(timezone=True), nullable=False)
-    period = Column(Integer, nullable=False)
+    period = Column(String, nullable=False)
     taken_by = Column(Integer, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
