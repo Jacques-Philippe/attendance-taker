@@ -9,7 +9,7 @@
 **Schemas**
 
 - [x] `backend/app/schemas/__init__.py` — export all schemas
-- [x] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse)
+- [x] `backend/app/schemas/user.py` — `UserCreate` (username, password, role), `UserResponse` (id, username, role), `LoginRequest` (username, password), `LoginResponse` (user: UserResponse), `RegisterRequest` (username, password)
 
 **Auth Service**
 
@@ -29,6 +29,7 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
   - `POST /login` — look up user by username (return 401 if not found — do not 404, to avoid username enumeration), verify password (return 401 if wrong), create session, set `session_token` cookie (HttpOnly, SameSite=Lax, Secure=not settings.debug), return `LoginResponse`
   - `POST /logout` — delete session from DB, clear cookie, return 204
   - `GET /me` — resolve session cookie, return `UserResponse` or 401
+  - `POST /register` — open registration; accepts `RegisterRequest` (username, password); returns 409 if username already taken; hashes password, creates user with `role="teacher"`, returns `UserResponse` (201)
 - [x] Register auth router in `backend/app/main.py`
 - [x] Export auth router from `backend/app/routers/__init__.py`
 
@@ -47,15 +48,30 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
   - `GET /api/auth/me` with no cookie → 401
   - `POST /api/auth/logout` → 204, cookie cleared
   - `GET /api/auth/me` after logout → 401
+- [ ] `backend/tests/test_register.py` — registration tests:
+  - `POST /api/auth/register` with new username → 201, `UserResponse` body, `role == "teacher"`
+  - `POST /api/auth/register` with duplicate username → 409
+  - Registered user can immediately log in via `POST /api/auth/login`
 
 ### Frontend Phase 2 Deliverables
 
 **Auth Store — wire up**
 
-- [x] `frontend/src/stores/auth.ts` — implement the three stubs:
+- [x] `frontend/src/stores/auth.ts` — implement the three stubs plus registration:
+  - `register(username, password)` — calls `api/auth.register()`, logs the user in (sets `user.value`), redirects to `/dashboard`
   - `login(username, password)` — calls `api/auth.login()`, sets `user.value` from response, redirects to `/dashboard`
   - `logout()` — calls `api/auth.logout()`, clears `user.value`, redirects to `/login`
   - `fetchCurrentUser()` — calls `api/auth.getMe()`, sets `user.value`; on 401 sets `user.value = null` without throwing
+
+**Register View**
+
+- [ ] `frontend/src/views/RegisterView.vue` — username + password + confirm-password form:
+  - Validate that password and confirm-password match client-side before submitting
+  - Call `authStore.register(username, password)`
+  - Show inline error on failure (e.g. username taken)
+  - Show loading state on submit button while request is in-flight
+  - Link to `/login` for users who already have an account
+  - If already authenticated on mount, redirect to `/dashboard`
 
 **Login View — wire up**
 
@@ -68,13 +84,15 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 **Route Guards**
 
 - [ ] `frontend/src/router/index.ts` — add `beforeEach` navigation guard:
-  - Protected routes (all except `/login`) redirect to `/login` if `!authStore.isAuthenticated`
-  - `/login` redirects to `/dashboard` if already authenticated
+  - Protected routes (all except `/login` and `/register`) redirect to `/login` if `!authStore.isAuthenticated`
+  - `/login` and `/register` redirect to `/dashboard` if already authenticated
   - Call `authStore.fetchCurrentUser()` once on first navigation to restore session
+  - Add `/register` route pointing to `RegisterView.vue`
 
 **API Layer — verify shapes**
 
-- [ ] Confirm `LoginResponse` shape matches backend response and update `frontend/src/types/user.ts` if needed
+- [ ] Confirm `LoginResponse` shape matches backend response and update `frontend/src/types/user.ts` if needed; add `RegisterRequest` type (username, password)
+- [ ] `frontend/src/api/auth.ts` — add `register(credentials: RegisterRequest): Promise<UserResponse>` calling `POST /auth/register`
 - [ ] `frontend/src/api/client.ts` — implement the 401 interceptor: on 401 response, call `authStore.logout()` and redirect to `/login`; skip this redirect if the failing request is to `/auth/me` (that call is used to probe session status and handles 401 itself)
 
 **Testing**
@@ -90,13 +108,18 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 ### Phase 2 Success Criteria
 
+- `POST /api/auth/register` with a new username returns 201, `role == "teacher"`, and the user can immediately log in
+- `POST /api/auth/register` with a duplicate username returns 409
 - `POST /api/auth/login` with valid credentials returns 200 and sets an HttpOnly `session_token` cookie
 - `POST /api/auth/login` with invalid credentials returns 401
 - `GET /api/auth/me` with a valid session cookie returns the authenticated user's id, username, and role
 - `GET /api/auth/me` with no cookie (or expired/invalid token) returns 401
 - `POST /api/auth/logout` returns 204 and the cookie is cleared; subsequent `GET /api/auth/me` returns 401
 - Navigating to `/dashboard` without being logged in redirects to `/login`
-- Navigating to `/login` while already logged in redirects to `/dashboard`
+- Navigating to `/login` or `/register` while already logged in redirects to `/dashboard`
+- Submitting the register form with a new username creates the account and navigates to `/dashboard`
+- Submitting the register form with a taken username shows an inline error
+- Mismatched confirm-password shows a client-side error without submitting
 - Submitting the login form with correct credentials navigates to `/dashboard`
 - Submitting the login form with wrong credentials shows an inline error without redirecting
 - Page reload on an authenticated route restores the session (no spurious redirect to `/login`)
