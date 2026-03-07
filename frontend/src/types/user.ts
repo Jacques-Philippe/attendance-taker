@@ -4,7 +4,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role: UserRole;
+  role: UserRole | string; // backend persists role as an unconstrained string
 }
 
 export interface LoginRequest {
