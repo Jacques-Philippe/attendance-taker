@@ -274,14 +274,14 @@ attendance-taker/
 
 **Project Setup**
 
-- [ ] `frontend/package.json` — Vue 3, TypeScript, Vite, Pinia, Vue Router, Axios, Prettier, ESLint
+- [x] `frontend/package.json` — Vue 3, TypeScript, Vite, Pinia, Vue Router, Axios, Prettier, ESLint
 - [x] `frontend/tsconfig.json` — TypeScript configuration
-- [ ] `frontend/vite.config.ts` — Vite configuration with proxy to backend API
+- [x] `frontend/vite.config.ts` — Vite configuration with proxy to backend API
 - [x] `frontend/.env.example` — Template (VITE_API_URL)
 - [x] `frontend/.gitignore` — Ignores node_modules/, dist/, .env.local
-- [ ] `frontend/.eslintrc.cjs` — ESLint config with Vue 3 + TypeScript rules
-- [ ] `frontend/.prettierrc.json` — Prettier config
-- [ ] `frontend/index.html` — Root HTML (div#app)
+- [x] `frontend/.eslintrc.cjs` — ESLint config with Vue 3 + TypeScript rules
+- [x] `frontend/.prettierrc.json` — Prettier config
+- [x] `frontend/index.html` — Root HTML (div#app)
 
 **App Structure**
 
