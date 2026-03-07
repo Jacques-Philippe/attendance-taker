@@ -229,23 +229,23 @@ attendance-taker/
 
 **Project Setup & Config**
 
-- [ ] `backend/pyproject.toml` — Python project metadata, dependencies (FastAPI, SQLAlchemy, Pydantic, Alembic, pytest, black, flake8, mypy, isort)
-- [ ] `backend/requirements.txt` — Generated from pyproject.toml or pinned versions
+- [x] `backend/pyproject.toml` — Python project metadata, dependencies (FastAPI, SQLAlchemy, Pydantic, Alembic, pytest, black, flake8, mypy, isort)
+- [x] `backend/requirements.txt` — Generated from pyproject.toml or pinned versions
 - [ ] `backend/.env.example` — Template for environment variables (DB_URL, SECRET_KEY, DEBUG, etc.)
-- [ ] `backend/.gitignore` — Ignores venv/, **pycache**/, .env, \*.db, .pytest_cache/
+- [x] `backend/.gitignore` — Ignores venv/, **pycache**/, .env, \*.db, .pytest_cache/
 
 **Database & ORM**
 
 - [ ] `backend/app/config.py` — Load settings from environment, database URL, secret key
 - [ ] `backend/app/database.py` — SQLAlchemy engine, SessionLocal, Base declarative class
-- [ ] `backend/alembic.ini` — Alembic configuration
-- [ ] `backend/alembic/env.py` — Auto-generate migrations on model changes
-- [ ] `backend/alembic/versions/001_initial.py` — Initial migration creating all tables
+- [x] `backend/alembic.ini` — Alembic configuration
+- [x] `backend/alembic/env.py` — Auto-generate migrations on model changes
+- [x] `backend/alembic/versions/001_initial.py` — Initial migration creating all tables
 
 **Models**
 
-- [ ] `backend/app/models/__init__.py` — Export all models
-- [ ] `backend/app/models/user.py` — User (id, username, email, password_hash, role, created_at)
+- [x] `backend/app/models/__init__.py` — Export all models
+- [x] `backend/app/models/user.py` — User (id, username, email, password_hash, role, created_at)
 - [ ] `backend/app/models/school.py` — School (id, name, created_at)
 - [ ] `backend/app/models/class_.py` — Class (id, school_id, name, period, teacher_id), Enrollment (class_id, student_id)
 - [ ] `backend/app/models/attendance.py` — AttendanceSession (id, class_id, date, period, taken_by, created_at), AttendanceRecord (id, session_id, student_id, status, created_at)
@@ -260,15 +260,15 @@ attendance-taker/
 
 **API & App**
 
-- [ ] `backend/app/__init__.py` — Package marker
-- [ ] `backend/app/main.py` — FastAPI app initialization, CORS middleware, health check endpoint (`GET /api/health`), router registrations
-- [ ] `backend/app/routers/__init__.py` — Export all routers
-- [ ] `backend/app/routers/health.py` — Simple health check endpoint (optional, can be in main.py)
+- [x] `backend/app/__init__.py` — Package marker
+- [x] `backend/app/main.py` — FastAPI app initialization, CORS middleware, health check endpoint (`GET /api/health`), router registrations
+- [x] `backend/app/routers/__init__.py` — Export all routers
+- [x] `backend/app/routers/health.py` — Simple health check endpoint (optional, can be in main.py)
 
 **Testing**
 
-- [ ] `backend/tests/conftest.py` — pytest fixtures (test database, app client, test data)
-- [ ] `backend/tests/test_health.py` — Test health check endpoint
+- [x] `backend/tests/conftest.py` — pytest fixtures (test database, app client, test data)
+- [x] `backend/tests/test_health.py` — Test health check endpoint
 
 ### 3.2 Frontend Phase 1 Deliverables
 
