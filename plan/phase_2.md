@@ -86,7 +86,7 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Route Guards**
 
-- [ ] `frontend/src/router/index.ts` — add `beforeEach` navigation guard:
+- [x] `frontend/src/router/index.ts` — add `beforeEach` navigation guard:
   - Protected routes (all except `/login` and `/register`) redirect to `/login` if `!authStore.isAuthenticated`
   - `/login` and `/register` redirect to `/dashboard` if already authenticated
   - Call `authStore.fetchCurrentUser()` once on first navigation to restore session
@@ -94,9 +94,9 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **API Layer — verify shapes**
 
-- [ ] Confirm `LoginResponse` shape matches backend response and update `frontend/src/types/user.ts` if needed; add `RegisterRequest` type (username, password)
-- [ ] `frontend/src/api/auth.ts` — add `register(credentials: RegisterRequest): Promise<UserResponse>` calling `POST /auth/register`
-- [ ] `frontend/src/api/client.ts` — implement the 401 interceptor: on 401 response, call `authStore.logout()` and redirect to `/login`; skip this redirect if the failing request is to `/auth/me` (that call is used to probe session status and handles 401 itself)
+- [x] Confirm `LoginResponse` shape matches backend response and update `frontend/src/types/user.ts` if needed; add `RegisterRequest` type (username, password)
+- [x] `frontend/src/api/auth.ts` — add `register(credentials: RegisterRequest): Promise<UserResponse>` calling `POST /auth/register`
+- [x] `frontend/src/api/client.ts` — implement the 401 interceptor: on 401 response, call `authStore.logout()` and redirect to `/login`; skip this redirect if the failing request is to `/auth/me` (that call is used to probe session status and handles 401 itself)
 
 **Testing**
 
