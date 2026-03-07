@@ -2,6 +2,7 @@ from functools import lru_cache
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.pool import StaticPool
 
 from .config import get_settings
 
@@ -20,8 +21,18 @@ def get_engine():
     process.
     """
     settings = get_settings()
-    # convert to str in case the Pydantic field is a PostgresDsn or similar
-    return create_engine(str(settings.database_url), future=True)
+    url = str(settings.database_url)
+    # SQLite in-memory databases are per-connection by default. Using StaticPool
+    # forces a single shared connection so all sessions see the same data —
+    # required for tests. This has no effect on PostgreSQL.
+    if url.startswith("sqlite"):
+        return create_engine(
+            url,
+            future=True,
+            connect_args={"check_same_thread": False},
+            poolclass=StaticPool,
+        )
+    return create_engine(url, future=True)
 
 
 @lru_cache(maxsize=1)
