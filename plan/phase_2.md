@@ -100,17 +100,17 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Testing**
 
-- [ ] `frontend/tests/unit/views/LoginView.spec.ts` — extend with Phase 2 tests:
+- [x] `frontend/tests/unit/views/LoginView.spec.ts` — extend with Phase 2 tests:
   - Mocks `useAuthStore`; on submit calls `authStore.login` with form values
   - Shows error message when `authStore.login` rejects
   - Submit button is disabled / shows loading text while `login` is pending
-- [ ] `frontend/tests/unit/views/RegisterView.spec.ts` — unit tests for the register form:
+- [x] `frontend/tests/unit/views/RegisterView.spec.ts` — unit tests for the register form:
   - Mocks `useAuthStore`; on submit calls `authStore.register` with username and password
   - Shows error when passwords do not match (without calling `authStore.register`)
   - Shows error message when `authStore.register` rejects with 409 (username taken)
   - Shows validation error detail when `authStore.register` rejects with 422
   - Submit button is disabled / shows loading text while `register` is pending
-- [ ] `frontend/tests/unit/stores/auth.spec.ts` — unit tests for the wired-up store:
+- [x] `frontend/tests/unit/stores/auth.spec.ts` — unit tests for the wired-up store:
   - `login()` calls `api/auth.login`, sets `user`, sets `isAuthenticated = true`
   - `logout()` calls `api/auth.logout`, clears `user`
   - `register()` calls `api/auth.register`, sets `user`, sets `isAuthenticated = true`

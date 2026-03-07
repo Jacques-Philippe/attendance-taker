@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
-import { createRouter, createMemoryHistory } from "vue-router";
 import LoginView from "@/views/LoginView.vue";
+import { makeRouter } from "../../utils";
 
 // vi.mock is hoisted before variable declarations, so use vi.hoisted to share
 // the mock fn reference with the factory.
@@ -14,21 +14,10 @@ vi.mock("@/stores/auth", () => ({
   }),
 }));
 
-// ─── helpers ──────────────────────────────────────────────────────────────────
-
-function makeRouter() {
-  return createRouter({
-    history: createMemoryHistory(),
-    routes: [
-      { path: "/login", component: LoginView },
-      { path: "/dashboard", component: { template: "<div />" } },
-      { path: "/register", component: { template: "<div />" } },
-    ],
-  });
-}
-
 function mountLoginView() {
-  return mount(LoginView, { global: { plugins: [makeRouter()] } });
+  return mount(LoginView, {
+    global: { plugins: [makeRouter({ path: "/login", component: LoginView })] },
+  });
 }
 
 // ─── Phase 1 — render tests ───────────────────────────────────────────────────
