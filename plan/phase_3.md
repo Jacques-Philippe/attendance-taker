@@ -52,8 +52,8 @@
   - `PATCH /{class_id}/students/{student_id}` — `Depends(get_current_user)` — 403 if class not owned; 404 if student not in class; accepts `StudentUpdate`; returns updated `StudentResponse`
   - `DELETE /{class_id}/students/{student_id}` — `Depends(get_current_user)` — 403 if class not owned; 404 if student not in class; returns 204
 
-- [ ] Register router in `backend/app/main.py`
-- [ ] Export from `backend/app/routers/__init__.py`
+- [x] Register router in `backend/app/main.py`
+- [x] Export from `backend/app/routers/__init__.py`
 
 **Testing**
 
