@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { RouterLink } from "vue-router";
 import { useClassesStore } from "../stores/classes";
 
 const store = useClassesStore();
@@ -93,9 +94,12 @@ async function removeStudent(classId: number, studentId: number) {
 
 <template>
   <div class="page">
+    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
     <div class="header">
       <h1>Classes</h1>
-      <button @click="showNewClassForm = !showNewClassForm">+ New class</button>
+      <button class="btn-primary" @click="showNewClassForm = !showNewClassForm">
+        + New class
+      </button>
     </div>
 
     <form
@@ -189,21 +193,58 @@ async function removeStudent(classId: number, studentId: number) {
 
 <style scoped>
 .page {
-  max-width: 720px;
+  max-width: 960px;
+  width: 100%;
   margin: 2rem auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #646cff;
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #334155;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   margin: 0;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #646cff;
+  color: #fff;
+  border-color: transparent;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #535bf2;
+}
+
+@media (prefers-color-scheme: light) {
+  .back-link {
+    color: #64748b;
+  }
+
+  .header {
+    border-color: #e2e8f0;
+  }
 }
 
 .inline-form {
@@ -214,7 +255,7 @@ h1 {
 }
 
 .error {
-  color: #dc2626;
+  color: #f87171;
   margin-bottom: 1rem;
 }
 
@@ -226,7 +267,7 @@ h1 {
 }
 
 .class-row {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #334155;
   border-radius: 6px;
   margin-bottom: 0.75rem;
   overflow: hidden;
@@ -246,14 +287,14 @@ h1 {
 }
 
 .class-period {
-  color: #64748b;
+  color: #94a3b8;
   font-size: 0.875rem;
   margin-right: 0.5rem;
 }
 
 .student-panel {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
+  background: #1e293b;
+  border-top: 1px solid #334155;
   padding: 0.75rem 1rem;
 }
 
@@ -270,31 +311,69 @@ h1 {
 
 input {
   padding: 0.375rem 0.625rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #475569;
   border-radius: 6px;
   font-size: 0.875rem;
   font-family: inherit;
+  background: #1e293b;
+  color: inherit;
 }
 
 button {
   padding: 0.375rem 0.75rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #475569;
   border-radius: 6px;
-  background: #fff;
   font-size: 0.875rem;
   cursor: pointer;
 }
 
-button:hover {
-  background: #f1f5f9;
-}
-
 button.danger {
-  color: #dc2626;
-  border-color: #fca5a5;
+  color: #f87171;
+  border-color: #7f1d1d;
 }
 
 button.danger:hover {
-  background: #fee2e2;
+  background: #450a0a;
+}
+
+@media (prefers-color-scheme: light) {
+  .error {
+    color: #dc2626;
+  }
+
+  .class-row {
+    border-color: #e2e8f0;
+  }
+
+  .class-period {
+    color: #64748b;
+  }
+
+  .student-panel {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+
+  input {
+    border-color: #cbd5e1;
+    background: #fff;
+  }
+
+  button {
+    border-color: #cbd5e1;
+  }
+
+  button:hover {
+    background: #f1f5f9;
+  }
+
+  button.danger {
+    color: #dc2626;
+    border-color: #fca5a5;
+  }
+
+  button.danger:hover {
+    background: #fee2e2;
+  }
 }
 </style>
