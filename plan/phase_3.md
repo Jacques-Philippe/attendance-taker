@@ -24,8 +24,8 @@
 - [x] `backend/app/models/class_.py` — replace `Enrollment` with `Student`:
   - `Class`: keep `id`, `name`, `period`, `teacher_id` FK→users (no change)
   - `Student`: `id` (PK), `name` (String NOT NULL), `class_id` (FK→classes NOT NULL)
-- [ ] `backend/app/models/attendance.py` — change `AttendanceRecord.student_id` FK from `users.id` to `students.id`
-- [ ] `backend/app/models/__init__.py` — export `Student`; remove `Enrollment`
+- [x] `backend/app/models/attendance.py` — change `AttendanceRecord.student_id` FK from `users.id` to `students.id`
+- [x] `backend/app/models/__init__.py` — export `Student`; remove `Enrollment`
 
 **Schemas**
 
