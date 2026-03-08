@@ -19,7 +19,7 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-from app.config import get_settings  # noqa: E402
+from app.config import Settings  # noqa: E402
 
 # add your model's MetaData object here
 # for 'autogenerate' support
@@ -29,7 +29,7 @@ target_metadata = Base.metadata
 
 # Override the sqlalchemy.url from alembic.ini with the value from settings
 # so that migrations always use the same DATABASE_URL as the app.
-config.set_main_option("sqlalchemy.url", get_settings().database_url)
+config.set_main_option("sqlalchemy.url", Settings().database_url)
 
 
 # other values from the config, defined by the needs of env.py,
