@@ -42,7 +42,7 @@
 
 **Classes Router**
 
-- [ ] `backend/app/routers/classes.py` — `APIRouter(prefix="/api/classes", tags=["classes"])`
+- [x] `backend/app/routers/classes.py` — `APIRouter(prefix="/api/classes", tags=["classes"])`
   - `GET /` — `Depends(get_current_user)` — returns `list[ClassResponse]` scoped to `teacher_id == current_user.id`
   - `POST /` — `Depends(get_current_user)` — accepts `ClassCreate`; sets `teacher_id = current_user.id` server-side; returns `ClassResponse` (201)
   - `GET /{class_id}` — `Depends(get_current_user)` — returns `ClassDetailResponse` with `students`; returns 403 if class does not belong to current user; returns 404 if class not found
