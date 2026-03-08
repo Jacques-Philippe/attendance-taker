@@ -9,8 +9,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 # Set env vars BEFORE importing app modules so @lru_cache picks up test values
 # instead of production values from .env
-os.environ.setdefault("DATABASE_URL", "sqlite+pysqlite:///:memory:")
-os.environ.setdefault("SECRET_KEY", "testkey")
+os.environ["DATABASE_URL"] = "sqlite+pysqlite:///:memory:"
+os.environ["SECRET_KEY"] = "testkey"
 
 from app.main import create_app
 
