@@ -16,6 +16,7 @@ _ALEMBIC_INI = os.path.abspath(
 def setup_db(app):
     alembic_command.upgrade(AlembicConfig(_ALEMBIC_INI), "head")
     yield
+    alembic_command.downgrade(AlembicConfig(_ALEMBIC_INI), "base")
     Base.metadata.drop_all(get_engine())
 
 
