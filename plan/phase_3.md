@@ -99,7 +99,7 @@
 
 **Store**
 
-- [ ] `frontend/src/stores/classes.ts` — Pinia setup store:
+- [x] `frontend/src/stores/classes.ts` — Pinia setup store:
   - State: `classes: ref<Class[]>`, `currentClass: ref<ClassDetail | null>`, `loading: ref<boolean>`, `error: ref<string | null>`
   - `fetchClasses()` — populates `classes`
   - `fetchClass(id)` — populates `currentClass`
@@ -112,7 +112,7 @@
 
 **Views**
 
-- [ ] `frontend/src/views/ClassManagementView.vue`:
+- [x] `frontend/src/views/ClassManagementView.vue`:
   - Lists the teacher's classes (name, period, student count)
   - "New class" button: inline form for name and period
   - Each class row: "Edit" (name/period inline), "Delete" (with confirmation), "Manage students" expander
