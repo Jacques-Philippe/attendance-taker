@@ -3,7 +3,6 @@ export type UserRole = "admin" | "teacher" | "student";
 export interface User {
   id: number;
   username: string;
-  email: string;
   role: UserRole | string; // backend persists role as an unconstrained string
 }
 
@@ -14,4 +13,9 @@ export interface LoginRequest {
 
 export interface LoginResponse {
   user: User;
+}
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
 }

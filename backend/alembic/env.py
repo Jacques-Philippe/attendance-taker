@@ -5,7 +5,6 @@ import sys
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import engine_from_config, pool
 
 # Add parent directory to path for app imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -18,16 +17,9 @@ config = context.config
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-from app.database import Base  # noqa: E402
+from app.database import Base, get_engine  # noqa: E402
 
 target_metadata = Base.metadata
-
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
 
 
 def run_migrations_offline():
@@ -54,16 +46,20 @@ def run_migrations_offline():
 
 
 def run_migrations_online():
-    """Run migrations in 'online' mode."""
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    """Run migrations in 'online' mode.
 
+    Uses the same cached engine as the app so that in-memory SQLite test
+    databases (StaticPool) are shared between migrations and the application.
+    render_as_batch=True enables the copy-rename strategy required for schema
+    changes (e.g. DROP COLUMN) on SQLite.
+    """
+    connectable = get_engine()
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata)
-
+        context.configure(
+            connection=connection,
+            target_metadata=target_metadata,
+            render_as_batch=True,
+        )
         with context.begin_transaction():
             context.run_migrations()
 

@@ -8,6 +8,7 @@ const authStore = useAuthStore();
 
 const username = ref("");
 const password = ref("");
+const confirmPassword = ref("");
 const error = ref("");
 const loading = ref(false);
 
@@ -18,12 +19,32 @@ onMounted(() => {
 });
 
 async function handleSubmit() {
+  if (password.value !== confirmPassword.value) {
+    error.value = "Passwords do not match.";
+    return;
+  }
   error.value = "";
   loading.value = true;
   try {
-    await authStore.login(username.value, password.value);
-  } catch {
-    error.value = "Invalid username or password.";
+    await authStore.register(username.value, password.value);
+  } catch (e: unknown) {
+    const res = (
+      e as {
+        response?: {
+          status?: number;
+          data?: { detail?: Array<{ msg: string }> | string };
+        };
+      }
+    )?.response;
+    if (res?.status === 409) {
+      error.value = "Username is already taken.";
+    } else if (res?.status === 422 && Array.isArray(res.data?.detail)) {
+      error.value = res.data.detail.map((d) => d.msg).join(" ");
+    } else if (res?.status === 422 && typeof res.data?.detail === "string") {
+      error.value = res.data.detail;
+    } else {
+      error.value = "Registration failed. Please try again.";
+    }
   } finally {
     loading.value = false;
   }
@@ -31,9 +52,9 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <div class="login-page">
-    <div class="login-card">
-      <h1>Attendance Taker</h1>
+  <div class="register-page">
+    <div class="register-card">
+      <h1>Create Account</h1>
       <form @submit.prevent="handleSubmit">
         <div class="field">
           <label for="username">Username</label>
@@ -51,32 +72,41 @@ async function handleSubmit() {
             id="password"
             v-model="password"
             type="password"
-            autocomplete="current-password"
+            autocomplete="new-password"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            id="confirm-password"
+            v-model="confirmPassword"
+            type="password"
+            autocomplete="new-password"
             required
           />
         </div>
         <p v-if="error" class="error">{{ error }}</p>
         <button type="submit" :disabled="loading">
-          {{ loading ? "Signing in…" : "Sign In" }}
+          {{ loading ? "Creating account…" : "Create Account" }}
         </button>
       </form>
-      <p class="register-link">
-        Don't have an account?
-        <RouterLink to="/register">Create one</RouterLink>
+      <p class="login-link">
+        Already have an account? <RouterLink to="/login">Sign in</RouterLink>
       </p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.login-page {
+.register-page {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
 }
 
-.login-card {
+.register-card {
   width: 100%;
   max-width: 360px;
   padding: 2rem;
@@ -143,7 +173,7 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-.register-link {
+.login-link {
   margin-top: 1.25rem;
   font-size: 0.875rem;
   text-align: center;

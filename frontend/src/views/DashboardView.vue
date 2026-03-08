@@ -1,8 +1,50 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuthStore } from "../stores/auth";
+
+const authStore = useAuthStore();
+</script>
 
 <template>
-  <div>
-    <h1>Dashboard</h1>
+  <div class="dashboard">
+    <header class="dashboard-header">
+      <h1>Dashboard</h1>
+    </header>
     <!-- TODO Phase 2+: role-specific dashboard content -->
+    <div class="actions">
+      <button @click="authStore.logout()">Sign Out</button>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.dashboard-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+button {
+  padding: 0.4rem 1rem;
+  background-color: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #535bf2;
+}
+</style>

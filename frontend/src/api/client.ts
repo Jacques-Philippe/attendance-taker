@@ -8,10 +8,24 @@ const client = axios.create({
   },
 });
 
-// Response interceptor — TODO Phase 2: redirect to /login on 401
 client.interceptors.response.use(
   (response) => response,
   (error) => {
+    const status = error?.response?.status;
+    const url: string = error?.config?.url ?? "";
+
+    const isSessionBootstrap = url.includes("/auth/me");
+    const isLoginAttempt = url.includes("/auth/login");
+
+    if (
+      status === 401 &&
+      !isSessionBootstrap &&
+      !isLoginAttempt &&
+      !window.location.pathname.endsWith("/login")
+    ) {
+      window.location.href = "/login";
+    }
+
     return Promise.reject(error);
   },
 );

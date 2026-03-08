@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "../stores/auth";
 import LoginView from "../views/LoginView.vue";
 
 const router = createRouter({
@@ -14,9 +15,13 @@ const router = createRouter({
       component: LoginView,
     },
     {
+      path: "/register",
+      name: "register",
+      component: () => import("../views/RegisterView.vue"),
+    },
+    {
       path: "/dashboard",
       name: "dashboard",
-      // TODO Phase 2: add navigation guard (redirect to /login if not authenticated)
       component: () => import("../views/DashboardView.vue"),
     },
     {
@@ -25,6 +30,24 @@ const router = createRouter({
       component: () => import("../views/NotFoundView.vue"),
     },
   ],
+});
+
+router.beforeEach(async (to) => {
+  const authStore = useAuthStore();
+  const publicRoutes = ["login", "register"];
+  const isPublic = publicRoutes.includes(to.name as string);
+
+  if (!isPublic) {
+    await authStore.fetchCurrentUser();
+  }
+
+  if (isPublic && authStore.isAuthenticated) {
+    return "/dashboard";
+  }
+
+  if (!isPublic && !authStore.isAuthenticated) {
+    return "/login";
+  }
 });
 
 export default router;
