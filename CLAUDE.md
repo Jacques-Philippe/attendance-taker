@@ -1,6 +1,6 @@
 # Claude Notes — Attendance Taker Project
 
-This is a classroom/school attendance-taking web application being developed as a full-stack project.
+This is a classroom attendance-taking web application being developed as a full-stack project.
 
 ## Project Overview
 
