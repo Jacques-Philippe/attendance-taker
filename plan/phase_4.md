@@ -24,8 +24,8 @@
 
 **ORM Models — update**
 
-- [ ] `backend/app/models/attendance.py` — change `date` column from `DateTime(timezone=True)` to `Date`; add `UniqueConstraint("class_id", "date")` to `AttendanceSession`
-- [ ] `backend/app/models/__init__.py` — export `AttendanceSession`, `AttendanceRecord`, `AttendanceStatus`
+- [x] `backend/app/models/attendance.py` — change `date` column from `DateTime(timezone=True)` to `Date`; add `UniqueConstraint("class_id", "date")` to `AttendanceSession`
+- [x] `backend/app/models/__init__.py` — export `AttendanceSession`, `AttendanceRecord`, `AttendanceStatus`
 
 **Schemas**
 
