@@ -32,23 +32,20 @@ const router = createRouter({
   ],
 });
 
-let sessionRestored = false;
-
 router.beforeEach(async (to) => {
   const authStore = useAuthStore();
+  const publicRoutes = ["login", "register"];
+  const isPublic = publicRoutes.includes(to.name as string);
 
-  if (!sessionRestored) {
+  if (!isPublic) {
     await authStore.fetchCurrentUser();
-    sessionRestored = true;
   }
 
-  const publicRoutes = ["login", "register"];
-
-  if (publicRoutes.includes(to.name as string) && authStore.isAuthenticated) {
+  if (isPublic && authStore.isAuthenticated) {
     return "/dashboard";
   }
 
-  if (!publicRoutes.includes(to.name as string) && !authStore.isAuthenticated) {
+  if (!isPublic && !authStore.isAuthenticated) {
     return "/login";
   }
 });
