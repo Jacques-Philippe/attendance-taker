@@ -20,7 +20,7 @@ repos:
         entry: scripts/check-requirements.sh
         language: script
         pass_filenames: false
-        files: ^backend/
+        always_run: true
 
   # Backend: Black (Python formatter)
   - repo: https://github.com/psf/black
