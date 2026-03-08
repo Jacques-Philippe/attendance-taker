@@ -29,7 +29,7 @@
 
 **Schemas**
 
-- [ ] `backend/app/schemas/class_.py`:
+- [x] `backend/app/schemas/class_.py`:
   - `ClassCreate`: `name: str` (non-empty), `period: str` (non-empty)
   - `ClassUpdate`: `name: str | None`, `period: str | None` — at least one must be provided
   - `StudentResponse`: `id`, `name`, `class_id` — `model_config = ConfigDict(from_attributes=True)`
@@ -38,7 +38,7 @@
   - `ClassResponse`: `id`, `name`, `period`, `teacher_id` — `from_attributes=True`
   - `ClassDetailResponse`: extends `ClassResponse` with `students: list[StudentResponse]`
 
-- [ ] `backend/app/schemas/__init__.py` — export all new schemas
+- [x] `backend/app/schemas/__init__.py` — export all new schemas
 
 **Classes Router**
 
