@@ -68,7 +68,7 @@ Session tokens are stored in a `sessions` table (id, user_id, token, created_at,
 
 **Register View**
 
-- [ ] `frontend/src/views/RegisterView.vue` — username + password + confirm-password form:
+- [x] `frontend/src/views/RegisterView.vue` — username + password + confirm-password form:
   - Validate that password and confirm-password match client-side before submitting
   - Call `authStore.register(username, password)`
   - Show inline error on failure (e.g. username taken)
