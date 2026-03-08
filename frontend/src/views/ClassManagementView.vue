@@ -87,7 +87,8 @@ function cancelEditStudent(studentId: number) {
   delete editingStudent.value[studentId];
 }
 
-async function removeStudent(classId: number, studentId: number) {
+async function removeStudent(classId: number, studentId: number, name: string) {
+  if (!window.confirm(`Remove student "${name}"?`)) return;
   await store.removeStudent(classId, studentId);
 }
 </script>
@@ -170,7 +171,7 @@ async function removeStudent(classId: number, studentId: number) {
                 </button>
                 <button
                   class="danger"
-                  @click="removeStudent(cls.id, student.id)"
+                  @click="removeStudent(cls.id, student.id, student.name)"
                 >
                   Remove
                 </button>
