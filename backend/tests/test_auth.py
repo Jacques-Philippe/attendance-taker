@@ -65,6 +65,8 @@ def test_login_valid_credentials(anon):
     )
     assert response.status_code == 200
     assert "session_token" in response.cookies
+    set_cookie = response.headers.get("set-cookie", "").lower()
+    assert "httponly" in set_cookie
     data = response.json()
     assert data["user"]["username"] == TEST_USERNAME
     assert data["user"]["role"] == "teacher"
