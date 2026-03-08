@@ -137,7 +137,7 @@
   - `removeStudent()` calls api and removes from `currentClass.students`
   - On API error, `error` is set and `loading` is cleared
 
-- [ ] `frontend/tests/unit/views/ClassManagementView.spec.ts` — mocks `useClassesStore`; tests:
+- [x] `frontend/tests/unit/views/ClassManagementView.spec.ts` — mocks `useClassesStore`; tests:
   - Renders class list from store
   - "Delete" calls `classesStore.deleteClass` with correct id
   - "New class" form calls `classesStore.createClass` on submit
