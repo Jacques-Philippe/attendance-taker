@@ -1,4 +1,5 @@
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic.alias_generators import to_camel
 
 
 class ClassCreate(BaseModel):
@@ -18,7 +19,11 @@ class ClassUpdate(BaseModel):
 
 
 class StudentResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        alias_generator=to_camel,
+        populate_by_name=True,
+    )
 
     id: int
     name: str
@@ -34,7 +39,11 @@ class StudentUpdate(BaseModel):
 
 
 class ClassResponse(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(
+        from_attributes=True,
+        alias_generator=to_camel,
+        populate_by_name=True,
+    )
 
     id: int
     name: str

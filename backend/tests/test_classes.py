@@ -75,13 +75,13 @@ def test_create_class(client_a):
     data = r.json()
     assert data["name"] == "Math"
     assert data["period"] == "1st"
-    assert "teacher_id" in data
+    assert "teacherId" in data
 
 
 def test_create_class_sets_teacher_id_from_session(client_a, client_b):
     r_a = client_a.post("/api/classes/", json={"name": "Science", "period": "2nd"})
     r_b = client_b.post("/api/classes/", json={"name": "Art", "period": "3rd"})
-    assert r_a.json()["teacher_id"] != r_b.json()["teacher_id"]
+    assert r_a.json()["teacherId"] != r_b.json()["teacherId"]
 
 
 def test_list_classes_scoped_to_teacher(client_a, client_b):
@@ -91,10 +91,10 @@ def test_list_classes_scoped_to_teacher(client_a, client_b):
     names = [c["name"] for c in r.json()]
     # Teacher B's "Art" class must not appear for teacher A
     assert "Art" not in names or all(
-        c["teacher_id"] == r.json()[0]["teacher_id"] for c in r.json()
+        c["teacherId"] == r.json()[0]["teacherId"] for c in r.json()
     )
-    # Simpler: all returned classes share the same teacher_id
-    ids = {c["teacher_id"] for c in r.json()}
+    # Simpler: all returned classes share the same teacherId
+    ids = {c["teacherId"] for c in r.json()}
     assert len(ids) <= 1
 
 
