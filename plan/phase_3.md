@@ -87,7 +87,7 @@
 
 **API Layer**
 
-- [ ] `frontend/src/api/classes.ts`:
+- [x] `frontend/src/api/classes.ts`:
   - `listClasses(): Promise<Class[]>`
   - `getClass(id: number): Promise<ClassDetail>`
   - `createClass(data: ClassCreate): Promise<Class>`
