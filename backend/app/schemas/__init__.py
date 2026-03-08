@@ -1,3 +1,10 @@
+from .attendance import (
+    AttendanceRecordRequest,
+    AttendanceRecordResponse,
+    AttendanceSessionCreate,
+    AttendanceSessionDetailResponse,
+    AttendanceSessionResponse,
+)
 from .class_ import (
     ClassCreate,
     ClassDetailResponse,

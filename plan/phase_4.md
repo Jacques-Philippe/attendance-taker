@@ -29,14 +29,14 @@
 
 **Schemas**
 
-- [ ] `backend/app/schemas/attendance.py`:
+- [x] `backend/app/schemas/attendance.py`:
   - `AttendanceRecordRequest`: `student_id: int`, `status: AttendanceStatus`
   - `AttendanceSessionCreate`: `class_id: int`, `date: datetime.date`, `records: list[AttendanceRecordRequest]` — `records` must be non-empty
   - `AttendanceRecordResponse`: `id`, `student_id`, `status` — `model_config = ConfigDict(from_attributes=True, alias_generator=to_camel, populate_by_name=True)`
   - `AttendanceSessionResponse`: `id`, `class_id`, `date`, `period`, `taken_by`, `created_at` — same `model_config`
   - `AttendanceSessionDetailResponse` extends `AttendanceSessionResponse`: adds `records: list[AttendanceRecordResponse]`
 
-- [ ] `backend/app/schemas/__init__.py` — export all new attendance schemas
+- [x] `backend/app/schemas/__init__.py` — export all new attendance schemas
 
 **Attendance Router**
 
