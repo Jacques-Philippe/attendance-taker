@@ -72,7 +72,7 @@
 
 **Types**
 
-- [ ] `frontend/src/types/attendance.ts`:
+- [x] `frontend/src/types/attendance.ts`:
   - `AttendanceStatus = "present" | "absent" | "late" | "excused"`
   - `AttendanceRecordDraft { studentId: number; status: AttendanceStatus }` — mutable draft used in the UI before submission
   - `AttendanceRecordCreate { studentId: number; status: AttendanceStatus }` — shape sent to the API
