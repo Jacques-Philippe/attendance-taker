@@ -142,6 +142,10 @@
   - "Delete" calls `classesStore.deleteClass` with correct id
   - "New class" form calls `classesStore.createClass` on submit
 
+**Nice to have**
+
+- [x] Define a precommit hook to make sure the backend/requirements.txt file is in alignment with our virtual environment
+
 ---
 
 ### Phase 3 Success Criteria
