@@ -40,7 +40,7 @@
 
 **Attendance Router**
 
-- [ ] `backend/app/routers/attendance.py` — `APIRouter(prefix="/api/attendance", tags=["attendance"])`
+- [x] `backend/app/routers/attendance.py` — `APIRouter(prefix="/api/attendance", tags=["attendance"])`
   - `POST /sessions` — `Depends(get_current_user)`:
     - Verify class exists and `teacher_id == current_user.id` (403 otherwise)
     - Check no session already exists for `(class_id, date)` — return 409 if duplicate
@@ -51,7 +51,7 @@
     - Returns `list[AttendanceSessionResponse]` for sessions whose class is owned by the current teacher
     - Accepts optional query params: `class_id: int | None`, `date: datetime.date | None`
 
-- [ ] Register router in `backend/app/main.py` and export from `backend/app/routers/__init__.py`
+- [x] Register router in `backend/app/main.py` and export from `backend/app/routers/__init__.py`
 
 **Testing**
 
