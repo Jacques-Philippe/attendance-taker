@@ -55,7 +55,7 @@
 
 **Testing**
 
-- [ ] `backend/tests/test_attendance.py` — uses same Alembic upgrade/downgrade fixture as `test_classes.py`; seeds two teachers, each with a class and students:
+- [x] `backend/tests/test_attendance.py` — uses same Alembic upgrade/downgrade fixture as `test_classes.py`; seeds two teachers, each with a class and students:
   - `POST /api/attendance/sessions` as owner with all students → 201, session + records in response
   - `POST /api/attendance/sessions` as non-owner → 403
   - `POST /api/attendance/sessions` with unknown class → 404
