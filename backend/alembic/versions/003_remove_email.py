@@ -24,3 +24,4 @@ def downgrade():
     import sqlalchemy as sa
 
     op.add_column("users", sa.Column("email", sa.String(), nullable=True))
+    op.create_unique_constraint("uq_users_email", "users", ["email"])
