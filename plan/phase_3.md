@@ -129,7 +129,7 @@
 
 **Testing**
 
-- [ ] `frontend/tests/unit/stores/classes.spec.ts` — mocks `@/api/classes`; tests:
+- [x] `frontend/tests/unit/stores/classes.spec.ts` — mocks `@/api/classes`; tests:
   - `fetchClasses()` populates `classes` and clears `loading`
   - `createClass()` calls api and appends to `classes`
   - `deleteClass()` calls api and removes from `classes`
