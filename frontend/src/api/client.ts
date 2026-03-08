@@ -14,7 +14,15 @@ client.interceptors.response.use(
     const status = error?.response?.status;
     const url: string = error?.config?.url ?? "";
 
-    if (status === 401 && !url.includes("/auth/me")) {
+    const isSessionBootstrap = url.includes("/auth/me");
+    const isLoginAttempt = url.includes("/auth/login");
+
+    if (
+      status === 401 &&
+      !isSessionBootstrap &&
+      !isLoginAttempt &&
+      !window.location.pathname.endsWith("/login")
+    ) {
       window.location.href = "/login";
     }
 
