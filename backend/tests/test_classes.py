@@ -49,7 +49,8 @@ def setup_db(app):
 
 def _logged_in(app, credentials):
     c = TestClient(app)
-    c.post("/api/auth/login", json=credentials)
+    resp = c.post("/api/auth/login", json=credentials)
+    assert resp.status_code == 200, f"Login failed: {resp.text}"
     return c
 
 
