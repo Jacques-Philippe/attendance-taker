@@ -40,6 +40,8 @@ async function handleSubmit() {
       error.value = "Username is already taken.";
     } else if (res?.status === 422 && Array.isArray(res.data?.detail)) {
       error.value = res.data.detail.map((d) => d.msg).join(" ");
+    } else if (res?.status === 422 && typeof res.data?.detail === "string") {
+      error.value = res.data.detail;
     } else {
       error.value = "Registration failed. Please try again.";
     }
