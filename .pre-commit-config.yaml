@@ -15,6 +15,13 @@ repos:
         pass_filenames: false
         files: ^frontend/
 
+      - id: check-requirements
+        name: Backend requirements in sync
+        entry: scripts/check-requirements.sh
+        language: script
+        pass_filenames: false
+        always_run: true
+
   # Backend: Black (Python formatter)
   - repo: https://github.com/psf/black
     rev: 23.12.0

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from "../stores/auth";
+import { RouterLink } from "vue-router";
 
 const authStore = useAuthStore();
 </script>
@@ -9,7 +10,9 @@ const authStore = useAuthStore();
     <header class="dashboard-header">
       <h1>Dashboard</h1>
     </header>
-    <!-- TODO Phase 2+: role-specific dashboard content -->
+    <nav class="nav-links">
+      <RouterLink to="/classes">Manage Classes</RouterLink>
+    </nav>
     <div class="actions">
       <button @click="authStore.logout()">Sign Out</button>
     </div>
@@ -25,6 +28,22 @@ const authStore = useAuthStore();
 h1 {
   font-size: 1.25rem;
   margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.nav-links a {
+  color: #646cff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
 }
 
 .actions {

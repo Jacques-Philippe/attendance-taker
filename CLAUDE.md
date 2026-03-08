@@ -1,6 +1,6 @@
 # Claude Notes — Attendance Taker Project
 
-This is a classroom/school attendance-taking web application being developed as a full-stack project.
+This is a classroom attendance-taking web application being developed as a full-stack project.
 
 ## Project Overview
 
@@ -41,7 +41,7 @@ Session-based auth using an HTTP-only cookie set by the backend. Note that by de
 - `backend/app/routers/auth.py` — `/api/auth/*` endpoints (Phase 2)
 - `backend/app/middleware/auth.py` — FastAPI dependency for protected routes (Phase 2)
 
-**User roles:** `admin` | `teacher` | `student` — stored as a string column on `users` and returned by `/api/auth/me`.
+**User roles:** `teacher` — stored as a string column on `users` and returned by `/api/auth/me`.
 
 ---
 
@@ -59,12 +59,11 @@ Session-based auth using an HTTP-only cookie set by the backend. Note that by de
 
 **ORM models** (`backend/app/models/`):
 
-- `User` — `id`, `username`, `email`, `password_hash`, `role`, `created_at` (table: `users`)
-- `School`, `Class`/`Enrollment`, `AttendanceSession`/`AttendanceRecord` — added in later phases
+- `User` — `id`, `username`, `password_hash`, `role`, `created_at` (table: `users`)
+- `Class`/`Enrollment`, `AttendanceSession`/`AttendanceRecord` — added in later phases
 
-**Migrations** (`backend/alembic/`):
+**Migrations** (`backend/alembic/versions`):
 
-- `001_initial.py` — creates the `users` table
 - Apply: `cd backend && alembic upgrade head`
 - Generate new: `alembic revision --autogenerate -m "description"`
 
@@ -80,7 +79,3 @@ See [plan.md](./plan.md) for the suggested six-phase build order:
 4. Core Attendance (roster + submission)
 5. History & Reports (queries + aggregation)
 6. Polish (UI, CSV export, Docker, docs)
-
----
-
-_Project initialized: 2026-03-07_

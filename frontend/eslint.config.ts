@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import globals from "globals";
 import ts from "typescript-eslint";
 import vue from "eslint-plugin-vue";
 import prettier from "eslint-config-prettier";
@@ -13,6 +14,9 @@ export default [
   {
     files: ["**/*.vue"],
     languageOptions: {
+      globals: {
+        ...globals.browser,
+      },
       parserOptions: {
         parser: ts.parser,
         sourceType: "module",
@@ -28,7 +32,7 @@ export default [
         sourceType: "module",
       },
       globals: {
-        console: "readonly",
+        ...globals.browser,
       },
     },
     rules: {
