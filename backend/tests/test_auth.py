@@ -1,22 +1,29 @@
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import sessionmaker
 
+from alembic import command as alembic_command
+from alembic.config import Config as AlembicConfig
 from app.database import Base, get_engine
-from app.models import Session as SessionModel  # noqa: F401 — registers model with Base
 from app.models.user import User
 from app.services.auth import hash_password
 
 TEST_USERNAME = "teacher1"
 TEST_PASSWORD = "s3cr3t!"
 
+_ALEMBIC_INI = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "alembic.ini")
+)
+
 
 @pytest.fixture(scope="module", autouse=True)
 def setup_db(app):
-    """Create all tables and seed a test user for auth tests."""
-    engine = get_engine()
-    Base.metadata.create_all(engine)
+    """Run Alembic migrations and seed a test user for auth tests."""
+    alembic_command.upgrade(AlembicConfig(_ALEMBIC_INI), "head")
 
+    engine = get_engine()
     SessionLocal = sessionmaker(bind=engine)
     db = SessionLocal()
     db.add(

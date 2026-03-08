@@ -16,12 +16,14 @@ depends_on = None
 
 def upgrade():
     """Drop email column from users."""
-    op.drop_column("users", "email")
+    with op.batch_alter_table("users") as batch_op:
+        batch_op.drop_column("email")
 
 
 def downgrade():
     """Re-add email column to users."""
     import sqlalchemy as sa
 
-    op.add_column("users", sa.Column("email", sa.String(), nullable=True))
-    op.create_unique_constraint("uq_users_email", "users", ["email"])
+    with op.batch_alter_table("users") as batch_op:
+        batch_op.add_column(sa.Column("email", sa.String(), nullable=True))
+        batch_op.create_unique_constraint("uq_users_email", ["email"])
