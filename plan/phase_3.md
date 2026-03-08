@@ -14,7 +14,7 @@
 
 **Migration**
 
-- [ ] `backend/alembic/versions/004_classes.py` — creates `classes` and `students` tables:
+- [x] `backend/alembic/versions/004_classes.py` — creates `classes` and `students` tables:
   - `classes`: `id`, `name` (NOT NULL), `period` (NOT NULL), `teacher_id` (FK→users, NOT NULL)
   - `students`: `id`, `name` (NOT NULL), `class_id` (FK→classes NOT NULL)
   - Use `op.batch_alter_table` for any subsequent column changes to stay compatible with the SQLite test database
