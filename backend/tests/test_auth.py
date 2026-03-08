@@ -38,6 +38,7 @@ def setup_db(app):
 
     yield
 
+    alembic_command.downgrade(AlembicConfig(_ALEMBIC_INI), "base")
     Base.metadata.drop_all(engine)
 
 

@@ -1,15 +1,22 @@
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 
+from alembic import command as alembic_command
+from alembic.config import Config as AlembicConfig
 from app.database import Base, get_engine
+
+_ALEMBIC_INI = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "alembic.ini")
+)
 
 
 @pytest.fixture(scope="module", autouse=True)
 def setup_db(app):
-    engine = get_engine()
-    Base.metadata.create_all(engine)
+    alembic_command.upgrade(AlembicConfig(_ALEMBIC_INI), "head")
     yield
-    Base.metadata.drop_all(engine)
+    Base.metadata.drop_all(get_engine())
 
 
 @pytest.fixture
