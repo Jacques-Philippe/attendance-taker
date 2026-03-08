@@ -7,7 +7,7 @@ A web application for tracking classroom/school attendance. Teachers manually ch
 **Frontend:** Vue.js + TypeScript
 **Backend:** Python (FastAPI)
 **Database:** PostgreSQL
-**Auth:** Session-based with role support (admin, teacher, student)
+**Auth:** Session-based (single role: teacher)
 
 ---
 
@@ -15,9 +15,7 @@ A web application for tracking classroom/school attendance. Teachers manually ch
 
 ### 1.1 User Roles
 
-- **Admin** — manages schools, classes, teachers, and students; views aggregate reports
-- **Teacher** — takes attendance for their classes; views per-class reports
-- **Student** — views their own attendance history
+- **Teacher** — manages classes and students, takes attendance for their classes; views per-class reports
 
 ### 1.2 Core Workflow
 
@@ -27,48 +25,44 @@ Login ─► Dashboard ─► Select Class ─► Take Attendance ─► Submit 
 
 **Step-by-step:**
 
-1. User logs in (role is determined from their account).
-2. Dashboard shows contextual information based on role:
-   - Teacher sees today's classes and pending attendance.
-   - Admin sees school-wide overview.
-   - Student sees their own record.
-3. Teacher selects a class session (date + period are pre-filled for today).
-4. A roster is displayed with each student's name and a present/absent/late/excused toggle.
-5. Teacher submits the attendance record. It is timestamped and locked.
-6. Reports are available at any time — filtered by class, date range, or student.
+1. Teacher registers and logs in — no setup by anyone else required.
+2. Dashboard shows today's classes and any sessions with pending attendance.
+3. Teacher creates classes (name + period) and adds student names to each class roster.
+4. Teacher selects a class, picks a date (pre-filled to today), and sees the roster.
+5. Each student's row has a present/absent/late/excused toggle.
+6. Teacher submits the attendance record. It is timestamped.
+7. Reports are available at any time — filtered by class, date range, or student name.
 
 ### 1.3 Data Model (Conceptual)
 
 ```
-School
+User (teacher)
   └── Class
-        ├── teacher (User)
-        └── enrollments ──► Student (User)
+        ├── name, period
+        └── students ──► Student (name only, not a user account)
 
 AttendanceSession
   ├── class_id
   ├── date
-  ├── period
   └── taken_by (teacher)
 
 AttendanceRecord
   ├── session_id
-  ├── student_id
+  ├── student_id ──► Student
   └── status: present | absent | late | excused
 ```
 
 ### 1.4 Key Screens
 
-| Screen             | Role(s)          | Purpose                                   |
-| ------------------ | ---------------- | ----------------------------------------- |
-| Login              | All              | Authenticate and route to dashboard       |
-| Dashboard          | All              | Role-specific home view                   |
-| Take Attendance    | Teacher          | Mark students present/absent/late/excused |
-| Attendance History | Teacher, Admin   | View and filter past sessions             |
-| Student Record     | Student, Teacher | View one student's attendance over time   |
-| Class Management   | Admin            | CRUD for classes, enrollments             |
-| User Management    | Admin            | CRUD for users and role assignment        |
-| Reports            | Teacher, Admin   | Aggregate stats, trends, exportable data  |
+| Screen             | Purpose                                             |
+| ------------------ | --------------------------------------------------- |
+| Login / Register   | Create an account or sign in                        |
+| Dashboard          | Today's classes and pending attendance at a glance  |
+| Class Management   | Create classes, add/rename/remove student names     |
+| Take Attendance    | Mark each student present/absent/late/excused       |
+| Attendance History | Browse and filter past sessions by class or date    |
+| Student Record     | One student's attendance over time                  |
+| Reports            | Aggregate stats per class or student                |
 
 ---
 
@@ -91,9 +85,8 @@ attendance-taker/
 │   │   ├── database.py          # SQLAlchemy engine & session
 │   │   ├── models/
 │   │   │   ├── __init__.py
-│   │   │   ├── user.py          # User, Role
-│   │   │   ├── school.py        # School
-│   │   │   ├── class_.py        # Class, Enrollment
+│   │   │   ├── user.py          # User
+│   │   │   ├── class_.py        # Class, Student
 │   │   │   └── attendance.py    # AttendanceSession, AttendanceRecord
 │   │   ├── schemas/
 │   │   │   ├── __init__.py
@@ -103,8 +96,7 @@ attendance-taker/
 │   │   ├── routers/
 │   │   │   ├── __init__.py
 │   │   │   ├── auth.py          # POST /login, POST /logout, GET /me
-│   │   │   ├── users.py         # CRUD users (admin)
-│   │   │   ├── classes.py       # CRUD classes, enrollments
+│   │   │   ├── classes.py       # CRUD classes + student roster
 │   │   │   └── attendance.py    # POST session, GET history, GET reports
 │   │   ├── services/
 │   │   │   ├── __init__.py
@@ -145,7 +137,6 @@ attendance-taker/
 │   │   │   ├── AttendanceHistoryView.vue
 │   │   │   ├── StudentRecordView.vue
 │   │   │   ├── ClassManagementView.vue
-│   │   │   ├── UserManagementView.vue
 │   │   │   └── ReportsView.vue
 │   │   ├── components/
 │   │   │   ├── AttendanceRoster.vue    # Roster table with status toggles
@@ -171,20 +162,19 @@ attendance-taker/
 | POST   | `/api/auth/login`                | Public    | Log in, receive session cookie      |
 | POST   | `/api/auth/logout`               | Logged in | Destroy session                     |
 | GET    | `/api/auth/me`                   | Logged in | Current user + role                 |
-| GET    | `/api/users`                     | Admin     | List users                          |
-| POST   | `/api/users`                     | Admin     | Create user                         |
-| PATCH  | `/api/users/{id}`                | Admin     | Update user                         |
-| DELETE | `/api/users/{id}`                | Admin     | Deactivate user                     |
-| GET    | `/api/classes`                   | Logged in | List classes (scoped by role)       |
-| POST   | `/api/classes`                   | Admin     | Create class                        |
-| PATCH  | `/api/classes/{id}`              | Admin     | Update class                        |
-| POST   | `/api/classes/{id}/enroll`       | Admin     | Add students to class               |
-| DELETE | `/api/classes/{id}/enroll/{uid}` | Admin     | Remove student from class           |
-| POST   | `/api/attendance/sessions`       | Teacher   | Create session + submit records     |
-| GET    | `/api/attendance/sessions`       | Teacher+  | List sessions (filterable)          |
-| GET    | `/api/attendance/sessions/{id}`  | Teacher+  | Session detail with all records     |
-| GET    | `/api/attendance/reports`        | Teacher+  | Aggregated stats (by class/student) |
-| GET    | `/api/attendance/student/{id}`   | Student+  | One student's attendance history    |
+| GET    | `/api/classes`                            | Teacher | List own classes                        |
+| POST   | `/api/classes`                            | Teacher | Create class                            |
+| PATCH  | `/api/classes/{id}`                       | Owner   | Update class name/period                |
+| DELETE | `/api/classes/{id}`                       | Owner   | Delete class and its students           |
+| GET    | `/api/classes/{id}`                       | Owner   | Class detail with student roster        |
+| POST   | `/api/classes/{id}/students`              | Owner   | Add student by name                     |
+| PATCH  | `/api/classes/{id}/students/{student_id}` | Owner   | Rename student                          |
+| DELETE | `/api/classes/{id}/students/{student_id}` | Owner   | Remove student                          |
+| POST   | `/api/attendance/sessions`                | Teacher | Create session + submit records         |
+| GET    | `/api/attendance/sessions`                | Teacher | List sessions (filterable)              |
+| GET    | `/api/attendance/sessions/{id}`           | Owner   | Session detail with all records         |
+| GET    | `/api/attendance/reports`                 | Teacher | Aggregated stats (by class/student)     |
+| GET    | `/api/attendance/student/{id}`            | Owner   | One student's attendance history        |
 
 ### 2.3 Build Order (Suggested Implementation Phases)
 
@@ -200,8 +190,8 @@ attendance-taker/
 
 **Phase 3 — Class Management**
 
-- Backend: class CRUD endpoints, enrollment endpoints
-- Frontend: class management view (admin), class selector component
+- Backend: class CRUD endpoints, student roster endpoints (add/rename/remove by name)
+- Frontend: class management view, class selector component
 
 **Phase 4 — Core Attendance**
 
