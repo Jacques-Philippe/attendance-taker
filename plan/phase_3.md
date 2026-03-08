@@ -117,14 +117,15 @@
   - "New class" button: inline form for name and period
   - Each class row: "Edit" (name/period inline), "Delete" (with confirmation), "Manage students" expander
   - "Manage students" section: lists student names, inline rename, remove button, "Add student" text input
+- [x] `frontend/src/views/DashboardView.vue` — added "Manage Classes" `RouterLink` navigating to `/classes`
 
 **Components**
 
-- [ ] `frontend/src/components/ClassSelector.vue` — dropdown populated from `classesStore.classes`; emits `update:modelValue` with selected `class.id`; used by Phase 4's attendance-taking flow
+- [x] `frontend/src/components/ClassSelector.vue` — dropdown populated from `classesStore.classes`; emits `update:modelValue` with selected `class.id`; used by Phase 4's attendance-taking flow
 
 **Router**
 
-- [ ] `frontend/src/router/index.ts` — add `/classes` route pointing to `ClassManagementView.vue`
+- [x] `frontend/src/router/index.ts` — add `/classes` route pointing to `ClassManagementView.vue`
 
 **Testing**
 
