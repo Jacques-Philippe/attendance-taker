@@ -78,7 +78,7 @@
 
 **Types**
 
-- [ ] `frontend/src/types/class.ts`:
+- [x] `frontend/src/types/class.ts`:
   - `Student { id: number; name: string; classId: number }`
   - `Class { id: number; name: string; period: string; teacherId: number }`
   - `ClassDetail extends Class { students: Student[] }`
