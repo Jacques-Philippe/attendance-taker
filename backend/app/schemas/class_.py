@@ -30,7 +30,7 @@ class StudentCreate(BaseModel):
 
 
 class StudentUpdate(BaseModel):
-    name: str
+    name: str = Field(min_length=1)
 
 
 class ClassResponse(BaseModel):
