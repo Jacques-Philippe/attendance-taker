@@ -57,7 +57,7 @@
 
 **Testing**
 
-- [ ] `backend/tests/test_classes.py` — setup seeds two teacher users (teacher A and teacher B); uses Alembic upgrade/downgrade (matching `test_auth.py` pattern):
+- [x] `backend/tests/test_classes.py` — setup seeds two teacher users (teacher A and teacher B); uses Alembic upgrade/downgrade (matching `test_auth.py` pattern):
   - `POST /api/classes` as teacher A → 201, correct fields, `teacher_id` matches session user
   - `GET /api/classes` as teacher A → sees only teacher A's classes (not teacher B's)
   - `GET /api/classes/{id}` as owner → 200, includes `students` list
