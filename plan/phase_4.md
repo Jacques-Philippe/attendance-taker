@@ -83,13 +83,13 @@
 
 **API Layer**
 
-- [ ] `frontend/src/api/attendance.ts`:
+- [x] `frontend/src/api/attendance.ts`:
   - `submitAttendance(data: AttendanceSessionCreate): Promise<AttendanceSessionDetail>`
   - `listSessions(params?: { classId?: number; date?: string }): Promise<AttendanceSession[]>`
 
 **Store**
 
-- [ ] `frontend/src/stores/attendance.ts` — Pinia setup store:
+- [x] `frontend/src/stores/attendance.ts` — Pinia setup store:
   - State: `sessions: ref<AttendanceSession[]>`, `submitting: ref<boolean>`, `error: ref<string | null>`
   - `fetchSessions(params?)` — populates `sessions`; sets `error` on failure
   - `submitAttendance(data: AttendanceSessionCreate): Promise<AttendanceSessionDetail | null>` — calls api; on 409 sets a descriptive error ("Attendance for this class on this date has already been submitted"); clears `submitting` on completion
