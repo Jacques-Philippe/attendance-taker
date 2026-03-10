@@ -100,7 +100,7 @@
 
 **New Views**
 
-- [ ] `frontend/src/views/AttendanceHistoryView.vue` — route `/history`:
+- [x] `frontend/src/views/AttendanceHistoryView.vue` — route `/history`:
   - Controls: `ClassSelector` (optional, default = show all) + `DateRangePicker` for filtering
   - On mount: calls `attendanceStore.fetchSessions()` with current filters
   - Renders a table of sessions (date, class name, period, # records); each row is clickable
@@ -108,7 +108,7 @@
   - Shows a detail panel below the table with the records for the selected session (student name, status badge)
   - "← Dashboard" `RouterLink` back link in header
 
-- [ ] `frontend/src/views/ReportsView.vue` — route `/reports`:
+- [x] `frontend/src/views/ReportsView.vue` — route `/reports`:
   - Controls: `ClassSelector` (required — shows placeholder until class chosen) + optional `DateRangePicker` (passed as `from`/`to` query params to `fetchReports`)
   - On class selection: calls `attendanceStore.fetchReports(classId)`
   - Shows two `StatCard` tiles: "Total Sessions" and "Class Present Rate" (percent)
@@ -116,7 +116,7 @@
   - Each student name links to `/students/:id`
   - "← Dashboard" `RouterLink` back link in header
 
-- [ ] `frontend/src/views/StudentRecordView.vue` — route `/students/:id`:
+- [x] `frontend/src/views/StudentRecordView.vue` — route `/students/:id`:
   - On mount: calls `attendanceStore.fetchStudentHistory(route.params.id)`
   - Shows student name + class name in a heading
   - Renders a table of attendance records: date, period, status badge; ordered by date descending
