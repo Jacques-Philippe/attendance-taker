@@ -29,19 +29,19 @@
 
 **New Endpoints in `backend/app/routers/attendance.py`**
 
-- [ ] `GET /sessions/{session_id}` — `Depends(get_current_user)`:
+- [x] `GET /sessions/{session_id}` — `Depends(get_current_user)`:
   - Fetch `AttendanceSession` by id; 404 if not found
   - Verify owning class's `teacher_id == current_user.id` (403 otherwise)
   - Load associated `AttendanceRecord` rows; return `AttendanceSessionDetailResponse`
 
-- [ ] `GET /reports` — `Depends(get_current_user)`:
+- [x] `GET /reports` — `Depends(get_current_user)`:
   - `class_id: int` is a required query param (422 if absent)
   - Verify teacher owns the class (403 otherwise)
   - Query all `AttendanceSession` rows for the class; count `total_sessions`
   - For each student in the class, count their records per status across all sessions
   - Return `ClassReportResponse`
 
-- [ ] `GET /student/{student_id}` — `Depends(get_current_user)`:
+- [x] `GET /student/{student_id}` — `Depends(get_current_user)`:
   - Fetch `Student` by id; 404 if not found
   - Verify teacher owns the student's class (403 otherwise)
   - Query all `AttendanceRecord` rows for the student joined to `AttendanceSession` for date + period; order by `session.date` descending
