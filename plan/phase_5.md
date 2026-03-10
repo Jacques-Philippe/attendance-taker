@@ -135,28 +135,28 @@
 
 **Testing**
 
-- [ ] `frontend/tests/unit/components/StatCard.spec.ts` — renders `label` and `value` props; no events
+- [x] `frontend/tests/unit/components/StatCard.spec.ts` — renders `label` and `value` props; no events
 
-- [ ] `frontend/tests/unit/components/DateRangePicker.spec.ts`:
+- [x] `frontend/tests/unit/components/DateRangePicker.spec.ts`:
   - Renders two date inputs
   - Changing "from" input emits `update:modelValue` with updated `from`; `to` unchanged
   - Changing "to" input emits `update:modelValue` with updated `to`; `from` unchanged
 
-- [ ] `frontend/tests/unit/views/AttendanceHistoryView.spec.ts` — mocks `useAttendanceStore` and `useClassesStore`:
+- [x] `frontend/tests/unit/views/AttendanceHistoryView.spec.ts` — mocks `useAttendanceStore` and `useClassesStore`:
   - Renders session list table
   - Clicking a session row calls `fetchSession` and shows detail panel
   - Error message displays when `attendanceStore.error` is set
 
-- [ ] `frontend/tests/unit/views/ReportsView.spec.ts` — mocks `useAttendanceStore` and `useClassesStore`:
+- [x] `frontend/tests/unit/views/ReportsView.spec.ts` — mocks `useAttendanceStore` and `useClassesStore`:
   - Renders placeholder before class is selected
   - After class selection, calls `fetchReports` and renders stat cards + student table
   - Student name links navigate to `/students/:id`
 
-- [ ] `frontend/tests/unit/views/StudentRecordView.spec.ts` — mocks `useAttendanceStore`:
+- [x] `frontend/tests/unit/views/StudentRecordView.spec.ts` — mocks `useAttendanceStore`:
   - On mount, calls `fetchStudentHistory` with the route param id
   - Renders student name, class name, and one row per record
 
-- [ ] Update `frontend/tests/utils.ts` — add `/history`, `/reports`, `/students/:id` routes to `makeRouter`
+- [x] Update `frontend/tests/utils.ts` — add `/history`, `/reports`, `/students/:id` routes to `makeRouter`
 
 ---
 
