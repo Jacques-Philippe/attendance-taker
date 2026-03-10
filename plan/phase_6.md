@@ -31,14 +31,14 @@
 
 **`frontend/Dockerfile`**
 
-- [ ] Stage 1: `FROM node:20-slim AS build` — `WORKDIR /app`, `COPY package*.json .`, `RUN npm ci`, `COPY . .`, `RUN npm run build`
-- [ ] Stage 2: `FROM nginx:alpine` — `COPY --from=build /app/dist /usr/share/nginx/html`, `COPY nginx.conf /etc/nginx/conf.d/default.conf`
-- [ ] `EXPOSE 80`
+- [x] Stage 1: `FROM node:20-slim AS build` — `WORKDIR /app`, `COPY package*.json .`, `RUN npm ci`, `COPY . .`, `RUN npm run build`
+- [x] Stage 2: `FROM nginx:alpine` — `COPY --from=build /app/dist /usr/share/nginx/html`, `COPY nginx.conf /etc/nginx/conf.d/default.conf`
+- [x] `EXPOSE 80`
 
 **`frontend/nginx.conf`**
 
-- [ ] Serve static files from `/usr/share/nginx/html` with `try_files $uri $uri/ /index.html` (SPA fallback)
-- [ ] `location /api/ { proxy_pass http://backend:8000; proxy_set_header Host $host; }` — proxies API requests to the backend service
+- [x] Serve static files from `/usr/share/nginx/html` with `try_files $uri $uri/ /index.html` (SPA fallback)
+- [x] `location /api/ { proxy_pass http://backend:8000; proxy_set_header Host $host; }` — proxies API requests to the backend service
 
 **`docker-compose.yml`** (repo root)
 
