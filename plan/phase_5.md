@@ -49,7 +49,7 @@
 
 **Testing**
 
-- [ ] `backend/tests/test_reports.py` — uses the same Alembic upgrade/downgrade fixture; seeds two teachers, each with a class and two students; creates two attendance sessions for teacher A's class:
+- [x] `backend/tests/test_reports.py` — uses the same Alembic upgrade/downgrade fixture; seeds two teachers, each with a class and two students; creates two attendance sessions for teacher A's class:
   - `GET /api/attendance/sessions/{id}` as owner → 200 with records
   - `GET /api/attendance/sessions/{id}` as non-owner → 403
   - `GET /api/attendance/sessions/{id}` with unknown id → 404
