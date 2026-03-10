@@ -81,7 +81,7 @@
   - One row per student; rows ordered by student name ascending
   - Note: declare this route **before** `GET /reports` in the router file to avoid path ambiguity
 
-- [ ] Add test to `backend/tests/test_reports.py`:
+- [x] Add test to `backend/tests/test_reports.py`:
   - `GET /api/attendance/reports/export?class_id=X` as owner → 200, `content-type: text/csv`, CSV body contains student names and correct counts
   - `GET /api/attendance/reports/export?class_id=X` as non-owner → 403
 

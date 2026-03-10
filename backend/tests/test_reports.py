@@ -202,3 +202,41 @@ def test_get_student_history_as_non_owner(client_b, seeded):
 def test_get_student_history_unknown_id(client_a):
     r = client_a.get("/api/attendance/student/99999")
     assert r.status_code == 404
+
+
+# ---------------------------------------------------------------------------
+# GET /api/attendance/reports/export
+# ---------------------------------------------------------------------------
+
+
+def test_export_reports_csv_as_owner(client_a, seeded):
+    class_id = seeded["class_id"]
+    r = client_a.get(f"/api/attendance/reports/export?class_id={class_id}")
+    assert r.status_code == 200
+    assert "text/csv" in r.headers["content-type"]
+
+    lines = r.text.strip().splitlines()
+    assert lines[0] == "Student Name,Total,Present,Absent,Late,Excused,Present %"
+
+    # Rows are ordered by name ascending — Alice before Bob
+    assert lines[1].startswith("Alice,")
+    assert lines[2].startswith("Bob,")
+
+    # Alice: 1 present + 1 late → total 2, present% 50%
+    alice_cols = lines[1].split(",")
+    assert alice_cols[1] == "2"  # total
+    assert alice_cols[2] == "1"  # present
+    assert alice_cols[4] == "1"  # late
+    assert alice_cols[6] == "50%"
+
+    # Bob: 1 absent + 1 present → total 2, present% 50%
+    bob_cols = lines[2].split(",")
+    assert bob_cols[1] == "2"
+    assert bob_cols[2] == "1"  # present
+    assert bob_cols[3] == "1"  # absent
+    assert bob_cols[6] == "50%"
+
+
+def test_export_reports_csv_as_non_owner(client_b, seeded):
+    r = client_b.get(f"/api/attendance/reports/export?class_id={seeded['class_id']}")
+    assert r.status_code == 403
