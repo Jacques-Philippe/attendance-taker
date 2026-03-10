@@ -4,6 +4,10 @@ from .attendance import (
     AttendanceSessionCreate,
     AttendanceSessionDetailResponse,
     AttendanceSessionResponse,
+    ClassReportResponse,
+    StudentAttendanceSummary,
+    StudentHistoryResponse,
+    StudentSessionRecord,
 )
 from .class_ import (
     ClassCreate,

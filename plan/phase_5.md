@@ -19,13 +19,13 @@
 
 **New Schemas**
 
-- [ ] Add to `backend/app/schemas/attendance.py`:
+- [x] Add to `backend/app/schemas/attendance.py`:
   - `StudentAttendanceSummary`: `student_id: int`, `student_name: str`, `total: int`, `present: int`, `absent: int`, `late: int`, `excused: int` — uses `_camel_config`
   - `ClassReportResponse`: `class_id: int`, `class_name: str`, `period: str`, `total_sessions: int`, `students: list[StudentAttendanceSummary]` — uses `_camel_config`
   - `StudentSessionRecord`: `session_id: int`, `date: datetime.date`, `period: str`, `status: AttendanceStatus` — uses `_camel_config`
   - `StudentHistoryResponse`: `student_id: int`, `student_name: str`, `class_id: int`, `class_name: str`, `records: list[StudentSessionRecord]` — uses `_camel_config`
 
-- [ ] Export new schemas from `backend/app/schemas/__init__.py`
+- [x] Export new schemas from `backend/app/schemas/__init__.py`
 
 **New Endpoints in `backend/app/routers/attendance.py`**
 
