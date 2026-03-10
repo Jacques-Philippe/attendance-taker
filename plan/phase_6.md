@@ -42,21 +42,21 @@
 
 **`docker-compose.yml`** (repo root)
 
-- [ ] Service `db`:
+- [x] Service `db`:
   - `image: postgres:15-alpine`
   - `environment`: `POSTGRES_DB: attendance`, `POSTGRES_USER: attendance`, `POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}`
   - `volumes`: named volume `pgdata` → `/var/lib/postgresql/data`
   - `healthcheck`: `pg_isready -U attendance`, interval 5s, retries 5
-- [ ] Service `backend`:
+- [x] Service `backend`:
   - `build: ./backend`
   - `environment`: `DATABASE_URL: postgresql://attendance:${POSTGRES_PASSWORD}@db:5432/attendance`, `SECRET_KEY: ${SECRET_KEY}`, `DEBUG: "false"`
   - `depends_on: db: condition: service_healthy`
   - No exposed ports (internal only; nginx proxies to it)
-- [ ] Service `frontend`:
+- [x] Service `frontend`:
   - `build: ./frontend`
   - `ports: ["8080:80"]`
   - `depends_on: [backend]`
-- [ ] `volumes: pgdata:`
+- [x] `volumes: pgdata:`
 
 **`.env.example`** (repo root)
 
