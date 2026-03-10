@@ -3,6 +3,8 @@ import type {
   AttendanceSession,
   AttendanceSessionCreate,
   AttendanceSessionDetail,
+  ClassReport,
+  StudentHistory,
 } from "../types/attendance";
 
 export async function submitAttendance(
@@ -35,6 +37,29 @@ export async function listSessions(params?: {
         ...(params?.date !== undefined && { date: params.date }),
       },
     },
+  );
+  return response.data;
+}
+
+export async function getSession(id: number): Promise<AttendanceSessionDetail> {
+  const response = await client.get<AttendanceSessionDetail>(
+    `/attendance/sessions/${id}`,
+  );
+  return response.data;
+}
+
+export async function getReports(classId: number): Promise<ClassReport> {
+  const response = await client.get<ClassReport>("/attendance/reports", {
+    params: { class_id: classId },
+  });
+  return response.data;
+}
+
+export async function getStudentHistory(
+  studentId: number,
+): Promise<StudentHistory> {
+  const response = await client.get<StudentHistory>(
+    `/attendance/student/${studentId}`,
   );
   return response.data;
 }

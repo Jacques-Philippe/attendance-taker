@@ -44,3 +44,44 @@ class AttendanceSessionResponse(BaseModel):
 
 class AttendanceSessionDetailResponse(AttendanceSessionResponse):
     records: list[AttendanceRecordResponse]
+
+
+class StudentAttendanceSummary(BaseModel):
+    model_config = _camel_config
+
+    student_id: int
+    student_name: str
+    total: int
+    present: int
+    absent: int
+    late: int
+    excused: int
+
+
+class ClassReportResponse(BaseModel):
+    model_config = _camel_config
+
+    class_id: int
+    class_name: str
+    period: str
+    total_sessions: int
+    students: list[StudentAttendanceSummary]
+
+
+class StudentSessionRecord(BaseModel):
+    model_config = _camel_config
+
+    session_id: int
+    date: datetime.date
+    period: str
+    status: AttendanceStatus
+
+
+class StudentHistoryResponse(BaseModel):
+    model_config = _camel_config
+
+    student_id: int
+    student_name: str
+    class_id: int
+    class_name: str
+    records: list[StudentSessionRecord]

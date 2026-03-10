@@ -21,6 +21,9 @@ export function makeRouter(current?: { path: string; component: Component }) {
       { path: "/dashboard", component: resolve("/dashboard") },
       { path: "/classes", component: resolve("/classes") },
       { path: "/attendance", component: resolve("/attendance") },
+      { path: "/history", component: resolve("/history") },
+      { path: "/reports", component: resolve("/reports") },
+      { path: "/students/:id", component: resolve("/students/:id") },
     ],
   });
 }

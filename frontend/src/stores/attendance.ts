@@ -6,10 +6,16 @@ import type {
   AttendanceSession,
   AttendanceSessionCreate,
   AttendanceSessionDetail,
+  ClassReport,
+  StudentHistory,
 } from "../types/attendance";
 
 export const useAttendanceStore = defineStore("attendance", () => {
   const sessions = ref<AttendanceSession[]>([]);
+  const currentSession = ref<AttendanceSessionDetail | null>(null);
+  const reports = ref<ClassReport | null>(null);
+  const studentHistory = ref<StudentHistory | null>(null);
+  const loading = ref(false);
   const submitting = ref(false);
   const error = ref<string | null>(null);
 
@@ -46,11 +52,55 @@ export const useAttendanceStore = defineStore("attendance", () => {
     }
   }
 
+  async function fetchSession(id: number): Promise<void> {
+    loading.value = true;
+    error.value = null;
+    try {
+      currentSession.value = await attendanceApi.getSession(id);
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : "Failed to load session";
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function fetchReports(classId: number): Promise<void> {
+    loading.value = true;
+    error.value = null;
+    try {
+      reports.value = await attendanceApi.getReports(classId);
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : "Failed to load reports";
+    } finally {
+      loading.value = false;
+    }
+  }
+
+  async function fetchStudentHistory(studentId: number): Promise<void> {
+    loading.value = true;
+    error.value = null;
+    try {
+      studentHistory.value = await attendanceApi.getStudentHistory(studentId);
+    } catch (e) {
+      error.value =
+        e instanceof Error ? e.message : "Failed to load student history";
+    } finally {
+      loading.value = false;
+    }
+  }
+
   return {
     sessions,
+    currentSession,
+    reports,
+    studentHistory,
+    loading,
     submitting,
     error,
     fetchSessions,
     submitAttendance,
+    fetchSession,
+    fetchReports,
+    fetchStudentHistory,
   };
 });
