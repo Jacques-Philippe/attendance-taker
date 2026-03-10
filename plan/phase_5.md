@@ -89,11 +89,11 @@
 
 **New Components**
 
-- [ ] `frontend/src/components/StatCard.vue`:
+- [x] `frontend/src/components/StatCard.vue`:
   - Props: `label: string`, `value: string | number`
   - Renders a labelled value card (no events)
 
-- [ ] `frontend/src/components/DateRangePicker.vue`:
+- [x] `frontend/src/components/DateRangePicker.vue`:
   - Props: `modelValue: { from: string; to: string }`
   - Emits: `update:modelValue`
   - Renders two labeled date inputs side by side
