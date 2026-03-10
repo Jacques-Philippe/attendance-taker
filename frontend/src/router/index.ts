@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import("../views/ClassManagementView.vue"),
     },
     {
+      path: "/attendance",
+      name: "attendance",
+      component: () => import("../views/TakeAttendanceView.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not-found",
       component: () => import("../views/NotFoundView.vue"),

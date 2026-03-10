@@ -20,6 +20,7 @@ export function makeRouter(current?: { path: string; component: Component }) {
       { path: "/register", component: resolve("/register") },
       { path: "/dashboard", component: resolve("/dashboard") },
       { path: "/classes", component: resolve("/classes") },
+      { path: "/attendance", component: resolve("/attendance") },
     ],
   });
 }

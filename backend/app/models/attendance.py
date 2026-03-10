@@ -1,6 +1,15 @@
 import enum
 
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer, String
+from sqlalchemy import (
+    Column,
+    Date,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    String,
+    UniqueConstraint,
+)
 from sqlalchemy.sql import func
 
 from ..database import Base
@@ -15,10 +24,13 @@ class AttendanceStatus(str, enum.Enum):
 
 class AttendanceSession(Base):
     __tablename__ = "attendance_sessions"
+    __table_args__ = (
+        UniqueConstraint("class_id", "date", name="uq_attendance_sessions_class_date"),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     class_id = Column(Integer, ForeignKey("classes.id"), nullable=False)
-    date = Column(DateTime(timezone=True), nullable=False)
+    date = Column(Date, nullable=False)
     period = Column(String, nullable=False)
     taken_by = Column(Integer, ForeignKey("users.id"), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

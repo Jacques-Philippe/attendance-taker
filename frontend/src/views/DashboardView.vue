@@ -11,6 +11,7 @@ const authStore = useAuthStore();
       <h1>Dashboard</h1>
     </header>
     <nav class="nav-links">
+      <RouterLink to="/attendance">Take Attendance</RouterLink>
       <RouterLink to="/classes">Manage Classes</RouterLink>
     </nav>
     <div class="actions">
