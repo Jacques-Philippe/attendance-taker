@@ -95,7 +95,7 @@
 
 ### Deliverable 3 — README
 
-- [ ] Update `README.md` (repo root) with:
+- [x] Update `README.md` (repo root) with:
   - **Quick start (Docker)** section — the only section most teachers need:
     1. Install Docker Desktop
     2. Clone or download the repo
