@@ -10,6 +10,21 @@ const attendanceStore = useAttendanceStore();
 
 const selectedClassId = ref<number | null>(null);
 
+const downloading = ref(false);
+const downloadError = ref<string | null>(null);
+
+async function handleDownload() {
+  downloading.value = true;
+  downloadError.value = null;
+  try {
+    await downloadReportsCsv(selectedClassId!.value!);
+  } catch {
+    downloadError.value = "Download failed. Please try again.";
+  } finally {
+    downloading.value = false;
+  }
+}
+
 const presentRate = computed(() => {
   const r = attendanceStore.reports;
   if (!r || r.students.length === 0) return "—";
@@ -55,9 +70,14 @@ watch(selectedClassId, (id) => {
           />
           <StatCard label="Class Present Rate" :value="presentRate" />
         </div>
-        <button @click="downloadReportsCsv(selectedClassId!)">
-          Download CSV
-        </button>
+        <div class="download-group">
+          <button @click="handleDownload" :disabled="downloading">
+            {{ downloading ? "Downloading…" : "Download CSV" }}
+          </button>
+          <p v-if="downloadError" class="error download-error">
+            {{ downloadError }}
+          </p>
+        </div>
       </div>
 
       <table>
