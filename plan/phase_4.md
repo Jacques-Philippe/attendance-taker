@@ -126,18 +126,18 @@
 
 **Testing**
 
-- [ ] `frontend/tests/unit/stores/attendance.spec.ts` — mocks `@/api/attendance`; tests:
+- [x] `frontend/tests/unit/stores/attendance.spec.ts` — mocks `@/api/attendance`; tests:
   - `fetchSessions()` populates `sessions` and clears loading
   - `submitAttendance()` calls api and returns the session detail
   - On 409 API error, `error` is set to the duplicate-session message
   - On other API error, `error` is set to the error message and `submitting` is cleared
 
-- [ ] `frontend/tests/unit/components/AttendanceRoster.spec.ts` — mocks nothing; tests:
+- [x] `frontend/tests/unit/components/AttendanceRoster.spec.ts` — mocks nothing; tests:
   - Renders one row per student
   - Clicking a status badge emits `update:modelValue` with the correct updated draft
   - Active status is visually distinguished (e.g. has `active` class or `aria-pressed`)
 
-- [ ] `frontend/tests/unit/views/TakeAttendanceView.spec.ts` — mocks `useClassesStore` and `useAttendanceStore`; tests:
+- [x] `frontend/tests/unit/views/TakeAttendanceView.spec.ts` — mocks `useClassesStore` and `useAttendanceStore`; tests:
   - Renders `ClassSelector` and date input
   - After class selection, renders `AttendanceRoster` with the class's students
   - "Submit" button is disabled when roster is empty (no class selected)
