@@ -71,7 +71,7 @@ watch(selectedClassId, (id) => {
           <StatCard label="Class Present Rate" :value="presentRate" />
         </div>
         <div class="download-group">
-          <button @click="handleDownload" :disabled="downloading">
+          <button :disabled="downloading" @click="handleDownload">
             {{ downloading ? "Downloading…" : "Download CSV" }}
           </button>
           <p v-if="downloadError" class="error download-error">
