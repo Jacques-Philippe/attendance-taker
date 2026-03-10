@@ -18,16 +18,16 @@
 
 **`backend/Dockerfile`**
 
-- [ ] Multi-stage? No — single stage: `FROM python:3.12-slim`
-- [ ] `WORKDIR /app`
-- [ ] `COPY requirements.txt .` → `RUN pip install --no-cache-dir -r requirements.txt`
-- [ ] `COPY . .`
-- [ ] `COPY entrypoint.sh /entrypoint.sh` → `RUN chmod +x /entrypoint.sh`
-- [ ] `ENTRYPOINT ["/entrypoint.sh"]`
+- [x] Multi-stage? No — single stage: `FROM python:3.12-slim`
+- [x] `WORKDIR /app`
+- [x] `COPY requirements.txt .` → `RUN pip install --no-cache-dir -r requirements.txt`
+- [x] `COPY . .`
+- [x] `COPY entrypoint.sh /entrypoint.sh` → `RUN chmod +x /entrypoint.sh`
+- [x] `ENTRYPOINT ["/entrypoint.sh"]`
 
 **`backend/entrypoint.sh`**
 
-- [ ] `#!/bin/sh` — runs `alembic upgrade head`, then `exec uvicorn app.main:app --host 0.0.0.0 --port 8000`
+- [x] `#!/bin/sh` — runs `alembic upgrade head`, then `exec uvicorn app.main:app --host 0.0.0.0 --port 8000`
 
 **`frontend/Dockerfile`**
 

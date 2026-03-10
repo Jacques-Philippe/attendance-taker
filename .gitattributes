@@ -1,0 +1,4 @@
+# Ensure shell scripts always use LF line endings in the repository,
+# regardless of the host OS. CRLF line endings break sh/bash entrypoints
+# inside Docker containers.
+*.sh text eol=lf
