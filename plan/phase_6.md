@@ -87,9 +87,9 @@
 
 **Frontend**
 
-- [ ] Add `exportReportsCsv(classId: number): string` (returns a URL) **or** a direct download helper to `frontend/src/api/attendance.ts`:
+- [x] Add `exportReportsCsv(classId: number): string` (returns a URL) **or** a direct download helper to `frontend/src/api/attendance.ts`:
   - Use `client.get(..., { responseType: "blob" })`, create an object URL, trigger a download via a temporary `<a>` element
-- [ ] Add "Download CSV" button to `frontend/src/views/ReportsView.vue` — visible only when a class is selected and `reports` is non-null; calls the download helper
+- [x] Add "Download CSV" button to `frontend/src/views/ReportsView.vue` — visible only when a class is selected and `reports` is non-null; calls the download helper
 
 ---
 

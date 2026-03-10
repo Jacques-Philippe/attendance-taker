@@ -4,6 +4,7 @@ import { RouterLink } from "vue-router";
 import ClassSelector from "../components/ClassSelector.vue";
 import StatCard from "../components/StatCard.vue";
 import { useAttendanceStore } from "../stores/attendance";
+import { downloadReportsCsv } from "../api/attendance";
 
 const attendanceStore = useAttendanceStore();
 
@@ -46,12 +47,17 @@ watch(selectedClassId, (id) => {
     </p>
 
     <template v-else-if="attendanceStore.reports">
-      <div class="stat-cards">
-        <StatCard
-          label="Total Sessions"
-          :value="attendanceStore.reports.totalSessions"
-        />
-        <StatCard label="Class Present Rate" :value="presentRate" />
+      <div class="report-toolbar">
+        <div class="stat-cards">
+          <StatCard
+            label="Total Sessions"
+            :value="attendanceStore.reports.totalSessions"
+          />
+          <StatCard label="Class Present Rate" :value="presentRate" />
+        </div>
+        <button @click="downloadReportsCsv(selectedClassId!)">
+          Download CSV
+        </button>
       </div>
 
       <table>
@@ -151,10 +157,17 @@ label {
   color: #94a3b8;
 }
 
+.report-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
 .stat-cards {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 table {
