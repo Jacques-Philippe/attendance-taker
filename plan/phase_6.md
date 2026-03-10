@@ -73,7 +73,7 @@
 
 **Backend**
 
-- [ ] Add `GET /api/attendance/reports/export` endpoint to `backend/app/routers/attendance.py`:
+- [x] Add `GET /api/attendance/reports/export` endpoint to `backend/app/routers/attendance.py`:
   - Query param: `class_id: int` (required — 422 if absent)
   - Auth: `Depends(get_current_user)`, ownership check (403 if not owner)
   - Returns a `StreamingResponse` with `media_type="text/csv"` and `Content-Disposition: attachment; filename="report_{class_name}.csv"`

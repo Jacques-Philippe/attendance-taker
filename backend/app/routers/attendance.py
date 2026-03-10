@@ -1,6 +1,9 @@
+import csv
 import datetime
+import io
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import StreamingResponse
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -119,6 +122,68 @@ def get_session(
         taken_by=session.taken_by,
         created_at=session.created_at,
         records=records,
+    )
+
+
+@router.get("/reports/export")
+def export_reports_csv(
+    class_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    cls = _get_owned_class(class_id, current_user, db)
+
+    sessions = (
+        db.query(AttendanceSession).filter(AttendanceSession.class_id == class_id).all()
+    )
+    session_ids = [s.id for s in sessions]
+
+    students = (
+        db.query(Student)
+        .filter(Student.class_id == class_id)
+        .order_by(Student.name)
+        .all()
+    )
+
+    counts: dict[int, dict[str, int]] = {
+        s.id: {"present": 0, "absent": 0, "late": 0, "excused": 0} for s in students
+    }
+    if session_ids:
+        records = (
+            db.query(AttendanceRecord)
+            .filter(AttendanceRecord.session_id.in_(session_ids))
+            .all()
+        )
+        for r in records:
+            counts[r.student_id][r.status.value] += 1
+
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(
+        ["Student Name", "Total", "Present", "Absent", "Late", "Excused", "Present %"]
+    )
+    for s in students:
+        c = counts[s.id]
+        total = sum(c.values())
+        present_pct = round(c["present"] / total * 100) if total else 0
+        writer.writerow(
+            [
+                s.name,
+                total,
+                c["present"],
+                c["absent"],
+                c["late"],
+                c["excused"],
+                f"{present_pct}%",
+            ]
+        )
+
+    filename = f"report_{cls.name.replace(' ', '_')}.csv"
+    buf.seek(0)
+    return StreamingResponse(
+        iter([buf.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 
