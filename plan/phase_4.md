@@ -118,11 +118,11 @@
 
 **Router**
 
-- [ ] `frontend/src/router/index.ts` — add `/attendance` route pointing to `TakeAttendanceView.vue` (lazy-loaded, protected by existing auth guard)
+- [x] `frontend/src/router/index.ts` — add `/attendance` route pointing to `TakeAttendanceView.vue` (lazy-loaded, protected by existing auth guard)
 
 **Navigation**
 
-- [ ] `frontend/src/views/DashboardView.vue` — add "Take Attendance" `RouterLink` to `/attendance` alongside the existing "Manage Classes" link
+- [x] `frontend/src/views/DashboardView.vue` — add "Take Attendance" `RouterLink` to `/attendance` alongside the existing "Manage Classes" link
 
 **Testing**
 
