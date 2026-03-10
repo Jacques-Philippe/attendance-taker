@@ -74,7 +74,7 @@
 
 **API Layer**
 
-- [ ] Add to `frontend/src/api/attendance.ts`:
+- [x] Add to `frontend/src/api/attendance.ts`:
   - `getSession(id: number): Promise<AttendanceSessionDetail>`
   - `getReports(classId: number): Promise<ClassReport>`
   - `getStudentHistory(studentId: number): Promise<StudentHistory>`
