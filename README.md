@@ -21,7 +21,7 @@ cp .env.example .env
 # 3. Build and start all services
 docker compose up --build
 
-# 4. Open http://localhost:8080 in your browser and register your account
+# 4. Open http://localhost:8080 in your browser and register your account on first time use
 ```
 
 That's it. The app is ready to use.
