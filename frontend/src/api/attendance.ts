@@ -63,3 +63,18 @@ export async function getStudentHistory(
   );
   return response.data;
 }
+
+export async function downloadReportsCsv(classId: number): Promise<void> {
+  const response = await client.get("/attendance/reports/export", {
+    params: { class_id: classId },
+    responseType: "blob",
+  });
+  const url = URL.createObjectURL(response.data as Blob);
+  const a = document.createElement("a");
+  const disposition = (response.headers["content-disposition"] as string) ?? "";
+  const match = disposition.match(/filename="([^"]+)"/);
+  a.href = url;
+  a.download = match ? match[1] : `report_${classId}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}

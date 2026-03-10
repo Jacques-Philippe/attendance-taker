@@ -4,10 +4,26 @@ import { RouterLink } from "vue-router";
 import ClassSelector from "../components/ClassSelector.vue";
 import StatCard from "../components/StatCard.vue";
 import { useAttendanceStore } from "../stores/attendance";
+import { downloadReportsCsv } from "../api/attendance";
 
 const attendanceStore = useAttendanceStore();
 
 const selectedClassId = ref<number | null>(null);
+
+const downloading = ref(false);
+const downloadError = ref<string | null>(null);
+
+async function handleDownload() {
+  downloading.value = true;
+  downloadError.value = null;
+  try {
+    await downloadReportsCsv(selectedClassId!.value!);
+  } catch {
+    downloadError.value = "Download failed. Please try again.";
+  } finally {
+    downloading.value = false;
+  }
+}
 
 const presentRate = computed(() => {
   const r = attendanceStore.reports;
@@ -46,12 +62,22 @@ watch(selectedClassId, (id) => {
     </p>
 
     <template v-else-if="attendanceStore.reports">
-      <div class="stat-cards">
-        <StatCard
-          label="Total Sessions"
-          :value="attendanceStore.reports.totalSessions"
-        />
-        <StatCard label="Class Present Rate" :value="presentRate" />
+      <div class="report-toolbar">
+        <div class="stat-cards">
+          <StatCard
+            label="Total Sessions"
+            :value="attendanceStore.reports.totalSessions"
+          />
+          <StatCard label="Class Present Rate" :value="presentRate" />
+        </div>
+        <div class="download-group">
+          <button :disabled="downloading" @click="handleDownload">
+            {{ downloading ? "Downloading…" : "Download CSV" }}
+          </button>
+          <p v-if="downloadError" class="error download-error">
+            {{ downloadError }}
+          </p>
+        </div>
       </div>
 
       <table>
@@ -151,10 +177,17 @@ label {
   color: #94a3b8;
 }
 
+.report-toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
 .stat-cards {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
 }
 
 table {

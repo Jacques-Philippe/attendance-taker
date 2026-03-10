@@ -1,74 +1,116 @@
-# Overview
+# Attendance Taker
 
-The purpose of this project will be to build an attendance taker web application that allows TAs to track the attendance of students to their sessions.
+A web application for teachers to track classroom attendance. Create classes, build student rosters, take attendance each session, and view historical reports.
 
-# Stack
+---
 
-- Frontend; Vue.js + TypeScript application
-- Frontend dependency manager; npm
-- Backend; FastAPI server
-- Backend dependency manager; pip
+## Quick Start (Docker)
 
-# Local Development Setup
-
-## First-time setup:
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ```bash
-# Clone repository
+# 1. Clone the repo
 git clone <repo-url>
 cd attendance-taker
 
-# Create and activate a project virtual environment (recommended)
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+# 2. Create your environment file and fill in both values
+cp .env.example .env
+#    SECRET_KEY     — any long random string (e.g. openssl rand -hex 32)
+#    POSTGRES_PASSWORD — any password you choose
 
-# Install pre-commit into the project virtualenv and install git hooks
-pip install pre-commit
-pre-commit install
+# 3. Build and start all services
+docker compose up --build
 
-# Backend
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-
-# Frontend
-cd ../frontend
-npm install
+# 4. Open http://localhost:8080 in your browser and register your account on first time use
 ```
 
-**Running locally:**
+That's it. The app is ready to use.
+
+### Stopping and data
 
 ```bash
-# Terminal 1: Backend
-cd backend
-source venv/bin/activate
-python -m uvicorn app.main:app --reload
+docker compose down          # stop containers; your data is preserved
+docker compose down -v       # stop containers AND wipe the database
+```
 
-# Terminal 2: Frontend
+---
+
+## Development Setup (without Docker)
+
+You'll need Python 3.10+, Node 20+, and a running PostgreSQL instance.
+
+Please see `backend/README.md` for some quick tips on how the database works, or how to install a PostgreSQL instance with Docker.
+
+### Pre-commit hooks
+
+Pre-commit hooks run automatically on every `git commit` to enforce code quality. They run ESLint and Prettier on the frontend, Black and isort on the backend, and a few general checks (large files, merge conflicts, trailing whitespace, etc.).
+
+```bash
+# Install the pre-commit tool (once, into your system Python or a venv)
+pip install pre-commit
+
+# Register the hooks with Git (run once per clone)
+pre-commit install
+```
+
+After that, hooks run automatically. To run them manually against all files:
+
+```bash
+pre-commit run --all-files
+```
+
+### Backend
+
+```bash
+cd backend
+
+# Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+# Edit .env — set DATABASE_URL to your local postgres connection string,
+# and fill in SECRET_KEY
+
+# Apply migrations
+alembic upgrade head
+
+# Start the server (runs on http://localhost:8000)
+uvicorn app.main:app --reload
+```
+
+### Frontend
+
+```bash
 cd frontend
+
+npm install
+
+# Start the dev server (runs on http://localhost:5173)
 npm run dev
 ```
 
-**Running checks manually:**
+### Running tests
 
 ```bash
 # Backend
 cd backend
-black .
-isort .
-flake8 .
-mypy .
 pytest
 
 # Frontend
 cd frontend
-npm run lint
-npm run format
 npm test
-npm run build
 ```
 
-# Developer environment
+---
 
-- Dockerized containers
+## Stack
+
+- **Frontend:** Vue 3 + TypeScript (Vite)
+- **Backend:** Python + FastAPI
+- **Database:** PostgreSQL (SQLAlchemy ORM, Alembic migrations)
+- **Auth:** Session-based with HTTP-only cookie
