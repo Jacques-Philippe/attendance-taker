@@ -1,9 +1,2 @@
-[project]
-name = "attendance-backend"
-version = "0.1.0"
-description = "Backend for attendance-taker web app"
-authors = [{ name = "Jacques-Philippe Amiot", email = "jacques.p.amiot@gmail.com" }]
-requires-python = ">=3.10"
-
 [tool.isort]
 profile = "black"
