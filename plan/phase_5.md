@@ -81,7 +81,7 @@
 
 **Store**
 
-- [ ] Add to `frontend/src/stores/attendance.ts`:
+- [x] Add to `frontend/src/stores/attendance.ts`:
   - State: `currentSession: ref<AttendanceSessionDetail | null>`, `reports: ref<ClassReport | null>`, `studentHistory: ref<StudentHistory | null>`, `loading: ref<boolean>`
   - `fetchSession(id: number)` — sets `currentSession`; sets `error` on failure
   - `fetchReports(classId: number)` — sets `reports`; sets `error` on failure
