@@ -2,6 +2,12 @@
 
 The purpose of this project will be to build an attendance taker web application that allows TAs to track the attendance of students to their sessions.
 
+# Getting Started
+
+1. Install Docker Desktop
+1. At project root, run `docker compose up --build`
+1. Enjoy!
+
 # Stack
 
 - Frontend; Vue.js + TypeScript application
