@@ -66,7 +66,7 @@
 
 **New Types**
 
-- [ ] Add to `frontend/src/types/attendance.ts`:
+- [x] Add to `frontend/src/types/attendance.ts`:
   - `StudentAttendanceSummary { studentId: number; studentName: string; total: number; present: number; absent: number; late: number; excused: number; }`
   - `ClassReport { classId: number; className: string; period: string; totalSessions: number; students: StudentAttendanceSummary[]; }`
   - `StudentSessionRecord { sessionId: number; date: string; period: string; status: AttendanceStatus; }`

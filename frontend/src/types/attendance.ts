@@ -34,3 +34,36 @@ export interface AttendanceSession {
 export interface AttendanceSessionDetail extends AttendanceSession {
   records: AttendanceRecord[];
 }
+
+export interface StudentAttendanceSummary {
+  studentId: number;
+  studentName: string;
+  total: number;
+  present: number;
+  absent: number;
+  late: number;
+  excused: number;
+}
+
+export interface ClassReport {
+  classId: number;
+  className: string;
+  period: string;
+  totalSessions: number;
+  students: StudentAttendanceSummary[];
+}
+
+export interface StudentSessionRecord {
+  sessionId: number;
+  date: string;
+  period: string;
+  status: AttendanceStatus;
+}
+
+export interface StudentHistory {
+  studentId: number;
+  studentName: string;
+  classId: number;
+  className: string;
+  records: StudentSessionRecord[];
+}
