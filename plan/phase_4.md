@@ -96,7 +96,7 @@
 
 **Views**
 
-- [ ] `frontend/src/views/TakeAttendanceView.vue` — route `/attendance`:
+- [x] `frontend/src/views/TakeAttendanceView.vue` — route `/attendance`:
   - Step 1 (class + date): `ClassSelector` dropdown (reuse existing component) + date input pre-filled to today
   - On class selection: calls `classesStore.fetchClass(id)` to load the student roster
   - Step 2 (roster): `AttendanceRoster` component displaying each student with a status toggle; shows loading state while class is fetching
@@ -105,13 +105,13 @@
 
 **Components**
 
-- [ ] `frontend/src/components/AttendanceRoster.vue`:
+- [x] `frontend/src/components/AttendanceRoster.vue`:
   - Props: `students: Student[]`, `modelValue: AttendanceRecordDraft[]`
   - Emits: `update:modelValue` with the updated draft array when any status changes
   - Renders a table: one row per student; each row shows the student name and four `AttendanceStatusBadge` buttons (present / absent / late / excused)
   - Highlights the active status for each student row
 
-- [ ] `frontend/src/components/AttendanceStatusBadge.vue`:
+- [x] `frontend/src/components/AttendanceStatusBadge.vue`:
   - Props: `status: AttendanceStatus`, `active: boolean`
   - Emits: `click`
   - Renders a styled button/chip; colour-coded by status (green=present, red=absent, yellow=late, blue=excused); visually distinct when `active`

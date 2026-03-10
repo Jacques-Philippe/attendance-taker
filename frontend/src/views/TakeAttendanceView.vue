@@ -1,0 +1,223 @@
+<script setup lang="ts">
+import { computed, ref, watch } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+import AttendanceRoster from "../components/AttendanceRoster.vue";
+import ClassSelector from "../components/ClassSelector.vue";
+import { useAttendanceStore } from "../stores/attendance";
+import { useClassesStore } from "../stores/classes";
+import type { AttendanceRecordDraft } from "../types/attendance";
+
+const router = useRouter();
+const classesStore = useClassesStore();
+const attendanceStore = useAttendanceStore();
+
+const today = new Date().toISOString().split("T")[0];
+const selectedClassId = ref<number | null>(null);
+const selectedDate = ref<string>(today);
+const drafts = ref<AttendanceRecordDraft[]>([]);
+
+watch(selectedClassId, async (id) => {
+  drafts.value = [];
+  attendanceStore.error = null;
+  if (id === null) return;
+  await classesStore.fetchClass(id);
+  if (classesStore.currentClass) {
+    drafts.value = classesStore.currentClass.students.map((s) => ({
+      studentId: s.id,
+      status: "absent" as const,
+    }));
+  }
+});
+
+const canSubmit = computed(
+  () =>
+    selectedClassId.value !== null &&
+    drafts.value.length > 0 &&
+    !attendanceStore.submitting,
+);
+
+async function submit() {
+  if (!canSubmit.value || selectedClassId.value === null) return;
+  const result = await attendanceStore.submitAttendance({
+    classId: selectedClassId.value,
+    date: selectedDate.value,
+    records: drafts.value,
+  });
+  if (result) {
+    router.push("/dashboard");
+  }
+}
+</script>
+
+<template>
+  <div class="page">
+    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
+    <div class="header">
+      <h1>Take Attendance</h1>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="class-select">Class</label>
+        <ClassSelector id="class-select" v-model="selectedClassId" />
+      </div>
+      <div class="control-group">
+        <label for="date-input">Date</label>
+        <input id="date-input" v-model="selectedDate" type="date" />
+      </div>
+    </div>
+
+    <p v-if="attendanceStore.error" class="error">
+      {{ attendanceStore.error }}
+    </p>
+
+    <p v-if="classesStore.loading" class="muted">Loading roster…</p>
+
+    <template v-else-if="selectedClassId !== null">
+      <p v-if="drafts.length === 0" class="muted">
+        This class has no students yet.
+      </p>
+      <AttendanceRoster
+        v-else
+        v-model="drafts"
+        :students="classesStore.currentClass?.students ?? []"
+      />
+
+      <div class="submit-row">
+        <button class="btn-primary" :disabled="!canSubmit" @click="submit">
+          {{ attendanceStore.submitting ? "Submitting…" : "Submit Attendance" }}
+        </button>
+      </div>
+    </template>
+
+    <p v-else class="muted">Select a class to begin.</p>
+  </div>
+</template>
+
+<style scoped>
+.page {
+  max-width: 960px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #646cff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+select,
+input[type="date"] {
+  padding: 0.375rem 0.625rem;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: #1e293b;
+  color: inherit;
+}
+
+.error {
+  color: #f87171;
+  margin-bottom: 1rem;
+}
+
+.muted {
+  color: #94a3b8;
+}
+
+.submit-row {
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background-color: #646cff;
+  color: #fff;
+  border-color: transparent;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #535bf2;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-color-scheme: light) {
+  .back-link {
+    color: #64748b;
+  }
+
+  .header {
+    border-color: #e2e8f0;
+  }
+
+  label {
+    color: #64748b;
+  }
+
+  select,
+  input[type="date"] {
+    border-color: #cbd5e1;
+    background: #fff;
+  }
+
+  .error {
+    color: #dc2626;
+  }
+
+  .muted {
+    color: #64748b;
+  }
+}
+</style>
