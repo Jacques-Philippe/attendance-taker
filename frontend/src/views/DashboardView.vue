@@ -13,6 +13,8 @@ const authStore = useAuthStore();
     <nav class="nav-links">
       <RouterLink to="/attendance">Take Attendance</RouterLink>
       <RouterLink to="/classes">Manage Classes</RouterLink>
+      <RouterLink to="/history">Attendance History</RouterLink>
+      <RouterLink to="/reports">Reports</RouterLink>
     </nav>
     <div class="actions">
       <button @click="authStore.logout()">Sign Out</button>

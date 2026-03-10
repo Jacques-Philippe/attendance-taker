@@ -35,6 +35,21 @@ const router = createRouter({
       component: () => import("../views/TakeAttendanceView.vue"),
     },
     {
+      path: "/history",
+      name: "history",
+      component: () => import("../views/AttendanceHistoryView.vue"),
+    },
+    {
+      path: "/reports",
+      name: "reports",
+      component: () => import("../views/ReportsView.vue"),
+    },
+    {
+      path: "/students/:id",
+      name: "student-record",
+      component: () => import("../views/StudentRecordView.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "not-found",
       component: () => import("../views/NotFoundView.vue"),

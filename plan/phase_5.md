@@ -124,14 +124,14 @@
 
 **Router**
 
-- [ ] Add to `frontend/src/router/index.ts`:
+- [x] Add to `frontend/src/router/index.ts`:
   - `/history` → `AttendanceHistoryView` (lazy-loaded, protected)
   - `/reports` → `ReportsView` (lazy-loaded, protected)
   - `/students/:id` → `StudentRecordView` (lazy-loaded, protected)
 
 **Navigation**
 
-- [ ] `frontend/src/views/DashboardView.vue` — add `RouterLink` entries for "Attendance History" (`/history`) and "Reports" (`/reports`)
+- [x] `frontend/src/views/DashboardView.vue` — add `RouterLink` entries for "Attendance History" (`/history`) and "Reports" (`/reports`)
 
 **Testing**
 
