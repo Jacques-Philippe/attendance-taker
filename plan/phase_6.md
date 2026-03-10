@@ -60,12 +60,12 @@
 
 **`.env.example`** (repo root)
 
-- [ ] Add `SECRET_KEY=` (blank — teacher must fill in), `POSTGRES_PASSWORD=` (blank)
-- [ ] Add comment: "Copy this file to .env and fill in both values before running docker compose up"
+- [x] Add `SECRET_KEY=` (blank — teacher must fill in), `POSTGRES_PASSWORD=` (blank)
+- [x] Add comment: "Copy this file to .env and fill in both values before running docker compose up"
 
 **`.gitignore`** (repo root)
 
-- [ ] Ensure `.env` is listed (it should be already, but verify)
+- [x] Ensure `.env` is listed (it should be already, but verify)
 
 ---
 
