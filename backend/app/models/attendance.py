@@ -41,6 +41,8 @@ class AttendanceRecord(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     session_id = Column(Integer, ForeignKey("attendance_sessions.id"), nullable=False)
-    student_id = Column(Integer, ForeignKey("students.id"), nullable=False)
+    student_id = Column(
+        Integer, ForeignKey("students.id", ondelete="CASCADE"), nullable=False
+    )
     status = Column(Enum(AttendanceStatus), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
