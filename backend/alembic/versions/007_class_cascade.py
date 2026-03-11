@@ -15,68 +15,73 @@ depends_on = None
 
 
 def upgrade():
-    # attendance_sessions.class_id → classes.id
-    op.drop_constraint(
-        "attendance_sessions_class_id_fkey", "attendance_sessions", type_="foreignkey"
-    )
-    op.create_foreign_key(
-        "attendance_sessions_class_id_fkey",
-        "attendance_sessions",
-        "classes",
-        ["class_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
+    # SQLite does not enforce foreign keys, so skip constraint changes there.
+    if op.get_bind().dialect.name == "sqlite":
+        return
 
-    # attendance_records.session_id → attendance_sessions.id
-    op.drop_constraint(
-        "attendance_records_session_id_fkey", "attendance_records", type_="foreignkey"
-    )
-    op.create_foreign_key(
-        "attendance_records_session_id_fkey",
-        "attendance_records",
-        "attendance_sessions",
-        ["session_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
+    with op.batch_alter_table("attendance_sessions") as batch_op:
+        batch_op.drop_constraint(
+            "attendance_sessions_class_id_fkey", type_="foreignkey"
+        )
+        batch_op.create_foreign_key(
+            "attendance_sessions_class_id_fkey",
+            "classes",
+            ["class_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
 
-    # students.class_id → classes.id
-    op.drop_constraint("students_class_id_fkey", "students", type_="foreignkey")
-    op.create_foreign_key(
-        "students_class_id_fkey",
-        "students",
-        "classes",
-        ["class_id"],
-        ["id"],
-        ondelete="CASCADE",
-    )
+    with op.batch_alter_table("attendance_records") as batch_op:
+        batch_op.drop_constraint(
+            "attendance_records_session_id_fkey", type_="foreignkey"
+        )
+        batch_op.create_foreign_key(
+            "attendance_records_session_id_fkey",
+            "attendance_sessions",
+            ["session_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
+
+    with op.batch_alter_table("students") as batch_op:
+        batch_op.drop_constraint("students_class_id_fkey", type_="foreignkey")
+        batch_op.create_foreign_key(
+            "students_class_id_fkey",
+            "classes",
+            ["class_id"],
+            ["id"],
+            ondelete="CASCADE",
+        )
 
 
 def downgrade():
-    op.drop_constraint("students_class_id_fkey", "students", type_="foreignkey")
-    op.create_foreign_key(
-        "students_class_id_fkey", "students", "classes", ["class_id"], ["id"]
-    )
+    if op.get_bind().dialect.name == "sqlite":
+        return
 
-    op.drop_constraint(
-        "attendance_records_session_id_fkey", "attendance_records", type_="foreignkey"
-    )
-    op.create_foreign_key(
-        "attendance_records_session_id_fkey",
-        "attendance_records",
-        "attendance_sessions",
-        ["session_id"],
-        ["id"],
-    )
+    with op.batch_alter_table("students") as batch_op:
+        batch_op.drop_constraint("students_class_id_fkey", type_="foreignkey")
+        batch_op.create_foreign_key(
+            "students_class_id_fkey", "classes", ["class_id"], ["id"]
+        )
 
-    op.drop_constraint(
-        "attendance_sessions_class_id_fkey", "attendance_sessions", type_="foreignkey"
-    )
-    op.create_foreign_key(
-        "attendance_sessions_class_id_fkey",
-        "attendance_sessions",
-        "classes",
-        ["class_id"],
-        ["id"],
-    )
+    with op.batch_alter_table("attendance_records") as batch_op:
+        batch_op.drop_constraint(
+            "attendance_records_session_id_fkey", type_="foreignkey"
+        )
+        batch_op.create_foreign_key(
+            "attendance_records_session_id_fkey",
+            "attendance_sessions",
+            ["session_id"],
+            ["id"],
+        )
+
+    with op.batch_alter_table("attendance_sessions") as batch_op:
+        batch_op.drop_constraint(
+            "attendance_sessions_class_id_fkey", type_="foreignkey"
+        )
+        batch_op.create_foreign_key(
+            "attendance_sessions_class_id_fkey",
+            "classes",
+            ["class_id"],
+            ["id"],
+        )

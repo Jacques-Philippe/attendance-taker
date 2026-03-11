@@ -1,11 +1,9 @@
 """Cascade delete attendance_records when a student is deleted.
 
-Revision ID: 006_cascade_delete_attendance_records
+Revision ID: 006_student_cascade
 Revises: 005_attendance
 Create Date: 2026-03-11 00:00:00.000000
 """
-
-import sqlalchemy as sa
 
 from alembic import op
 
@@ -17,6 +15,9 @@ depends_on = None
 
 
 def upgrade():
+    # SQLite does not enforce foreign keys, so skip constraint changes there.
+    if op.get_bind().dialect.name == "sqlite":
+        return
     op.drop_constraint(
         "attendance_records_student_id_fkey", "attendance_records", type_="foreignkey"
     )
@@ -31,6 +32,8 @@ def upgrade():
 
 
 def downgrade():
+    if op.get_bind().dialect.name == "sqlite":
+        return
     op.drop_constraint(
         "attendance_records_student_id_fkey", "attendance_records", type_="foreignkey"
     )
