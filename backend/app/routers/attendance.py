@@ -179,10 +179,11 @@ def export_reports_csv(
         )
 
     filename = f"report_{cls.name.replace(' ', '_')}.csv"
-    buf.seek(0)
+    # Encode as UTF-8 with BOM so Excel opens non-latin characters correctly.
+    encoded = buf.getvalue().encode("utf-8-sig")
     return StreamingResponse(
-        iter([buf.getvalue()]),
-        media_type="text/csv",
+        iter([encoded]),
+        media_type="text/csv; charset=utf-8",
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
