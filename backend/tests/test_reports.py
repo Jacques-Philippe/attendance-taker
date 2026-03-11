@@ -215,7 +215,7 @@ def test_export_reports_csv_as_owner(client_a, seeded):
     assert r.status_code == 200
     assert "text/csv" in r.headers["content-type"]
 
-    lines = r.text.strip().splitlines()
+    lines = r.text.strip().lstrip("\ufeff").splitlines()
     assert lines[0] == "Student Name,Total,Present,Absent,Late,Excused,Present %"
 
     # Rows are ordered by name ascending — Alice before Bob
