@@ -1,6 +1,7 @@
 import csv
 import datetime
 import io
+from urllib.parse import quote
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import StreamingResponse
@@ -178,12 +179,16 @@ def export_reports_csv(
             ]
         )
 
-    filename = f"report_{cls.name.replace(' ', '_')}.csv"
-    buf.seek(0)
+    # Encode as UTF-8 with BOM so Excel opens non-latin characters correctly.
+    encoded = buf.getvalue().encode("utf-8-sig")
+    # ASCII-safe fallback for old clients; RFC 5987 filename* carries the full name.
+    filename_ascii = "report.csv"
+    filename_encoded = quote(f"report_{cls.name.replace(' ', '_')}.csv", safe="")
+    content_disposition = f"attachment; filename=\"{filename_ascii}\"; filename*=UTF-8''{filename_encoded}"
     return StreamingResponse(
-        iter([buf.getvalue()]),
-        media_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        iter([encoded]),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": content_disposition},
     )
 
 

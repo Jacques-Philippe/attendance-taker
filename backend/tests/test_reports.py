@@ -215,7 +215,7 @@ def test_export_reports_csv_as_owner(client_a, seeded):
     assert r.status_code == 200
     assert "text/csv" in r.headers["content-type"]
 
-    lines = r.text.strip().splitlines()
+    lines = r.text.strip().lstrip("\ufeff").splitlines()
     assert lines[0] == "Student Name,Total,Present,Absent,Late,Excused,Present %"
 
     # Rows are ordered by name ascending — Alice before Bob
@@ -235,6 +235,40 @@ def test_export_reports_csv_as_owner(client_a, seeded):
     assert bob_cols[2] == "1"  # present
     assert bob_cols[3] == "1"  # absent
     assert bob_cols[6] == "50%"
+
+
+def test_export_reports_csv_non_latin_names(client_a):
+    """CSV export must handle non-latin class and student names without errors."""
+    r_cls = client_a.post("/api/classes/", json={"name": "Čeština", "period": "1st"})
+    assert r_cls.status_code == 201
+    class_id = r_cls.json()["id"]
+
+    s = client_a.post(f"/api/classes/{class_id}/students", json={"name": "Jiří"})
+    assert s.status_code == 201
+    student_id = s.json()["id"]
+
+    r_sess = client_a.post(
+        "/api/attendance/sessions",
+        json={
+            "class_id": class_id,
+            "date": "2026-03-10",
+            "records": [{"student_id": student_id, "status": "present"}],
+        },
+    )
+    assert r_sess.status_code == 201
+
+    r = client_a.get(f"/api/attendance/reports/export?class_id={class_id}")
+    assert r.status_code == 200
+    assert "text/csv" in r.headers["content-type"]
+
+    lines = r.text.strip().lstrip("\ufeff").splitlines()
+    assert lines[0] == "Student Name,Total,Present,Absent,Late,Excused,Present %"
+    assert lines[1].startswith("Jiří,")
+
+    cols = lines[1].split(",")
+    assert cols[1] == "1"  # total
+    assert cols[2] == "1"  # present
+    assert cols[6] == "100%"
 
 
 def test_export_reports_csv_as_non_owner(client_b, seeded):
