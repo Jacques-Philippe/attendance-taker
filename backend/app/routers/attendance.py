@@ -179,15 +179,12 @@ def export_reports_csv(
             ]
         )
 
-    filename = f"report_{cls.name.replace(' ', '_')}.csv"
     # Encode as UTF-8 with BOM so Excel opens non-latin characters correctly.
     encoded = buf.getvalue().encode("utf-8-sig")
-    # Use RFC 5987 encoding so non-latin characters in the filename survive
-    # the latin-1-only HTTP header encoding restriction.
-    filename_encoded = quote(filename, safe="")
-    content_disposition = (
-        f"attachment; filename=\"report.csv\"; filename*=UTF-8''{filename_encoded}"
-    )
+    # ASCII-safe fallback for old clients; RFC 5987 filename* carries the full name.
+    filename_ascii = "report.csv"
+    filename_encoded = quote(f"report_{cls.name.replace(' ', '_')}.csv", safe="")
+    content_disposition = f"attachment; filename=\"{filename_ascii}\"; filename*=UTF-8''{filename_encoded}"
     return StreamingResponse(
         iter([encoded]),
         media_type="text/csv; charset=utf-8",
