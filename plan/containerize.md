@@ -9,8 +9,8 @@ Replace the current "run three things manually" workflow with a single command t
 ## Deliverables
 
 - [x] `frontend/vite.config.ts` — env-driven proxy target + `host: true`
-- [ ] `backend/Dockerfile.dev` — Python dev image
-- [ ] `frontend/Dockerfile.dev` — Node dev image
+- [x] `backend/Dockerfile.dev` — Python dev image
+- [x] `frontend/Dockerfile.dev` — Node dev image
 - [ ] `docker-compose.dev.yml` — dev Compose file wiring all three services
 - [ ] `backend/.dockerignore`
 - [ ] `frontend/.dockerignore`
