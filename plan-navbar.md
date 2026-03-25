@@ -216,7 +216,7 @@ Note: This is optional for MVP but adds polish and improves UX on deeper nested 
 
 **File**: `frontend/src/App.vue` and `frontend/src/router/index.ts`
 
-**Approach**: Create a layout route wrapper (Approach B — better long-term architecture)
+**Approach**: Create a layout route wrapper
 
 **Implementation**:
 
@@ -290,7 +290,6 @@ Note: This is optional for MVP but adds polish and improves UX on deeper nested 
 - Handle long usernames (avatar only shows first letter, keep design clean)
 - Accessibility: Add proper ARIA labels to avatar button and logout button
 - Loading state: Ensure TopBar doesn't flash or cause layout jumps during auth restoration
-- Optional: Add user menu dropdown (profile, settings, logout options)
 
 ## Files to Modify/Create
 
