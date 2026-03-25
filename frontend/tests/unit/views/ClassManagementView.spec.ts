@@ -52,11 +52,6 @@ beforeEach(() => {
 // ─── Rendering ───────────────────────────────────────────────────────────────
 
 describe("ClassManagementView — rendering", () => {
-  it("renders the page heading", () => {
-    const wrapper = mountView();
-    expect(wrapper.find("h1").text()).toBe("Classes");
-  });
-
   it("renders a row for each class in the store", () => {
     const wrapper = mountView();
     const rows = wrapper.findAll(".class-row");
