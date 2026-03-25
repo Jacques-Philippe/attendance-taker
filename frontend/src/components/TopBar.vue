@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useRouter, useRoute, RouterLink } from "vue-router";
+import { useRoute, RouterLink } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 const authStore = useAuthStore();
-const router = useRouter();
 const route = useRoute();
 const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -55,6 +54,20 @@ const showBreadcrumbs = computed(() => {
   return route.name !== "dashboard";
 });
 
+// Get page title for dashboard
+const pageTitle = computed(() => {
+  const routeLabels: Record<string, string> = {
+    dashboard: "Dashboard",
+    classes: "Classes",
+    attendance: "Take Attendance",
+    history: "History",
+    reports: "Reports",
+    "student-record": "Student Record",
+  };
+  const routeName = route.name as string;
+  return routeLabels[routeName] || routeName || "Home";
+});
+
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
@@ -92,7 +105,7 @@ onUnmounted(() => {
 <template>
   <header class="top-bar">
     <div class="top-bar-content">
-      <!-- Breadcrumbs (left) -->
+      <!-- Breadcrumbs (left) or Dashboard Title -->
       <div v-if="showBreadcrumbs" class="breadcrumbs">
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
           <ul class="breadcrumb-list">
@@ -117,6 +130,9 @@ onUnmounted(() => {
             </li>
           </ul>
         </nav>
+      </div>
+      <div v-else class="page-title">
+        {{ pageTitle }}
       </div>
 
       <div class="top-bar-spacer"></div>
@@ -287,6 +303,14 @@ onUnmounted(() => {
   min-width: 0;
 }
 
+.page-title {
+  flex: 1;
+  padding: 0 16px;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.87);
+}
+
 .breadcrumb-nav {
   max-width: 100%;
 }
@@ -367,6 +391,11 @@ onUnmounted(() => {
 
   .breadcrumb-separator {
     margin: 0 1px;
+  }
+
+  .page-title {
+    font-size: 0.95em;
+    padding: 0 12px;
   }
 }
 </style>

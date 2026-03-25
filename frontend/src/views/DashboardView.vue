@@ -16,9 +16,6 @@ const authStore = useAuthStore();
       <RouterLink to="/history">Attendance History</RouterLink>
       <RouterLink to="/reports">Reports</RouterLink>
     </nav>
-    <div class="actions">
-      <button @click="authStore.logout()">Sign Out</button>
-    </div>
   </div>
 </template>
 
@@ -47,26 +44,5 @@ h1 {
 
 .nav-links a:hover {
   text-decoration: underline;
-}
-
-.actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-button {
-  padding: 0.4rem 1rem;
-  background-color: #646cff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #535bf2;
 }
 </style>
