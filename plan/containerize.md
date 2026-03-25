@@ -6,6 +6,18 @@ Replace the current "run three things manually" workflow with a single command t
 
 ---
 
+## Deliverables
+
+- [x] `frontend/vite.config.ts` — env-driven proxy target + `host: true`
+- [ ] `backend/Dockerfile.dev` — Python dev image
+- [ ] `frontend/Dockerfile.dev` — Node dev image
+- [ ] `docker-compose.dev.yml` — dev Compose file wiring all three services
+- [ ] `backend/.dockerignore`
+- [ ] `frontend/.dockerignore`
+- [ ] `README.md` — add dev quick-start alongside the user quick-start
+
+---
+
 ## Relationship to the existing user-facing Docker setup
 
 The `README.md` already documents a consumer quick-start:
