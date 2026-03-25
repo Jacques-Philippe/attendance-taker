@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 import LoginView from "../views/LoginView.vue";
+import AppLayout from "../components/AppLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      redirect: "/login",
+      redirect: "/dashboard",
     },
     {
       path: "/login",
@@ -20,34 +21,39 @@ const router = createRouter({
       component: () => import("../views/RegisterView.vue"),
     },
     {
-      path: "/dashboard",
-      name: "dashboard",
-      component: () => import("../views/DashboardView.vue"),
-    },
-    {
-      path: "/classes",
-      name: "classes",
-      component: () => import("../views/ClassManagementView.vue"),
-    },
-    {
-      path: "/attendance",
-      name: "attendance",
-      component: () => import("../views/TakeAttendanceView.vue"),
-    },
-    {
-      path: "/history",
-      name: "history",
-      component: () => import("../views/AttendanceHistoryView.vue"),
-    },
-    {
-      path: "/reports",
-      name: "reports",
-      component: () => import("../views/ReportsView.vue"),
-    },
-    {
-      path: "/students/:id",
-      name: "student-record",
-      component: () => import("../views/StudentRecordView.vue"),
+      component: AppLayout,
+      children: [
+        {
+          path: "/dashboard",
+          name: "dashboard",
+          component: () => import("../views/DashboardView.vue"),
+        },
+        {
+          path: "/classes",
+          name: "classes",
+          component: () => import("../views/ClassManagementView.vue"),
+        },
+        {
+          path: "/attendance",
+          name: "attendance",
+          component: () => import("../views/TakeAttendanceView.vue"),
+        },
+        {
+          path: "/history",
+          name: "history",
+          component: () => import("../views/AttendanceHistoryView.vue"),
+        },
+        {
+          path: "/reports",
+          name: "reports",
+          component: () => import("../views/ReportsView.vue"),
+        },
+        {
+          path: "/students/:id",
+          name: "student-record",
+          component: () => import("../views/StudentRecordView.vue"),
+        },
+      ],
     },
     {
       path: "/:pathMatch(.*)*",
