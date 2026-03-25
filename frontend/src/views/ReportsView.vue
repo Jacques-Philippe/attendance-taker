@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { RouterLink } from "vue-router";
 import ClassSelector from "../components/ClassSelector.vue";
 import StatCard from "../components/StatCard.vue";
 import { useAttendanceStore } from "../stores/attendance";
@@ -41,10 +40,7 @@ watch(selectedClassId, (id) => {
 
 <template>
   <div class="page">
-    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
-    <div class="header">
-      <h1>Reports</h1>
-    </div>
+    <div class="header"></div>
 
     <div class="controls">
       <div class="control-group">
@@ -132,32 +128,6 @@ watch(selectedClassId, (id) => {
   padding: 0 2rem;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #646cff;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #334155;
-}
-
-h1 {
-  font-size: 1.75rem;
-  margin: 0;
-  font-weight: 600;
-}
-
 .controls {
   display: flex;
   gap: 1.5rem;
@@ -229,14 +199,6 @@ td {
 }
 
 @media (prefers-color-scheme: light) {
-  .back-link {
-    color: #64748b;
-  }
-
-  .header {
-    border-color: #e2e8f0;
-  }
-
   label {
     color: #64748b;
   }

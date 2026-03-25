@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import AttendanceRoster from "../components/AttendanceRoster.vue";
 import ClassSelector from "../components/ClassSelector.vue";
 import { useAttendanceStore } from "../stores/attendance";
@@ -51,7 +51,6 @@ async function submit() {
 
 <template>
   <div class="page">
-    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
     <div class="header">
       <h1>Take Attendance</h1>
     </div>
@@ -100,18 +99,6 @@ async function submit() {
   width: 100%;
   margin: 2rem auto;
   padding: 0 2rem;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #646cff;
 }
 
 .header {
@@ -194,10 +181,6 @@ input[type="date"] {
 }
 
 @media (prefers-color-scheme: light) {
-  .back-link {
-    color: #64748b;
-  }
-
   .header {
     border-color: #e2e8f0;
   }

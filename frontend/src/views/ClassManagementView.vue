@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { RouterLink } from "vue-router";
 import { useClassesStore } from "../stores/classes";
 
 const store = useClassesStore();
@@ -95,9 +94,7 @@ async function removeStudent(classId: number, studentId: number, name: string) {
 
 <template>
   <div class="page">
-    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
     <div class="header">
-      <h1>Classes</h1>
       <button class="btn-primary" @click="showNewClassForm = !showNewClassForm">
         + New class
       </button>
@@ -200,18 +197,6 @@ async function removeStudent(classId: number, studentId: number, name: string) {
   padding: 0 2rem;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #646cff;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -219,12 +204,6 @@ async function removeStudent(classId: number, studentId: number, name: string) {
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid #334155;
-}
-
-h1 {
-  font-size: 1.75rem;
-  margin: 0;
-  font-weight: 600;
 }
 
 .btn-primary {
@@ -239,10 +218,6 @@ h1 {
 }
 
 @media (prefers-color-scheme: light) {
-  .back-link {
-    color: #64748b;
-  }
-
   .header {
     border-color: #e2e8f0;
   }
