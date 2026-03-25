@@ -33,9 +33,32 @@ docker compose down      # stop containers; your data is preserved
 docker compose down -v   # stop containers AND wipe the database
 ```
 
-### For developers
+### For developers (VS Code Dev Container)
 
-Runs the Vite dev server and uvicorn with hot-reload. Changes to source files are reflected immediately without rebuilding.
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-remote.remote-containers)
+
+Open the repo in VS Code, then when prompted choose **Reopen in Container** (or run `Dev Containers: Reopen in Container` from the command palette). VS Code will build the container, install all dependencies, and run migrations automatically.
+
+Once inside, start each service in a separate integrated terminal:
+
+```bash
+# Terminal 1 — backend
+cd backend && uvicorn app.main:app --reload
+
+# Terminal 2 — frontend
+cd frontend && npm run dev
+```
+
+| Service | URL |
+|---|---|
+| Frontend (Vite + HMR) | http://localhost:5173 |
+| Backend API | http://localhost:8000 |
+
+Extensions (Pylance, Volar, ESLint, Prettier, Black) are installed automatically inside the container.
+
+### For developers (standalone Docker Compose)
+
+No VS Code integration — services run in the background and you edit files on your host machine. Hot-reload works via bind mounts.
 
 ```bash
 docker compose -f docker-compose.dev.yml up --build
