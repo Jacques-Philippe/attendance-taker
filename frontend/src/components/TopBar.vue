@@ -1,14 +1,58 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
+import { useRouter, useRoute, RouterLink } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 const authStore = useAuthStore();
+const router = useRouter();
+const route = useRoute();
 const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 const avatarRef = ref<HTMLButtonElement | null>(null);
 
 const avatarLetter = computed(() => {
   return authStore.user?.username?.[0]?.toUpperCase() || "?";
+});
+
+// Generate breadcrumbs based on current route
+const breadcrumbs = computed(() => {
+  const crumbs: Array<{ name: string; path: string; isCurrent: boolean }> = [];
+
+  // Map route names to breadcrumb labels
+  const routeLabels: Record<string, string> = {
+    dashboard: "Dashboard",
+    classes: "Classes",
+    attendance: "Take Attendance",
+    history: "History",
+    reports: "Reports",
+    "student-record": "Student Record",
+  };
+
+  const routeName = route.name as string;
+  const currentLabel = routeLabels[routeName] || routeName || "Home";
+
+  // Add Home link first (except for dashboard)
+  if (routeName !== "dashboard") {
+    crumbs.push({
+      name: "Home",
+      path: "/dashboard",
+      isCurrent: false,
+    });
+  }
+
+  // Add current page (non-clickable if it's dashboard)
+  crumbs.push({
+    name: currentLabel,
+    path: route.path,
+    isCurrent: true,
+  });
+
+  return crumbs;
+});
+
+// Show breadcrumbs except on dashboard
+const showBreadcrumbs = computed(() => {
+  return route.name !== "dashboard";
 });
 
 const toggleDropdown = () => {
@@ -48,8 +92,36 @@ onUnmounted(() => {
 <template>
   <header class="top-bar">
     <div class="top-bar-content">
+      <!-- Breadcrumbs (left) -->
+      <div v-if="showBreadcrumbs" class="breadcrumbs">
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+          <ul class="breadcrumb-list">
+            <li
+              v-for="(crumb, idx) in breadcrumbs"
+              :key="idx"
+              class="breadcrumb-item"
+            >
+              <RouterLink
+                v-if="!crumb.isCurrent"
+                :to="crumb.path"
+                class="breadcrumb-link"
+              >
+                {{ crumb.name }}
+              </RouterLink>
+              <span v-else class="breadcrumb-current">{{ crumb.name }}</span>
+              <span
+                v-if="idx < breadcrumbs.length - 1"
+                class="breadcrumb-separator"
+                >/</span
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+
       <div class="top-bar-spacer"></div>
 
+      <!-- Avatar + Dropdown (right) -->
       <div class="avatar-container">
         <button
           ref="avatarRef"
@@ -208,6 +280,62 @@ onUnmounted(() => {
   color: #ff6b6b;
 }
 
+/* Breadcrumbs */
+.breadcrumbs {
+  flex: 1;
+  padding: 0 16px;
+  min-width: 0;
+}
+
+.breadcrumb-nav {
+  max-width: 100%;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875em;
+  overflow: hidden;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.breadcrumb-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 250ms ease-in-out;
+}
+
+.breadcrumb-link:hover {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.breadcrumb-link:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
+
+.breadcrumb-current {
+  color: rgba(255, 255, 255, 0.87);
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+}
+
 /* Mobile adjustments */
 @media (max-width: 767px) {
   .top-bar {
@@ -222,6 +350,23 @@ onUnmounted(() => {
 
   .dropdown-menu {
     min-width: 180px;
+  }
+
+  .breadcrumbs {
+    padding: 0 12px;
+  }
+
+  .breadcrumb-list {
+    font-size: 0.75em;
+    gap: 2px;
+  }
+
+  .breadcrumb-item:nth-child(n + 2):not(:last-child) {
+    display: none;
+  }
+
+  .breadcrumb-separator {
+    margin: 0 1px;
   }
 }
 </style>
