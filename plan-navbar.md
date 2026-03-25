@@ -130,12 +130,49 @@ Once DESIGN_SYSTEM.md is created, add a reference in [CLAUDE.md](./CLAUDE.md) un
 
 **Features**:
 
-- Round avatar button (circle CSS shape)
+- Round avatar button (circle CSS shape) that opens a dropdown menu
 - Display first letter of username in uppercase (e.g., "J" for "jacques")
-- Hover state for visual feedback
+- Dropdown menu on avatar click containing:
+  - Username display
+  - Logout button
+- Hover state for visual feedback on avatar button
 - Logout action that triggers `authStore.logout()`
-- Optional: Add navigation breadcrumbs or page title
-- Optional: Add dropdown menu on avatar click (could be expanded later)
+- Optional: Navigation breadcrumbs or page title for context
+
+**Optional Feature: Navigation Breadcrumbs**
+
+Location: In the navbar, next to or below the avatar area
+Purpose: Help users understand their location in the app hierarchy and allow quick navigation back
+
+Example breadcrumbs for different pages:
+
+- **Dashboard**: No breadcrumb (it's the root authenticated page)
+- **Classes**: `Home > Classes`
+- **Attendance**: `Home > Classes > [ClassName] > Take Attendance`
+- **Student Record**: `Home > History > [StudentName]` or navigable hierarchy
+- **Reports**: `Home > Reports`
+
+Implementation details:
+
+- Breadcrumbs should be **clickable links** for quick navigation
+- Use visual separator (e.g., `/` or `>`) between items
+- Last item should be **non-clickable** (current page)
+- Font size: `Body Small` from design system
+- Color: Text secondary (`rgba(255, 255, 255, 0.60)`)
+- Hover on links: Change to text primary color
+- **Mobile Strategy** (< 768px):
+  - Show breadcrumbs but in **compact form**:
+    - Use `/` separator instead of `>` (takes less space)
+    - Display only last 2-3 items in breadcrumb trail (e.g., `Classes / Math 101` instead of `Home / Classes / Math 101`)
+    - Font size: `0.75em` (even smaller than Body Small)
+    - Breadcrumbs positioned left of avatar, wrap to second line if needed or truncate with ellipsis
+    - Links still fully clickable for navigation
+  - **Tablet** (768px - 1024px): Show full breadcrumbs with `>` separator
+  - **Desktop** (> 1024px): Show full breadcrumbs with plenty of space
+
+Data source: Derive from `$route.meta` or `$route.path` to automatically generate breadcrumb trail
+
+Note: This is optional for MVP but adds polish and improves UX on deeper nested pages like individual student records.
 
 **Styling**:
 
@@ -144,6 +181,14 @@ Once DESIGN_SYSTEM.md is created, add a reference in [CLAUDE.md](./CLAUDE.md) un
 - Avatar size: ~40-48px diameter
 - Contrast colors for visibility
 - Smooth transitions/hover effects
+- Dropdown menu styling:
+  - Position: absolute, anchored to avatar
+  - Background: `#242424` (dark background)
+  - Border: subtle border with `rgba(255, 255, 255, 0.2)`
+  - Padding: `md` spacing
+  - Font size: `Body Small`
+  - Shadow: `md` shadow
+  - Close on click outside (click-away behavior)
 
 ### Phase 2: Create AppLayout Component
 
@@ -167,23 +212,48 @@ Once DESIGN_SYSTEM.md is created, add a reference in [CLAUDE.md](./CLAUDE.md) un
 </template>
 ```
 
-### Phase 3: Refactor App.vue
+### Phase 3: Refactor App.vue & Router (Layout Wrapper Approach)
 
-**File**: `frontend/src/App.vue`
+**File**: `frontend/src/App.vue` and `frontend/src/router/index.ts`
 
-**Changes**:
+**Approach**: Create a layout route wrapper (Approach B — better long-term architecture)
 
-- Detect if current route is authenticated or public
-- Conditionally wrap `<RouterView />` with `<AppLayout />`
-- Alternative approach: Move logic into router and render AppLayout from authenticated route wrapper
+**Implementation**:
 
-**Decision Point**:
-Two approaches available:
+1. **Update App.vue**:
+   - Simplify to just `<RouterView />` (keep it minimal)
+   - No conditional logic needed
 
-- **Approach A**: Modify App.vue to conditionally render AppLayout based on route
-- **Approach B**: Create a layout route wrapper (more modular, follows router structure) — Best practice for larger apps
+2. **Update Router** (`frontend/src/router/index.ts`):
+   - Create a layout wrapper component inline or import AppLayout
+   - Group authenticated routes under a parent route that renders AppLayout
+   - Structure:
+     ```
+     routes: [
+       { path: "/", redirect: "/login" },
+       { path: "/login", component: LoginView },
+       { path: "/register", component: RegisterView },
+       {
+         component: AppLayout,
+         children: [
+           { path: "/dashboard", component: DashboardView },
+           { path: "/classes", component: ClassManagementView },
+           { path: "/attendance", component: TakeAttendanceView },
+           { path: "/history", component: AttendanceHistoryView },
+           { path: "/reports", component: ReportsView },
+           { path: "/students/:id", component: StudentRecordView },
+         ]
+       },
+       { path: "/:pathMatch(.*)*", component: NotFoundView }
+     ]
+     ```
 
-**Recommended**: Approach A for simplicity, but keep code clean for future refactoring
+**Benefits**:
+
+- Keeps App.vue clean and simple
+- Follows Vue Router best practices for nested layouts
+- Easier to add additional layout types (admin layout, public layout, etc.) in future
+- Modular and maintainable as app grows
 
 ### Phase 4: Update Global Styles
 
@@ -224,14 +294,15 @@ Two approaches available:
 
 ## Files to Modify/Create
 
-| File                                            | Action     | Reason                                        |
-| ----------------------------------------------- | ---------- | --------------------------------------------- |
-| `frontend/src/styles/DESIGN_SYSTEM.md`          | **Create** | Styling guidelines reference for future work  |
-| `frontend/src/components/TopBar.vue`            | **Create** | New navbar component with avatar and logout   |
-| `frontend/src/components/AppLayout.vue`         | **Create** | Layout wrapper for authenticated pages        |
-| `frontend/src/App.vue`                          | **Modify** | Conditionally render AppLayout based on route |
-| `frontend/src/style.css`                        | **Modify** | Add navbar and avatar styling                 |
-| `frontend/tests/unit/components/TopBar.spec.ts` | **Create** | Unit tests for TopBar                         |
+| File                                            | Action     | Reason                                       |
+| ----------------------------------------------- | ---------- | -------------------------------------------- |
+| `frontend/src/styles/DESIGN_SYSTEM.md`          | **Create** | Styling guidelines reference for future work |
+| `frontend/src/components/TopBar.vue`            | **Create** | New navbar component with avatar and logout  |
+| `frontend/src/components/AppLayout.vue`         | **Create** | Layout wrapper for authenticated pages       |
+| `frontend/src/App.vue`                          | **Modify** | Simplify to just render RouterView           |
+| `frontend/src/router/index.ts`                  | **Modify** | Add AppLayout as parent route wrapper        |
+| `frontend/src/style.css`                        | **Modify** | Add navbar and avatar styling                |
+| `frontend/tests/unit/components/TopBar.spec.ts` | **Create** | Unit tests for TopBar                        |
 
 ## Implementation Order
 
