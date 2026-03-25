@@ -116,3 +116,47 @@ describe("TakeAttendanceView — submit", () => {
     ).toBe(true);
   });
 });
+
+// ─── Success state ────────────────────────────────────────────────────────────
+
+describe("TakeAttendanceView — success state", () => {
+  const today = new Date().toISOString().split("T")[0];
+
+  async function mountAndSubmit() {
+    mockSubmitAttendance.mockResolvedValueOnce(true);
+    const wrapper = mountView();
+    await wrapper.find("select").setValue(String(cls1.id));
+    await flushPromises();
+    await wrapper.find("button.btn-primary").trigger("click");
+    await flushPromises();
+    return wrapper;
+  }
+
+  it("shows the success card after a successful submission", async () => {
+    const wrapper = await mountAndSubmit();
+    expect(wrapper.find(".success-card").exists()).toBe(true);
+  });
+
+  it("success card contains the submitted class name and date", async () => {
+    const wrapper = await mountAndSubmit();
+    const card = wrapper.find(".success-card");
+    expect(card.text()).toContain(cls1.name);
+    expect(card.text()).toContain(today);
+  });
+
+  it("clicking 'Take another' hides the success card and restores the form", async () => {
+    const wrapper = await mountAndSubmit();
+    await wrapper.find(".success-card button").trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find(".success-card").exists()).toBe(false);
+    expect(wrapper.find("select").exists()).toBe(true);
+  });
+
+  it("clicking 'Take another' resets the date to today", async () => {
+    const wrapper = await mountAndSubmit();
+    await wrapper.find(".success-card button").trigger("click");
+    await wrapper.vm.$nextTick();
+    const dateInput = wrapper.find('input[type="date"]');
+    expect((dateInput.element as HTMLInputElement).value).toBe(today);
+  });
+});

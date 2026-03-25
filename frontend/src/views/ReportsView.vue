@@ -40,8 +40,6 @@ watch(selectedClassId, (id) => {
 
 <template>
   <div class="page">
-    <div class="header"></div>
-
     <div class="controls">
       <div class="control-group">
         <label>Class</label>

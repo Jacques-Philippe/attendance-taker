@@ -1,5 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { mount } from "@vue/test-utils";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { mount, enableAutoUnmount } from "@vue/test-utils";
+
+enableAutoUnmount(afterEach);
 import { createRouter, createMemoryHistory } from "vue-router";
 import TopBar from "@/components/TopBar.vue";
 

@@ -54,7 +54,7 @@ async function submit() {
 function takeAnother() {
   submitted.value = false;
   selectedClassId.value = null;
-  selectedDate.value = today;
+  selectedDate.value = new Date().toISOString().split("T")[0];
   drafts.value = [];
 }
 </script>
