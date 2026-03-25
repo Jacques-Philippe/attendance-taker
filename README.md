@@ -8,6 +8,10 @@ A web application for teachers to track classroom attendance. Create classes, bu
 
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
+### For users
+
+Runs a production build behind a reverse proxy. No source code or tooling required.
+
 ```bash
 # 1. Clone the repo
 git clone <repo-url>
@@ -15,22 +19,36 @@ cd attendance-taker
 
 # 2. Create your environment file and fill in both values
 cp .env.example .env
-#    SECRET_KEY     — any long random string (e.g. openssl rand -hex 32)
+#    SECRET_KEY        — any long random string (e.g. openssl rand -hex 32)
 #    POSTGRES_PASSWORD — any password you choose
 
 # 3. Build and start all services
 docker compose up --build
 
-# 4. Open http://localhost:8080 in your browser and register your account on first time use
+# 4. Open http://localhost:8080 in your browser and register your account on first use
 ```
 
-That's it. The app is ready to use.
+```bash
+docker compose down      # stop containers; your data is preserved
+docker compose down -v   # stop containers AND wipe the database
+```
 
-### Stopping and data
+### For developers
+
+Runs the Vite dev server and uvicorn with hot-reload. Changes to source files are reflected immediately without rebuilding.
 
 ```bash
-docker compose down          # stop containers; your data is preserved
-docker compose down -v       # stop containers AND wipe the database
+docker compose -f docker-compose.dev.yml up --build
+```
+
+| Service | URL |
+|---|---|
+| Frontend (Vite + HMR) | http://localhost:5173 |
+| Backend API | http://localhost:8000 |
+
+```bash
+docker compose -f docker-compose.dev.yml down      # stop; data preserved
+docker compose -f docker-compose.dev.yml down -v   # stop and wipe dev database
 ```
 
 ---

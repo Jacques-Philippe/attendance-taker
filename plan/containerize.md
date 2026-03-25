@@ -11,10 +11,10 @@ Replace the current "run three things manually" workflow with a single command t
 - [x] `frontend/vite.config.ts` — env-driven proxy target + `host: true`
 - [x] `backend/Dockerfile.dev` — Python dev image
 - [x] `frontend/Dockerfile.dev` — Node dev image
-- [ ] `docker-compose.dev.yml` — dev Compose file wiring all three services
-- [ ] `backend/.dockerignore`
-- [ ] `frontend/.dockerignore`
-- [ ] `README.md` — add dev quick-start alongside the user quick-start
+- [x] `docker-compose.dev.yml` — dev Compose file wiring all three services
+- [x] `backend/.dockerignore`
+- [x] `frontend/.dockerignore`
+- [x] `README.md` — add dev quick-start alongside the user quick-start
 
 ---
 
