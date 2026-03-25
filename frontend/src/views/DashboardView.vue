@@ -7,9 +7,6 @@ const authStore = useAuthStore();
 
 <template>
   <div class="dashboard">
-    <header class="dashboard-header">
-      <h1>Dashboard</h1>
-    </header>
     <nav class="nav-links">
       <RouterLink to="/attendance">Take Attendance</RouterLink>
       <RouterLink to="/classes">Manage Classes</RouterLink>
@@ -20,29 +17,74 @@ const authStore = useAuthStore();
 </template>
 
 <style scoped>
-.dashboard-header {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-h1 {
-  font-size: 1.25rem;
-  margin: 0;
+.dashboard {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .nav-links {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .nav-links a {
-  color: #646cff;
+  display: block;
+  padding: 2rem 1.5rem;
+  background-color: #646cff;
+  border: 2px solid #646cff;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.87);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 250ms ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  background-color: #535bf2;
+  border-color: #535bf2;
+  color: rgba(255, 255, 255, 0.87);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(100, 108, 255, 0.3);
+}
+
+.nav-links a:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1.5rem 1rem;
+  }
+
+  .nav-links {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .nav-links a {
+    padding: 1.5rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 1rem 0.75rem;
+  }
+
+  .nav-links a {
+    padding: 1.25rem 0.75rem;
+    font-size: 0.95rem;
+  }
 }
 </style>
