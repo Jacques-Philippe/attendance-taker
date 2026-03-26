@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { RouterLink, useRouter } from "vue-router";
 import AttendanceRoster from "../components/AttendanceRoster.vue";
 import ClassSelector from "../components/ClassSelector.vue";
 import { useAttendanceStore } from "../stores/attendance";
 import { useClassesStore } from "../stores/classes";
 import type { AttendanceRecordDraft } from "../types/attendance";
 
-const router = useRouter();
 const classesStore = useClassesStore();
 const attendanceStore = useAttendanceStore();
 
@@ -15,6 +13,9 @@ const today = new Date().toISOString().split("T")[0];
 const selectedClassId = ref<number | null>(null);
 const selectedDate = ref<string>(today);
 const drafts = ref<AttendanceRecordDraft[]>([]);
+const submitted = ref(false);
+const submittedClassName = ref("");
+const submittedDate = ref("");
 
 watch(selectedClassId, async (id) => {
   drafts.value = [];
@@ -38,59 +39,88 @@ const canSubmit = computed(
 
 async function submit() {
   if (!canSubmit.value || selectedClassId.value === null) return;
+  submittedClassName.value = classesStore.currentClass?.name ?? "";
+  submittedDate.value = selectedDate.value;
   const result = await attendanceStore.submitAttendance({
     classId: selectedClassId.value,
     date: selectedDate.value,
     records: drafts.value,
   });
   if (result) {
-    router.push("/dashboard");
+    submitted.value = true;
   }
+}
+
+function takeAnother() {
+  submitted.value = false;
+  selectedClassId.value = null;
+  selectedDate.value = new Date().toISOString().split("T")[0];
+  drafts.value = [];
 }
 </script>
 
 <template>
   <div class="page">
-    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
     <div class="header">
       <h1>Take Attendance</h1>
     </div>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="class-select">Class</label>
-        <ClassSelector id="class-select" v-model="selectedClassId" />
+    <!-- Success state -->
+    <div v-if="submitted" class="success-card">
+      <div class="checkmark">
+        <svg viewBox="0 0 52 52" class="checkmark-svg">
+          <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+          <path class="checkmark-check" fill="none" d="M14 27l8 8 16-16" />
+        </svg>
       </div>
-      <div class="control-group">
-        <label for="date-input">Date</label>
-        <input id="date-input" v-model="selectedDate" type="date" />
+      <h2>Attendance submitted!</h2>
+      <p class="success-detail">
+        {{ submittedClassName }} &mdash; {{ submittedDate }}
+      </p>
+      <div class="success-actions">
+        <button class="btn-primary" @click="takeAnother">Take another</button>
       </div>
     </div>
 
-    <p v-if="attendanceStore.error" class="error">
-      {{ attendanceStore.error }}
-    </p>
-
-    <p v-if="classesStore.loading" class="muted">Loading roster…</p>
-
-    <template v-else-if="selectedClassId !== null">
-      <p v-if="drafts.length === 0" class="muted">
-        This class has no students yet.
-      </p>
-      <AttendanceRoster
-        v-else
-        v-model="drafts"
-        :students="classesStore.currentClass?.students ?? []"
-      />
-
-      <div class="submit-row">
-        <button class="btn-primary" :disabled="!canSubmit" @click="submit">
-          {{ attendanceStore.submitting ? "Submitting…" : "Submit Attendance" }}
-        </button>
+    <template v-else>
+      <div class="controls">
+        <div class="control-group">
+          <label for="class-select">Class</label>
+          <ClassSelector id="class-select" v-model="selectedClassId" />
+        </div>
+        <div class="control-group">
+          <label for="date-input">Date</label>
+          <input id="date-input" v-model="selectedDate" type="date" />
+        </div>
       </div>
-    </template>
 
-    <p v-else class="muted">Select a class to begin.</p>
+      <p v-if="attendanceStore.error" class="error">
+        {{ attendanceStore.error }}
+      </p>
+
+      <p v-if="classesStore.loading" class="muted">Loading roster…</p>
+
+      <template v-else-if="selectedClassId !== null">
+        <p v-if="drafts.length === 0" class="muted">
+          This class has no students yet.
+        </p>
+        <AttendanceRoster
+          v-else
+          v-model="drafts"
+          :students="classesStore.currentClass?.students ?? []"
+        />
+
+        <div class="submit-row">
+          <button class="btn-primary" :disabled="!canSubmit" @click="submit">
+            {{
+              attendanceStore.submitting ? "Submitting…" : "Submit Attendance"
+            }}
+          </button>
+        </div>
+      </template>
+
+      <p v-else class="muted">Select a class to begin.</p>
+    </template>
   </div>
 </template>
 
@@ -102,18 +132,6 @@ async function submit() {
   padding: 0 2rem;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #646cff;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -121,6 +139,70 @@ async function submit() {
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid #334155;
+}
+
+.success-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.success-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.success-detail {
+  color: #94a3b8;
+  margin: 0;
+}
+
+.success-actions {
+  margin-top: 1rem;
+}
+
+.checkmark {
+  width: 72px;
+  height: 72px;
+}
+
+.checkmark-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.checkmark-circle {
+  stroke: #22c55e;
+  stroke-width: 2;
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  animation: draw-circle 0.4s ease forwards;
+}
+
+.checkmark-check {
+  stroke: #22c55e;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: draw-check 0.3s ease 0.35s forwards;
+}
+
+@keyframes draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 h1 {
@@ -194,10 +276,6 @@ input[type="date"] {
 }
 
 @media (prefers-color-scheme: light) {
-  .back-link {
-    color: #64748b;
-  }
-
   .header {
     border-color: #e2e8f0;
   }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { RouterLink } from "vue-router";
 import { useClassesStore } from "../stores/classes";
 
 const store = useClassesStore();
@@ -95,13 +94,9 @@ async function removeStudent(classId: number, studentId: number, name: string) {
 
 <template>
   <div class="page">
-    <RouterLink to="/dashboard" class="back-link">← Dashboard</RouterLink>
-    <div class="header">
-      <h1>Classes</h1>
-      <button class="btn-primary" @click="showNewClassForm = !showNewClassForm">
-        + New class
-      </button>
-    </div>
+    <button class="btn-primary" @click="showNewClassForm = !showNewClassForm">
+      + New class
+    </button>
 
     <form
       v-if="showNewClassForm"
@@ -151,6 +146,14 @@ async function removeStudent(classId: number, studentId: number, name: string) {
           v-if="expandedClass === cls.id && store.currentClass?.id === cls.id"
           class="student-panel"
         >
+          <form class="inline-form" @submit.prevent="submitAddStudent(cls.id)">
+            <input
+              v-model="newStudentName[cls.id]"
+              placeholder="Student name"
+              required
+            />
+            <button type="submit">Add student</button>
+          </form>
           <ul class="student-list">
             <li
               v-for="student in store.currentClass.students"
@@ -178,14 +181,6 @@ async function removeStudent(classId: number, studentId: number, name: string) {
               </template>
             </li>
           </ul>
-          <form class="inline-form" @submit.prevent="submitAddStudent(cls.id)">
-            <input
-              v-model="newStudentName[cls.id]"
-              placeholder="Student name"
-              required
-            />
-            <button type="submit">Add student</button>
-          </form>
         </div>
       </li>
     </ul>
@@ -200,33 +195,6 @@ async function removeStudent(classId: number, studentId: number, name: string) {
   padding: 0 2rem;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 1.25rem;
-  font-size: 0.875rem;
-  color: #94a3b8;
-  text-decoration: none;
-}
-
-.back-link:hover {
-  color: #646cff;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #334155;
-}
-
-h1 {
-  font-size: 1.75rem;
-  margin: 0;
-  font-weight: 600;
-}
-
 .btn-primary {
   background-color: #646cff;
   color: #fff;
@@ -238,21 +206,11 @@ h1 {
   background-color: #535bf2;
 }
 
-@media (prefers-color-scheme: light) {
-  .back-link {
-    color: #64748b;
-  }
-
-  .header {
-    border-color: #e2e8f0;
-  }
-}
-
 .inline-form {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .error {

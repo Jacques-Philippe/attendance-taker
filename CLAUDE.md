@@ -20,6 +20,12 @@ This is a classroom attendance-taking web application being developed as a full-
 - Frontend entry point: `frontend/src/main.ts`
 - Frontend component hierarchy starts in `frontend/src/App.vue`
 
+## Frontend Styling
+
+**Design System**: [`frontend/src/styles/DESIGN_SYSTEM.md`](./frontend/src/styles/DESIGN_SYSTEM.md)
+
+This is the authoritative styling reference for all frontend visual elements. Reference this guide whenever creating or updating components, buttons, navbars, forms, or any UI element. Includes color palette, typography, spacing scale, responsive breakpoints, accessibility standards, and implementation guidelines.
+
 ## Authentication
 
 Session-based auth using an HTTP-only cookie set by the backend. Note that by default when a user registers they are assigned teacher role.
