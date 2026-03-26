@@ -123,7 +123,15 @@ describe("TakeAttendanceView — success state", () => {
   const today = new Date().toISOString().split("T")[0];
 
   async function mountAndSubmit() {
-    mockSubmitAttendance.mockResolvedValueOnce(true);
+    mockSubmitAttendance.mockResolvedValueOnce({
+      id: 1,
+      classId: cls1.id,
+      date: today,
+      period: cls1.period,
+      takenBy: 10,
+      createdAt: new Date().toISOString(),
+      records: [],
+    });
     const wrapper = mountView();
     await wrapper.find("select").setValue(String(cls1.id));
     await flushPromises();
