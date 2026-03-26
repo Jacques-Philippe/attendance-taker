@@ -8,6 +8,10 @@ A web application for teachers to track classroom attendance. Create classes, bu
 
 **Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
+### For users
+
+Runs a production build behind a reverse proxy. No source code or tooling required.
+
 ```bash
 # 1. Clone the repo
 git clone <repo-url>
@@ -15,22 +19,59 @@ cd attendance-taker
 
 # 2. Create your environment file and fill in both values
 cp .env.example .env
-#    SECRET_KEY     — any long random string (e.g. openssl rand -hex 32)
+#    SECRET_KEY        — any long random string (e.g. openssl rand -hex 32)
 #    POSTGRES_PASSWORD — any password you choose
 
 # 3. Build and start all services
 docker compose up --build
 
-# 4. Open http://localhost:8080 in your browser and register your account on first time use
+# 4. Open http://localhost:8080 in your browser and register your account on first use
 ```
 
-That's it. The app is ready to use.
+```bash
+docker compose down      # stop containers; your data is preserved
+docker compose down -v   # stop containers AND wipe the database
+```
 
-### Stopping and data
+### For developers (VS Code Dev Container)
+
+**Prerequisites:** [Docker Desktop](https://www.docker.com/products/docker-desktop/) and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-remote.remote-containers)
+
+Open the repo in VS Code, then when prompted choose **Reopen in Container** (or run `Dev Containers: Reopen in Container` from the command palette). VS Code will build the container, install all dependencies, and run migrations automatically.
+
+Once inside, start each service in a separate integrated terminal:
 
 ```bash
-docker compose down          # stop containers; your data is preserved
-docker compose down -v       # stop containers AND wipe the database
+# Terminal 1 — backend
+cd backend && uvicorn app.main:app --reload --host 0.0.0.0
+
+# Terminal 2 — frontend
+cd frontend && npm run dev
+```
+
+| Service | URL |
+|---|---|
+| Frontend (Vite + HMR) | http://localhost:5173 |
+| Backend API | http://localhost:8000 |
+
+Extensions (Pylance, Volar, ESLint, Prettier, Black) are installed automatically inside the container.
+
+### For developers (standalone Docker Compose)
+
+No VS Code integration — services run in the background and you edit files on your host machine. Hot-reload works via bind mounts.
+
+```bash
+docker compose -f docker-compose.dev.yml up --build
+```
+
+| Service | URL |
+|---|---|
+| Frontend (Vite + HMR) | http://localhost:5173 |
+| Backend API | http://localhost:8000 |
+
+```bash
+docker compose -f docker-compose.dev.yml down      # stop; data preserved
+docker compose -f docker-compose.dev.yml down -v   # stop and wipe dev database
 ```
 
 ---

@@ -1,0 +1,51 @@
+services:
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: attendance_user
+      POSTGRES_PASSWORD: attendance_pass
+      POSTGRES_DB: attendance_dev
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U attendance_user -d attendance_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./backend:/app
+    environment:
+      DATABASE_URL: postgresql://attendance_user:attendance_pass@db:5432/attendance_dev
+      SECRET_KEY: dev-secret-key-change-in-prod
+      DEBUG: "true"
+      CORS_ORIGINS: '["http://localhost:5173"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_TARGET: http://backend:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_dev_data:
