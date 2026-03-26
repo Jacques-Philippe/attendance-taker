@@ -43,7 +43,7 @@ Once inside, start each service in a separate integrated terminal:
 
 ```bash
 # Terminal 1 — backend
-cd backend && uvicorn app.main:app --reload
+cd backend && uvicorn app.main:app --reload --host 0.0.0.0
 
 # Terminal 2 — frontend
 cd frontend && npm run dev
