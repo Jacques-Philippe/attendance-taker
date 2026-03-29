@@ -13,7 +13,7 @@
 
 ## Phase 2 — Locale Store
 
-- [ ] Create `frontend/src/stores/locale.ts` — Pinia store exposing `current` (bound to `i18n.global.locale`), `setLocale()` (updates the ref and writes to `localStorage`), and `SUPPORTED_LOCALES`
+- [x] Create `frontend/src/stores/locale.ts` — Pinia store exposing `current` (bound to `i18n.global.locale`), `setLocale()` (updates the ref and writes to `localStorage`), and `SUPPORTED_LOCALES`
 
 ---
 
