@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { PATHS } from "../router/paths";
 import ClassSelector from "../components/ClassSelector.vue";
 import StatCard from "../components/StatCard.vue";
 import { useAttendanceStore } from "../stores/attendance";
@@ -102,7 +103,7 @@ watch(selectedClassId, (id) => {
           >
             <td>
               <RouterLink
-                :to="`/students/${student.studentId}`"
+                :to="PATHS.studentRecord(student.studentId)"
                 class="student-link"
               >
                 {{ student.studentName }}

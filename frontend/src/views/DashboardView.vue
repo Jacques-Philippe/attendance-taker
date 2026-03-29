@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { PATHS } from "../router/paths";
 
 const { t } = useI18n();
 </script>
@@ -8,14 +9,16 @@ const { t } = useI18n();
 <template>
   <div class="dashboard">
     <nav class="nav-links">
-      <RouterLink to="/attendance">{{
+      <RouterLink :to="PATHS.attendance">{{
         t("dashboard.takeAttendance")
       }}</RouterLink>
-      <RouterLink to="/classes">{{ t("dashboard.manageClasses") }}</RouterLink>
-      <RouterLink to="/history">{{
+      <RouterLink :to="PATHS.classes">{{
+        t("dashboard.manageClasses")
+      }}</RouterLink>
+      <RouterLink :to="PATHS.history">{{
         t("dashboard.attendanceHistory")
       }}</RouterLink>
-      <RouterLink to="/reports">{{ t("dashboard.reports") }}</RouterLink>
+      <RouterLink :to="PATHS.reports">{{ t("dashboard.reports") }}</RouterLink>
     </nav>
   </div>
 </template>

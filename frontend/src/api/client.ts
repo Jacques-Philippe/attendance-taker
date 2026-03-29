@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PATHS } from "../router/paths";
 
 const client = axios.create({
   baseURL: "/api",
@@ -21,9 +22,9 @@ client.interceptors.response.use(
       status === 401 &&
       !isSessionBootstrap &&
       !isLoginAttempt &&
-      !window.location.pathname.endsWith("/login")
+      !window.location.pathname.endsWith(PATHS.login)
     ) {
-      window.location.href = "/login";
+      window.location.href = PATHS.login;
     }
 
     return Promise.reject(error);

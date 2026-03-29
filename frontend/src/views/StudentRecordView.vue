@@ -4,6 +4,7 @@ import { RouterLink, useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import AttendanceStatusBadge from "../components/AttendanceStatusBadge.vue";
 import { useAttendanceStore } from "../stores/attendance";
+import { PATHS } from "../router/paths";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -16,7 +17,7 @@ onMounted(() => {
 
 <template>
   <div class="page">
-    <RouterLink to="/reports" class="back-link">{{
+    <RouterLink :to="PATHS.reports" class="back-link">{{
       t("studentRecord.backToReports")
     }}</RouterLink>
 

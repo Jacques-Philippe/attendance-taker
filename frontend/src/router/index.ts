@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth";
+import { PATHS } from "./paths";
 import LoginView from "../views/LoginView.vue";
 import AppLayout from "../components/AppLayout.vue";
 
@@ -7,12 +8,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/login",
+      path: PATHS.login,
       name: "login",
       component: LoginView,
     },
     {
-      path: "/register",
+      path: PATHS.register,
       name: "register",
       component: () => import("../views/RegisterView.vue"),
     },
@@ -26,22 +27,22 @@ const router = createRouter({
           component: () => import("../views/DashboardView.vue"),
         },
         {
-          path: "/classes",
+          path: PATHS.classes,
           name: "classes",
           component: () => import("../views/ClassManagementView.vue"),
         },
         {
-          path: "/attendance",
+          path: PATHS.attendance,
           name: "attendance",
           component: () => import("../views/TakeAttendanceView.vue"),
         },
         {
-          path: "/history",
+          path: PATHS.history,
           name: "history",
           component: () => import("../views/AttendanceHistoryView.vue"),
         },
         {
-          path: "/reports",
+          path: PATHS.reports,
           name: "reports",
           component: () => import("../views/ReportsView.vue"),
         },
@@ -68,11 +69,11 @@ router.beforeEach(async (to) => {
   await authStore.fetchCurrentUser();
 
   if (isPublic && authStore.isAuthenticated) {
-    return "/";
+    return PATHS.dashboard;
   }
 
   if (!isPublic && !authStore.isAuthenticated) {
-    return "/login";
+    return PATHS.login;
   }
 });
 

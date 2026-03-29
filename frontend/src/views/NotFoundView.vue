@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { PATHS } from "../router/paths";
 
 const { t } = useI18n();
 </script>
@@ -7,6 +8,6 @@ const { t } = useI18n();
 <template>
   <div>
     <h1>{{ t("common.notFound") }}</h1>
-    <RouterLink to="/">{{ t("common.goHome") }}</RouterLink>
+    <RouterLink :to="PATHS.dashboard">{{ t("common.goHome") }}</RouterLink>
   </div>
 </template>

@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "../stores/auth";
+import { PATHS } from "../router/paths";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -16,7 +17,7 @@ const loading = ref(false);
 
 onMounted(() => {
   if (authStore.isAuthenticated) {
-    router.push("/");
+    router.push(PATHS.dashboard);
   }
 });
 
@@ -99,7 +100,9 @@ async function handleSubmit() {
       </form>
       <p class="login-link">
         {{ t("auth.register.hasAccount") }}
-        <RouterLink to="/login">{{ t("auth.register.signIn") }}</RouterLink>
+        <RouterLink :to="PATHS.login">{{
+          t("auth.register.signIn")
+        }}</RouterLink>
       </p>
     </div>
   </div>
