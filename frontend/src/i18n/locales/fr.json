@@ -1,7 +1,8 @@
 {
   "topbar": {
     "language": "Langue",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "changeLanguage": "Changer de langue"
   },
   "nav": {
     "home": "Accueil",
@@ -129,6 +130,7 @@
     "statusPresent": "Présent",
     "statusAbsent": "Absent",
     "statusLate": "En retard",
-    "statusExcused": "Excusé"
+    "statusExcused": "Excusé",
+    "close": "Fermer"
   }
 }

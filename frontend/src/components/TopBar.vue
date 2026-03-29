@@ -3,13 +3,13 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute, RouterLink } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useAuthStore } from "../stores/auth";
-import { useLocaleStore } from "../stores/locale";
+import LocaleModal from "./LocaleModal.vue";
 
 const { t } = useI18n();
 const authStore = useAuthStore();
-const localeStore = useLocaleStore();
 const route = useRoute();
 const isDropdownOpen = ref(false);
+const showLocaleModal = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 const avatarRef = ref<HTMLButtonElement | null>(null);
 
@@ -71,11 +71,9 @@ const handleLogout = async () => {
   await authStore.logout();
 };
 
-const selectLocale = (
-  code: (typeof localeStore.SUPPORTED_LOCALES)[number]["code"],
-) => {
-  localeStore.setLocale(code);
+const openLocaleModal = () => {
   closeDropdown();
+  showLocaleModal.value = true;
 };
 
 const handleClickOutside = (event: MouseEvent) => {
@@ -146,20 +144,9 @@ onUnmounted(() => {
           <div class="dropdown-header">
             <span class="username">{{ authStore.user?.username }}</span>
           </div>
-          <div class="dropdown-section">
-            <span class="dropdown-section-label">{{
-              t("topbar.language")
-            }}</span>
-            <button
-              v-for="loc in localeStore.SUPPORTED_LOCALES"
-              :key="loc.code"
-              class="dropdown-button"
-              :class="{ active: localeStore.current === loc.code }"
-              @click="selectLocale(loc.code)"
-            >
-              {{ loc.label }}
-            </button>
-          </div>
+          <button class="dropdown-button" @click="openLocaleModal">
+            {{ t("topbar.changeLanguage") }}
+          </button>
           <hr class="dropdown-divider" />
           <button class="dropdown-button logout-button" @click="handleLogout">
             {{ t("topbar.logout") }}
@@ -168,6 +155,8 @@ onUnmounted(() => {
       </div>
     </div>
   </header>
+
+  <LocaleModal v-if="showLocaleModal" @close="showLocaleModal = false" />
 </template>
 
 <style scoped>
@@ -303,23 +292,6 @@ onUnmounted(() => {
 .logout-button:hover {
   background-color: rgba(239, 68, 68, 0.1);
   color: #ff6b6b;
-}
-
-.dropdown-section {
-  padding: 8px 0 4px;
-}
-
-.dropdown-section-label {
-  display: block;
-  padding: 0 16px 4px;
-  font-size: 0.75em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.dropdown-button.active {
-  color: #646cff;
 }
 
 .dropdown-divider {

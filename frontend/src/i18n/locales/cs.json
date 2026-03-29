@@ -1,7 +1,8 @@
 {
   "topbar": {
     "language": "Jazyk",
-    "logout": "Odhlásit se"
+    "logout": "Odhlásit se",
+    "changeLanguage": "Změnit jazyk"
   },
   "nav": {
     "home": "Domů",
@@ -129,6 +130,7 @@
     "statusPresent": "Přítomen",
     "statusAbsent": "Nepřítomen",
     "statusLate": "Pozdě",
-    "statusExcused": "Omluven"
+    "statusExcused": "Omluven",
+    "close": "Zavřít"
   }
 }
