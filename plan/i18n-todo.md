@@ -2,12 +2,12 @@
 
 ## Phase 1 — Setup
 
-- [ ] Run `npm install vue-i18n@9` in `frontend/`
-- [ ] Create `frontend/src/i18n/index.ts` — `createI18n` instance reading saved locale from `localStorage`, registering `en`, `fr`, `cs` message sets
-- [ ] Create `frontend/src/i18n/locales/en.json` — English strings across all namespaces (`topbar`, `auth`, `nav`, `dashboard`, `classes`, `attendance`, `history`, `reports`, `studentRecord`, `common`)
-- [ ] Create `frontend/src/i18n/locales/fr.json` — French translations mirroring every key in `en.json`
-- [ ] Create `frontend/src/i18n/locales/cs.json` — Czech translations mirroring every key in `en.json`
-- [ ] Register the `i18n` plugin in `frontend/src/main.ts`
+- [x] Run `npm install vue-i18n@9` in `frontend/`
+- [x] Create `frontend/src/i18n/index.ts` — `createI18n` instance reading saved locale from `localStorage`, registering `en`, `fr`, `cs` message sets
+- [x] Create `frontend/src/i18n/locales/en.json` — English strings across all namespaces (`topbar`, `auth`, `nav`, `dashboard`, `classes`, `attendance`, `history`, `reports`, `studentRecord`, `common`)
+- [x] Create `frontend/src/i18n/locales/fr.json` — French translations mirroring every key in `en.json`
+- [x] Create `frontend/src/i18n/locales/cs.json` — Czech translations mirroring every key in `en.json`
+- [x] Register the `i18n` plugin in `frontend/src/main.ts`
 
 ---
 

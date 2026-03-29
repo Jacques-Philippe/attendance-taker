@@ -1,0 +1,126 @@
+{
+  "topbar": {
+    "language": "Jazyk",
+    "logout": "Odhl\u00e1sit se"
+  },
+  "nav": {
+    "home": "Dom\u016f",
+    "dashboard": "P\u0159ehled",
+    "classes": "T\u0159\u00eddy",
+    "attendance": "Zapsat doch\u00e1zku",
+    "history": "Historie",
+    "reports": "P\u0159ehledy",
+    "studentRecord": "Z\u00e1znam studenta"
+  },
+  "auth": {
+    "appName": "Doch\u00e1zka",
+    "login": {
+      "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+      "password": "Heslo",
+      "submit": "P\u0159ihl\u00e1sit se",
+      "submitting": "P\u0159ihla\u0161ov\u00e1n\u00ed\u2026",
+      "invalidCredentials": "Neplatn\u00e9 u\u017eivatelsk\u00e9 jm\u00e9no nebo heslo.",
+      "noAccount": "Nem\u00e1te \u00fa\u010det?",
+      "createOne": "Vytvo\u0159it \u00fa\u010det"
+    },
+    "register": {
+      "title": "Vytvo\u0159it \u00fa\u010det",
+      "username": "U\u017eivatelsk\u00e9 jm\u00e9no",
+      "password": "Heslo",
+      "confirmPassword": "Potvrdit heslo",
+      "submit": "Vytvo\u0159it \u00fa\u010det",
+      "submitting": "Vytv\u00e1\u0159en\u00ed \u00fa\u010dtu\u2026",
+      "passwordMismatch": "Hesla se neshoduj\u00ed.",
+      "usernameTaken": "Toto u\u017eivatelsk\u00e9 jm\u00e9no je ji\u017e obsazeno.",
+      "failed": "Registrace se nezda\u0159ila. Zkuste to pros\u00edm znovu.",
+      "hasAccount": "Ji\u017e m\u00e1te \u00fa\u010det?",
+      "signIn": "P\u0159ihl\u00e1sit se"
+    }
+  },
+  "dashboard": {
+    "takeAttendance": "Zapsat doch\u00e1zku",
+    "manageClasses": "Spr\u00e1va t\u0159\u00edd",
+    "attendanceHistory": "Historie doch\u00e1zky",
+    "reports": "P\u0159ehledy"
+  },
+  "classes": {
+    "newClass": "+ Nov\u00e1 t\u0159\u00edda",
+    "classNamePlaceholder": "N\u00e1zev t\u0159\u00eddy",
+    "periodPlaceholder": "Hodina",
+    "namePlaceholder": "Jm\u00e9no",
+    "create": "Vytvo\u0159it",
+    "cancel": "Zru\u0161it",
+    "save": "Ulo\u017eit",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "manageStudents": "Spravovat studenty",
+    "hideStudents": "Skr\u00fdt studenty",
+    "studentNamePlaceholder": "Jm\u00e9no studenta",
+    "addStudent": "P\u0159idat studenta",
+    "rename": "P\u0159ejmenovat",
+    "remove": "Odebrat",
+    "confirmDeleteClass": "Smazat t\u0159\u00eddu \u201e{name}\u201c a v\u0161echny jej\u00ed studenty?",
+    "confirmRemoveStudent": "Odebrat studenta \u201e{name}\u201c?"
+  },
+  "attendance": {
+    "title": "Zapsat doch\u00e1zku",
+    "classLabel": "T\u0159\u00edda",
+    "dateLabel": "Datum",
+    "loadingRoster": "Na\u010d\u00edt\u00e1n\u00ed seznamu\u2026",
+    "noStudents": "Tato t\u0159\u00edda zat\u00edm nem\u00e1 \u017e\u00e1dn\u00e9 studenty.",
+    "selectClass": "Vyberte t\u0159\u00eddu pro za\u010d\u00e1tek.",
+    "submit": "Odeslat doch\u00e1zku",
+    "submitting": "Odes\u00edl\u00e1n\u00ed\u2026",
+    "successTitle": "Doch\u00e1zka odesl\u00e1na!",
+    "takeAnother": "Zapsat dal\u0161\u00ed"
+  },
+  "history": {
+    "classLabel": "T\u0159\u00edda",
+    "dateRangeLabel": "Rozsah dat",
+    "loading": "Na\u010d\u00edt\u00e1n\u00ed\u2026",
+    "noSessions": "\u017d\u00e1dn\u00e9 z\u00e1znamy nenalezeny.",
+    "colDate": "Datum",
+    "colClass": "T\u0159\u00edda",
+    "colPeriod": "Hodina",
+    "sessionDetail": "Detail z\u00e1znamu \u2014 {date}",
+    "loadingRecords": "Na\u010d\u00edt\u00e1n\u00ed z\u00e1znam\u016f\u2026",
+    "colStudentId": "ID studenta",
+    "colStatus": "Stav"
+  },
+  "reports": {
+    "classLabel": "T\u0159\u00edda",
+    "loading": "Na\u010d\u00edt\u00e1n\u00ed\u2026",
+    "selectClass": "Vyberte t\u0159\u00eddu pro zobrazen\u00ed p\u0159ehledu.",
+    "totalSessions": "Celkem hodin",
+    "classPresentRate": "P\u0159\u00edtomnost ve t\u0159\u00edd\u011b",
+    "downloadCsv": "St\u00e1hnout CSV",
+    "downloading": "Stahov\u00e1n\u00ed\u2026",
+    "downloadFailed": "Sta\u017een\u00ed se nezda\u0159ilo. Zkuste to pros\u00edm znovu.",
+    "colStudent": "Student",
+    "colTotal": "Celkem",
+    "colPresent": "P\u0159\u00edtomen",
+    "colAbsent": "Nep\u0159\u00edtomen",
+    "colLate": "Pozd\u011b",
+    "colExcused": "Omluven",
+    "colPresentPct": "% P\u0159\u00edtomnosti"
+  },
+  "studentRecord": {
+    "backToReports": "\u2190 P\u0159ehledy",
+    "loading": "Na\u010d\u00edt\u00e1n\u00ed\u2026",
+    "noRecords": "Zat\u00edm \u017e\u00e1dn\u00e9 z\u00e1znamy doch\u00e1zky.",
+    "colDate": "Datum",
+    "colPeriod": "Hodina",
+    "colStatus": "Stav"
+  },
+  "common": {
+    "loading": "Na\u010d\u00edt\u00e1n\u00ed\u2026",
+    "error": "N\u011bco se pokazilo.",
+    "notFound": "404 \u2014 Str\u00e1nka nenalezena",
+    "goHome": "Zp\u011bt dom\u016f",
+    "selectClassPlaceholder": "\u2014 Vyberte t\u0159\u00eddu \u2014",
+    "statusPresent": "P\u0159\u00edtomen",
+    "statusAbsent": "Nep\u0159\u00edtomen",
+    "statusLate": "Pozd\u011b",
+    "statusExcused": "Omluven"
+  }
+}
