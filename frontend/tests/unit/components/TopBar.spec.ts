@@ -24,11 +24,11 @@ vi.mock("@/stores/auth", () => ({
 // ─── Router helpers ───────────────────────────────────────────────────────────
 
 const routePath: Record<string, string> = {
-  dashboard: "/dashboard",
-  classes: "/classes",
-  attendance: "/attendance",
-  history: "/history",
-  reports: "/reports",
+  dashboard: PATHS.dashboard,
+  classes: PATHS.classes,
+  attendance: PATHS.attendance,
+  history: PATHS.history,
+  reports: PATHS.reports,
   "student-record": "/students/1",
 };
 
