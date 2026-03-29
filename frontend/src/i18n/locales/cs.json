@@ -72,7 +72,13 @@
     "submit": "Odeslat docházku",
     "submitting": "Odesílání…",
     "successTitle": "Docházka odeslána!",
-    "takeAnother": "Zapsat další"
+    "takeAnother": "Zapsat další",
+    "colStudent": "Student",
+    "colStatus": "Stav",
+    "statusPresent": "Přítomen",
+    "statusAbsent": "Nepřítomen",
+    "statusLate": "Pozdě",
+    "statusExcused": "Omluven"
   },
   "history": {
     "classLabel": "Třída",

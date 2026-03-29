@@ -72,7 +72,13 @@
     "submit": "Soumettre les présences",
     "submitting": "Envoi en cours…",
     "successTitle": "Présences soumises !",
-    "takeAnother": "Nouvelle saisie"
+    "takeAnother": "Nouvelle saisie",
+    "colStudent": "Élève",
+    "colStatus": "Statut",
+    "statusPresent": "Présent",
+    "statusAbsent": "Absent",
+    "statusLate": "En retard",
+    "statusExcused": "Excusé"
   },
   "history": {
     "classLabel": "Classe",

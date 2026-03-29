@@ -72,7 +72,13 @@
     "submit": "Submit Attendance",
     "submitting": "Submitting…",
     "successTitle": "Attendance submitted!",
-    "takeAnother": "Take another"
+    "takeAnother": "Take another",
+    "colStudent": "Student",
+    "colStatus": "Status",
+    "statusPresent": "Present",
+    "statusAbsent": "Absent",
+    "statusLate": "Late",
+    "statusExcused": "Excused"
   },
   "history": {
     "classLabel": "Class",

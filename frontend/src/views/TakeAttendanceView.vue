@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import AttendanceRoster from "../components/AttendanceRoster.vue";
 import ClassSelector from "../components/ClassSelector.vue";
 import { useAttendanceStore } from "../stores/attendance";
 import { useClassesStore } from "../stores/classes";
 import type { AttendanceRecordDraft } from "../types/attendance";
+
+const { t } = useI18n();
 
 const classesStore = useClassesStore();
 const attendanceStore = useAttendanceStore();
@@ -62,7 +65,7 @@ function takeAnother() {
 <template>
   <div class="page">
     <div class="header">
-      <h1>Take Attendance</h1>
+      <h1>{{ t("attendance.title") }}</h1>
     </div>
 
     <!-- Success state -->
@@ -73,23 +76,25 @@ function takeAnother() {
           <path class="checkmark-check" fill="none" d="M14 27l8 8 16-16" />
         </svg>
       </div>
-      <h2>Attendance submitted!</h2>
+      <h2>{{ t("attendance.successTitle") }}</h2>
       <p class="success-detail">
         {{ submittedClassName }} &mdash; {{ submittedDate }}
       </p>
       <div class="success-actions">
-        <button class="btn-primary" @click="takeAnother">Take another</button>
+        <button class="btn-primary" @click="takeAnother">
+          {{ t("attendance.takeAnother") }}
+        </button>
       </div>
     </div>
 
     <template v-else>
       <div class="controls">
         <div class="control-group">
-          <label for="class-select">Class</label>
+          <label for="class-select">{{ t("attendance.classLabel") }}</label>
           <ClassSelector id="class-select" v-model="selectedClassId" />
         </div>
         <div class="control-group">
-          <label for="date-input">Date</label>
+          <label for="date-input">{{ t("attendance.dateLabel") }}</label>
           <input id="date-input" v-model="selectedDate" type="date" />
         </div>
       </div>
@@ -98,11 +103,13 @@ function takeAnother() {
         {{ attendanceStore.error }}
       </p>
 
-      <p v-if="classesStore.loading" class="muted">Loading roster…</p>
+      <p v-if="classesStore.loading" class="muted">
+        {{ t("attendance.loadingRoster") }}
+      </p>
 
       <template v-else-if="selectedClassId !== null">
         <p v-if="drafts.length === 0" class="muted">
-          This class has no students yet.
+          {{ t("attendance.noStudents") }}
         </p>
         <AttendanceRoster
           v-else
@@ -113,13 +120,15 @@ function takeAnother() {
         <div class="submit-row">
           <button class="btn-primary" :disabled="!canSubmit" @click="submit">
             {{
-              attendanceStore.submitting ? "Submitting…" : "Submit Attendance"
+              attendanceStore.submitting
+                ? t("attendance.submitting")
+                : t("attendance.submit")
             }}
           </button>
         </div>
       </template>
 
-      <p v-else class="muted">Select a class to begin.</p>
+      <p v-else class="muted">{{ t("attendance.selectClass") }}</p>
     </template>
   </div>
 </template>
