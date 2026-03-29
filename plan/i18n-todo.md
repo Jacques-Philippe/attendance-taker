@@ -51,7 +51,11 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 - [x] `AttendanceStatusBadge.vue` — replace all inline text with appropriate `t()` keys
 - [x] `ClassSelector.vue` — replace all inline text with appropriate `t()` keys
 - [x] `DateRangePicker.vue` — replace all inline text with appropriate `t()` keys
-- [ ] `StatCard.vue` — replace all inline text with appropriate `t()` keys
+- [x] `StatCard.vue` — replace all inline text with appropriate `t()` keys
+
+## Phase 5.25 - Small issues with navigation
+
+- [ ] Fix issue where authenticated user is still able to navigate to /login and /register views
 
 ## Phase 5.5 — Language Selection Modal
 
