@@ -53,6 +53,16 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 - [ ] `DateRangePicker.vue` — replace all inline text with appropriate `t()` keys
 - [ ] `StatCard.vue` — replace all inline text with appropriate `t()` keys
 
+## Phase 5.5 — Language Selection Modal
+
+- [ ] Create `frontend/src/components/LocaleModal.vue` — modal overlay with a button per supported locale, closes on selection or backdrop click, traps focus, emits `close` event
+- [ ] Add scoped styles to `LocaleModal.vue`: backdrop overlay, centered modal card, locale buttons with `.active` state matching current locale
+- [ ] Add `topbar.changeLanguage` key to all three locale JSON files (the label for the dropdown trigger item)
+- [ ] In `TopBar.vue`, replace the inline language section in the dropdown with a single "Change language" button that sets a `showLocaleModal` ref to `true`
+- [ ] Import and render `<LocaleModal>` in `TopBar.vue`, bound to `showLocaleModal`, wiring its `close` event to set the ref back to `false`
+- [ ] Move the `selectLocale()` handler from `TopBar.vue` into `LocaleModal.vue` (or keep it in the store — locale setting stays in `useLocaleStore`)
+- [ ] Remove the now-unused `.dropdown-section`, `.dropdown-section-label` styles from `TopBar.vue`
+
 ---
 
 ## Phase 6 — Pre-commit Locale Key Check
