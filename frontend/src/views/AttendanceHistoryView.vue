@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import ClassSelector from "../components/ClassSelector.vue";
 import DateRangePicker from "../components/DateRangePicker.vue";
 import AttendanceStatusBadge from "../components/AttendanceStatusBadge.vue";
 import { useAttendanceStore } from "../stores/attendance";
 import { useClassesStore } from "../stores/classes";
 
+const { t } = useI18n();
 const attendanceStore = useAttendanceStore();
 const classesStore = useClassesStore();
 
@@ -55,11 +57,11 @@ watch(selectedClassId, loadSessions);
   <div class="page">
     <div class="controls">
       <div class="control-group">
-        <label>Class</label>
+        <label>{{ t("history.classLabel") }}</label>
         <ClassSelector v-model="selectedClassId" />
       </div>
       <div class="control-group">
-        <label>Date range</label>
+        <label>{{ t("history.dateRangeLabel") }}</label>
         <DateRangePicker v-model="dateRange" />
       </div>
     </div>
@@ -67,18 +69,20 @@ watch(selectedClassId, loadSessions);
     <p v-if="attendanceStore.error" class="error">
       {{ attendanceStore.error }}
     </p>
-    <p v-else-if="attendanceStore.loading" class="muted">Loading…</p>
+    <p v-else-if="attendanceStore.loading" class="muted">
+      {{ t("history.loading") }}
+    </p>
     <p v-else-if="filteredSessions.length === 0" class="muted">
-      No sessions found.
+      {{ t("history.noSessions") }}
     </p>
 
     <template v-else>
       <table>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Class</th>
-            <th>Period</th>
+            <th>{{ t("history.colDate") }}</th>
+            <th>{{ t("history.colClass") }}</th>
+            <th>{{ t("history.colPeriod") }}</th>
           </tr>
         </thead>
         <tbody>
@@ -103,15 +107,20 @@ watch(selectedClassId, loadSessions);
         class="detail-panel"
       >
         <h2>
-          Session detail —
-          {{ attendanceStore.currentSession.date }}
+          {{
+            t("history.sessionDetail", {
+              date: attendanceStore.currentSession.date,
+            })
+          }}
         </h2>
-        <p v-if="attendanceStore.loading" class="muted">Loading records…</p>
+        <p v-if="attendanceStore.loading" class="muted">
+          {{ t("history.loadingRecords") }}
+        </p>
         <table v-else>
           <thead>
             <tr>
-              <th>Student ID</th>
-              <th>Status</th>
+              <th>{{ t("history.colStudentId") }}</th>
+              <th>{{ t("history.colStatus") }}</th>
             </tr>
           </thead>
           <tbody>

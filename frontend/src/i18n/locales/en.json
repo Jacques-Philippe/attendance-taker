@@ -91,7 +91,9 @@
     "sessionDetail": "Session detail — {date}",
     "loadingRecords": "Loading records…",
     "colStudentId": "Student ID",
-    "colStatus": "Status"
+    "colStatus": "Status",
+    "dateFrom": "From",
+    "dateTo": "To"
   },
   "reports": {
     "classLabel": "Class",

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 import { useClassesStore } from "../stores/classes";
 
+const { t } = useI18n();
 defineProps<{ modelValue: number | null }>();
 const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
 
@@ -24,7 +26,7 @@ onMounted(() => {
       )
     "
   >
-    <option value="">— Select a class —</option>
+    <option value="">{{ t("common.selectClassPlaceholder") }}</option>
     <option v-for="cls in store.classes" :key="cls.id" :value="cls.id">
       {{ cls.name }} ({{ cls.period }})
     </option>

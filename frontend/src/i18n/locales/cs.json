@@ -91,7 +91,9 @@
     "sessionDetail": "Detail záznamu — {date}",
     "loadingRecords": "Načítání záznamů…",
     "colStudentId": "ID studenta",
-    "colStatus": "Stav"
+    "colStatus": "Stav",
+    "dateFrom": "Od",
+    "dateTo": "Do"
   },
   "reports": {
     "classLabel": "Třída",

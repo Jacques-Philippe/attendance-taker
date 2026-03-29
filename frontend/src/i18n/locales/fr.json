@@ -91,7 +91,9 @@
     "sessionDetail": "Détail de la session — {date}",
     "loadingRecords": "Chargement des enregistrements…",
     "colStudentId": "ID étudiant",
-    "colStatus": "Statut"
+    "colStatus": "Statut",
+    "dateFrom": "Du",
+    "dateTo": "Au"
   },
   "reports": {
     "classLabel": "Classe",

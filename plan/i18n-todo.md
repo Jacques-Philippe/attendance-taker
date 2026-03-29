@@ -43,14 +43,14 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 - [x] `DashboardView.vue` — replace all inline text with `t('dashboard.*')`
 - [x] `ClassManagementView.vue` — replace all inline text with `t('classes.*')`
 - [x] `TakeAttendanceView.vue` — replace all inline text with `t('attendance.*')`
-- [ ] `AttendanceHistoryView.vue` — replace all inline text with `t('history.*')`
+- [x] `AttendanceHistoryView.vue` — replace all inline text with `t('history.*')`
 - [ ] `ReportsView.vue` — replace all inline text with `t('reports.*')`
 - [ ] `StudentRecordView.vue` — replace all inline text with `t('studentRecord.*')`
 - [ ] `NotFoundView.vue` — replace all inline text with `t('common.notFound')`
 - [x] `AttendanceRoster.vue` — replace all inline text with appropriate `t()` keys
 - [x] `AttendanceStatusBadge.vue` — replace all inline text with appropriate `t()` keys
-- [ ] `ClassSelector.vue` — replace all inline text with appropriate `t()` keys
-- [ ] `DateRangePicker.vue` — replace all inline text with appropriate `t()` keys
+- [x] `ClassSelector.vue` — replace all inline text with appropriate `t()` keys
+- [x] `DateRangePicker.vue` — replace all inline text with appropriate `t()` keys
 - [ ] `StatCard.vue` — replace all inline text with appropriate `t()` keys
 
 ## Phase 5.5 — Language Selection Modal
