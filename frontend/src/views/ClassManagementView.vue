@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 import { useClassesStore } from "../stores/classes";
 
+const { t } = useI18n();
 const store = useClassesStore();
 
 // New class form
@@ -50,7 +52,7 @@ function cancelEditClass(id: number) {
 }
 
 async function confirmDeleteClass(id: number, name: string) {
-  if (!window.confirm(`Delete class "${name}" and all its students?`)) return;
+  if (!window.confirm(t("classes.confirmDeleteClass", { name }))) return;
   await store.deleteClass(id);
   if (expandedClass.value === id) expandedClass.value = null;
 }
@@ -87,7 +89,7 @@ function cancelEditStudent(studentId: number) {
 }
 
 async function removeStudent(classId: number, studentId: number, name: string) {
-  if (!window.confirm(`Remove student "${name}"?`)) return;
+  if (!window.confirm(t("classes.confirmRemoveStudent", { name }))) return;
   await store.removeStudent(classId, studentId);
 }
 </script>
@@ -95,7 +97,7 @@ async function removeStudent(classId: number, studentId: number, name: string) {
 <template>
   <div class="page">
     <button class="btn-primary" @click="showNewClassForm = !showNewClassForm">
-      + New class
+      {{ t("classes.newClass") }}
     </button>
 
     <form
@@ -103,10 +105,20 @@ async function removeStudent(classId: number, studentId: number, name: string) {
       class="inline-form"
       @submit.prevent="submitNewClass"
     >
-      <input v-model="newClassName" placeholder="Class name" required />
-      <input v-model="newClassPeriod" placeholder="Period" required />
-      <button type="submit">Create</button>
-      <button type="button" @click="showNewClassForm = false">Cancel</button>
+      <input
+        v-model="newClassName"
+        :placeholder="t('classes.classNamePlaceholder')"
+        required
+      />
+      <input
+        v-model="newClassPeriod"
+        :placeholder="t('classes.periodPlaceholder')"
+        required
+      />
+      <button type="submit">{{ t("classes.create") }}</button>
+      <button type="button" @click="showNewClassForm = false">
+        {{ t("classes.cancel") }}
+      </button>
     </form>
 
     <p v-if="store.error" class="error">{{ store.error }}</p>
@@ -116,26 +128,38 @@ async function removeStudent(classId: number, studentId: number, name: string) {
         <!-- View or edit row -->
         <div class="class-info">
           <template v-if="editingClass[cls.id]">
-            <input v-model="editingClass[cls.id].name" placeholder="Name" />
-            <input v-model="editingClass[cls.id].period" placeholder="Period" />
-            <button @click="submitEditClass(cls.id)">Save</button>
-            <button @click="cancelEditClass(cls.id)">Cancel</button>
+            <input
+              v-model="editingClass[cls.id].name"
+              :placeholder="t('classes.namePlaceholder')"
+            />
+            <input
+              v-model="editingClass[cls.id].period"
+              :placeholder="t('classes.periodPlaceholder')"
+            />
+            <button @click="submitEditClass(cls.id)">
+              {{ t("classes.save") }}
+            </button>
+            <button @click="cancelEditClass(cls.id)">
+              {{ t("classes.cancel") }}
+            </button>
           </template>
           <template v-else>
             <span class="class-name">{{ cls.name }}</span>
             <span class="class-period">{{ cls.period }}</span>
             <button @click="startEditClass(cls.id, cls.name, cls.period)">
-              Edit
+              {{ t("classes.edit") }}
             </button>
             <button
               class="danger"
               @click="confirmDeleteClass(cls.id, cls.name)"
             >
-              Delete
+              {{ t("classes.delete") }}
             </button>
             <button @click="toggleStudents(cls.id)">
               {{
-                expandedClass === cls.id ? "Hide students" : "Manage students"
+                expandedClass === cls.id
+                  ? t("classes.hideStudents")
+                  : t("classes.manageStudents")
               }}
             </button>
           </template>
@@ -149,10 +173,10 @@ async function removeStudent(classId: number, studentId: number, name: string) {
           <form class="inline-form" @submit.prevent="submitAddStudent(cls.id)">
             <input
               v-model="newStudentName[cls.id]"
-              placeholder="Student name"
+              :placeholder="t('classes.studentNamePlaceholder')"
               required
             />
-            <button type="submit">Add student</button>
+            <button type="submit">{{ t("classes.addStudent") }}</button>
           </form>
           <ul class="student-list">
             <li
@@ -163,20 +187,22 @@ async function removeStudent(classId: number, studentId: number, name: string) {
               <template v-if="editingStudent[student.id] !== undefined">
                 <input v-model="editingStudent[student.id]" />
                 <button @click="submitEditStudent(cls.id, student.id)">
-                  Save
+                  {{ t("classes.save") }}
                 </button>
-                <button @click="cancelEditStudent(student.id)">Cancel</button>
+                <button @click="cancelEditStudent(student.id)">
+                  {{ t("classes.cancel") }}
+                </button>
               </template>
               <template v-else>
                 <span>{{ student.name }}</span>
                 <button @click="startEditStudent(student.id, student.name)">
-                  Rename
+                  {{ t("classes.rename") }}
                 </button>
                 <button
                   class="danger"
                   @click="removeStudent(cls.id, student.id, student.name)"
                 >
-                  Remove
+                  {{ t("classes.remove") }}
                 </button>
               </template>
             </li>
