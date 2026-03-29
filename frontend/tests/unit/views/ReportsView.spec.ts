@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import ReportsView from "@/views/ReportsView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
 
 const { mockFetchReports } = vi.hoisted(() => ({
   mockFetchReports: vi.fn().mockResolvedValue(undefined),
@@ -59,7 +59,10 @@ vi.mock("@/stores/classes", () => ({
 function mountView() {
   return mount(ReportsView, {
     global: {
-      plugins: [makeRouter({ path: "/reports", component: ReportsView })],
+      plugins: [
+        makeRouter({ path: "/reports", component: ReportsView }),
+        makeI18n(),
+      ],
     },
   });
 }

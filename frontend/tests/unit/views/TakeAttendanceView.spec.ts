@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import TakeAttendanceView from "@/views/TakeAttendanceView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
 
 const { mockFetchClass, mockSubmitAttendance } = vi.hoisted(() => ({
   mockFetchClass: vi.fn().mockResolvedValue(undefined),
@@ -45,6 +45,7 @@ function mountView() {
     global: {
       plugins: [
         makeRouter({ path: "/attendance", component: TakeAttendanceView }),
+        makeI18n(),
       ],
     },
   });

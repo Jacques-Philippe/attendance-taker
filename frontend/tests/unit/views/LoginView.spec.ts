@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import LoginView from "@/views/LoginView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
 
 // vi.mock is hoisted before variable declarations, so use vi.hoisted to share
 // the mock fn reference with the factory.
@@ -16,7 +16,12 @@ vi.mock("@/stores/auth", () => ({
 
 function mountLoginView() {
   return mount(LoginView, {
-    global: { plugins: [makeRouter({ path: "/login", component: LoginView })] },
+    global: {
+      plugins: [
+        makeRouter({ path: "/login", component: LoginView }),
+        makeI18n(),
+      ],
+    },
   });
 }
 

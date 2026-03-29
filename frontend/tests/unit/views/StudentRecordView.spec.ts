@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import StudentRecordView from "@/views/StudentRecordView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
 
 const { mockFetchStudentHistory } = vi.hoisted(() => ({
   mockFetchStudentHistory: vi.fn().mockResolvedValue(undefined),
@@ -35,7 +35,7 @@ async function mountView(studentId = 100) {
   router.push(`/students/${studentId}`);
   await router.isReady();
   return mount(StudentRecordView, {
-    global: { plugins: [router] },
+    global: { plugins: [router, makeI18n()] },
   });
 }
 

@@ -4,6 +4,7 @@ import { mount, enableAutoUnmount } from "@vue/test-utils";
 enableAutoUnmount(afterEach);
 import { createRouter, createMemoryHistory } from "vue-router";
 import TopBar from "@/components/TopBar.vue";
+import { makeI18n } from "../../utils";
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
@@ -48,7 +49,7 @@ async function mountTopBar(routeName = "dashboard") {
   });
   await router.push(routePath[routeName] ?? "/dashboard");
   await router.isReady();
-  return mount(TopBar, { global: { plugins: [router] } });
+  return mount(TopBar, { global: { plugins: [router, makeI18n()] } });
 }
 
 // ─── Avatar letter ────────────────────────────────────────────────────────────

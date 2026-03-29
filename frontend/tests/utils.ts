@@ -1,7 +1,16 @@
 import { createRouter, createMemoryHistory } from "vue-router";
+import { createI18n } from "vue-i18n";
 import type { Component } from "vue";
+import en from "@/i18n/locales/en.json";
 
 const stub = { template: "<div />" };
+
+/**
+ * Creates a fresh vue-i18n instance for use in unit tests (English locale).
+ */
+export function makeI18n() {
+  return createI18n({ legacy: false, locale: "en", messages: { en } });
+}
 
 /**
  * Creates a fresh in-memory router for use in unit tests.

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import RegisterView from "@/views/RegisterView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
 
 const { mockRegister } = vi.hoisted(() => ({ mockRegister: vi.fn() }));
 
@@ -15,7 +15,10 @@ vi.mock("@/stores/auth", () => ({
 function mountRegisterView() {
   return mount(RegisterView, {
     global: {
-      plugins: [makeRouter({ path: "/register", component: RegisterView })],
+      plugins: [
+        makeRouter({ path: "/register", component: RegisterView }),
+        makeI18n(),
+      ],
     },
   });
 }
