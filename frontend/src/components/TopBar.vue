@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute, RouterLink } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useAuthStore } from "../stores/auth";
+import { useLocaleStore } from "../stores/locale";
 
+const { t } = useI18n();
 const authStore = useAuthStore();
+const localeStore = useLocaleStore();
 const route = useRoute();
 const isDropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -19,21 +23,21 @@ const breadcrumbs = computed(() => {
 
   // Map route names to breadcrumb labels
   const routeLabels: Record<string, string> = {
-    dashboard: "Dashboard",
-    classes: "Classes",
-    attendance: "Take Attendance",
-    history: "History",
-    reports: "Reports",
-    "student-record": "Student Record",
+    dashboard: t("nav.dashboard"),
+    classes: t("nav.classes"),
+    attendance: t("nav.attendance"),
+    history: t("nav.history"),
+    reports: t("nav.reports"),
+    "student-record": t("nav.studentRecord"),
   };
 
   const routeName = route.name as string;
-  const currentLabel = routeLabels[routeName] || routeName || "Home";
+  const currentLabel = routeLabels[routeName] || routeName || t("nav.home");
 
   // Add Home link first (except for dashboard)
   if (routeName !== "dashboard") {
     crumbs.push({
-      name: "Home",
+      name: t("nav.home"),
       path: "/dashboard",
       isCurrent: false,
     });
@@ -65,6 +69,13 @@ const closeDropdown = () => {
 const handleLogout = async () => {
   closeDropdown();
   await authStore.logout();
+};
+
+const selectLocale = (
+  code: (typeof localeStore.SUPPORTED_LOCALES)[number]["code"],
+) => {
+  localeStore.setLocale(code);
+  closeDropdown();
 };
 
 const handleClickOutside = (event: MouseEvent) => {
@@ -135,8 +146,23 @@ onUnmounted(() => {
           <div class="dropdown-header">
             <span class="username">{{ authStore.user?.username }}</span>
           </div>
+          <div class="dropdown-section">
+            <span class="dropdown-section-label">{{
+              t("topbar.language")
+            }}</span>
+            <button
+              v-for="loc in localeStore.SUPPORTED_LOCALES"
+              :key="loc.code"
+              class="dropdown-button"
+              :class="{ active: localeStore.current === loc.code }"
+              @click="selectLocale(loc.code)"
+            >
+              {{ loc.label }}
+            </button>
+          </div>
+          <hr class="dropdown-divider" />
           <button class="dropdown-button logout-button" @click="handleLogout">
-            Logout
+            {{ t("topbar.logout") }}
           </button>
         </div>
       </div>
@@ -277,6 +303,29 @@ onUnmounted(() => {
 .logout-button:hover {
   background-color: rgba(239, 68, 68, 0.1);
   color: #ff6b6b;
+}
+
+.dropdown-section {
+  padding: 8px 0 4px;
+}
+
+.dropdown-section-label {
+  display: block;
+  padding: 0 16px 4px;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dropdown-button.active {
+  color: #646cff;
+}
+
+.dropdown-divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 4px 0;
 }
 
 /* Breadcrumbs */

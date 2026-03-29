@@ -19,14 +19,14 @@
 
 ## Phase 3 — TopBar Language Switcher
 
-- [ ] Import and use `useLocaleStore` and `useI18n` in `TopBar.vue`
-- [ ] Add a language section to the dropdown (above the logout button) with a button per supported locale
-- [ ] Apply `.active` class to the button matching the current locale
-- [ ] Add a `<hr class="dropdown-divider" />` between the language section and the logout button
-- [ ] Add scoped styles for `.dropdown-section-label`, `.dropdown-button.active`, and `.dropdown-divider`
-- [ ] Translate the "Language" section heading via `t('topbar.language')`
-- [ ] Translate the "Logout" button label via `t('topbar.logout')`
-- [ ] Convert the hardcoded `routeLabels` map in `TopBar.vue` to a `computed` that returns `t('nav.*')` values so breadcrumbs react to locale changes
+- [x] Import and use `useLocaleStore` and `useI18n` in `TopBar.vue`
+- [x] Add a language section to the dropdown (above the logout button) with a button per supported locale
+- [x] Apply `.active` class to the button matching the current locale
+- [x] Add a `<hr class="dropdown-divider" />` between the language section and the logout button
+- [x] Add scoped styles for `.dropdown-section-label`, `.dropdown-button.active`, and `.dropdown-divider`
+- [x] Translate the "Language" section heading via `t('topbar.language')`
+- [x] Translate the "Logout" button label via `t('topbar.logout')`
+- [x] Convert the hardcoded `routeLabels` map in `TopBar.vue` to a `computed` that returns `t('nav.*')` values so breadcrumbs react to locale changes
 
 ---
 
