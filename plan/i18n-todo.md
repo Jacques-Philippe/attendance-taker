@@ -69,7 +69,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 
 ## Phase 5.75 - Make route paths variables
 
-- [ ] At the moment the route paths are all hardcoded, meaning they need to be changed everywhere when they change
+- [x] At the moment the route paths are all hardcoded, meaning they need to be changed everywhere when they change
 
 ---
 
