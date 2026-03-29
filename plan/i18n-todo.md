@@ -55,7 +55,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 
 ## Phase 5.25 - Small issues with navigation
 
-- [ ] Fix issue where authenticated user is still able to navigate to /login and /register views
+- [x] Fix issue where authenticated user is still able to navigate to /login and /register views
 
 ## Phase 5.5 — Language Selection Modal
 

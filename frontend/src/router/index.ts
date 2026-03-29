@@ -65,9 +65,7 @@ router.beforeEach(async (to) => {
   const publicRoutes = ["login", "register"];
   const isPublic = publicRoutes.includes(to.name as string);
 
-  if (!isPublic) {
-    await authStore.fetchCurrentUser();
-  }
+  await authStore.fetchCurrentUser();
 
   if (isPublic && authStore.isAuthenticated) {
     return "/";
