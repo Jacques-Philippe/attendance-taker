@@ -2,6 +2,7 @@ import { createRouter, createMemoryHistory } from "vue-router";
 import { createI18n } from "vue-i18n";
 import type { Component } from "vue";
 import en from "@/i18n/locales/en.json";
+import { PATHS } from "@/router/paths";
 
 const stub = { template: "<div />" };
 
@@ -25,13 +26,13 @@ export function makeRouter(current?: { path: string; component: Component }) {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: "/login", component: resolve("/login") },
-      { path: "/register", component: resolve("/register") },
-      { path: "/dashboard", component: resolve("/dashboard") },
-      { path: "/classes", component: resolve("/classes") },
-      { path: "/attendance", component: resolve("/attendance") },
-      { path: "/history", component: resolve("/history") },
-      { path: "/reports", component: resolve("/reports") },
+      { path: PATHS.login, component: resolve(PATHS.login) },
+      { path: PATHS.register, component: resolve(PATHS.register) },
+      { path: PATHS.dashboard, component: resolve(PATHS.dashboard) },
+      { path: PATHS.classes, component: resolve(PATHS.classes) },
+      { path: PATHS.attendance, component: resolve(PATHS.attendance) },
+      { path: PATHS.history, component: resolve(PATHS.history) },
+      { path: PATHS.reports, component: resolve(PATHS.reports) },
       { path: "/students/:id", component: resolve("/students/:id") },
     ],
   });

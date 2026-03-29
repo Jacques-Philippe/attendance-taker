@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount, flushPromises } from "@vue/test-utils";
 import AttendanceHistoryView from "@/views/AttendanceHistoryView.vue";
 import { makeRouter, makeI18n } from "../../utils";
+import { PATHS } from "@/router/paths";
 
 const { mockFetchSessions, mockFetchSession } = vi.hoisted(() => ({
   mockFetchSessions: vi.fn().mockResolvedValue(undefined),
@@ -64,7 +65,7 @@ function mountView() {
   return mount(AttendanceHistoryView, {
     global: {
       plugins: [
-        makeRouter({ path: "/history", component: AttendanceHistoryView }),
+        makeRouter({ path: PATHS.history, component: AttendanceHistoryView }),
         makeI18n(),
       ],
     },
