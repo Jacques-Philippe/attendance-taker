@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { setActivePinia, createPinia } from "pinia";
 import { useAuthStore } from "@/stores/auth";
+import { PATHS } from "@/router/paths";
 
 const { mockPush, mockLogin, mockLogout, mockRegister, mockGetMe } = vi.hoisted(
   () => ({
@@ -58,7 +59,7 @@ describe("useAuthStore — login()", () => {
     mockLogin.mockResolvedValueOnce({ user: testUser });
     const store = useAuthStore();
     await store.login("teacher1", "mypassword");
-    expect(mockPush).toHaveBeenCalledWith("/dashboard");
+    expect(mockPush).toHaveBeenCalledWith(PATHS.dashboard);
   });
 });
 
@@ -87,7 +88,7 @@ describe("useAuthStore — logout()", () => {
     mockLogout.mockResolvedValueOnce(undefined);
     const store = useAuthStore();
     await store.logout();
-    expect(mockPush).toHaveBeenCalledWith("/login");
+    expect(mockPush).toHaveBeenCalledWith(PATHS.login);
   });
 });
 
@@ -118,7 +119,7 @@ describe("useAuthStore — register()", () => {
     mockRegister.mockResolvedValueOnce(testUser);
     const store = useAuthStore();
     await store.register("newuser", "mypassword");
-    expect(mockPush).toHaveBeenCalledWith("/dashboard");
+    expect(mockPush).toHaveBeenCalledWith(PATHS.dashboard);
   });
 });
 

@@ -26,14 +26,42 @@ export function makeRouter(current?: { path: string; component: Component }) {
   return createRouter({
     history: createMemoryHistory(),
     routes: [
-      { path: PATHS.login, component: resolve(PATHS.login) },
-      { path: PATHS.register, component: resolve(PATHS.register) },
-      { path: PATHS.dashboard, component: resolve(PATHS.dashboard) },
-      { path: PATHS.classes, component: resolve(PATHS.classes) },
-      { path: PATHS.attendance, component: resolve(PATHS.attendance) },
-      { path: PATHS.history, component: resolve(PATHS.history) },
-      { path: PATHS.reports, component: resolve(PATHS.reports) },
-      { path: "/students/:id", component: resolve("/students/:id") },
+      { path: PATHS.login, name: "login", component: resolve(PATHS.login) },
+      {
+        path: PATHS.register,
+        name: "register",
+        component: resolve(PATHS.register),
+      },
+      {
+        path: PATHS.dashboard,
+        name: "dashboard",
+        component: resolve(PATHS.dashboard),
+      },
+      {
+        path: PATHS.classes,
+        name: "classes",
+        component: resolve(PATHS.classes),
+      },
+      {
+        path: PATHS.attendance,
+        name: "attendance",
+        component: resolve(PATHS.attendance),
+      },
+      {
+        path: PATHS.history,
+        name: "history",
+        component: resolve(PATHS.history),
+      },
+      {
+        path: PATHS.reports,
+        name: "reports",
+        component: resolve(PATHS.reports),
+      },
+      {
+        path: "/students/:id",
+        name: "student-record",
+        component: resolve("/students/:id"),
+      },
     ],
   });
 }

@@ -4,7 +4,8 @@ import { mount, enableAutoUnmount } from "@vue/test-utils";
 enableAutoUnmount(afterEach);
 import { createRouter, createMemoryHistory } from "vue-router";
 import TopBar from "@/components/TopBar.vue";
-import { makeI18n } from "../../utils";
+import { makeI18n, makeRouter } from "../../utils";
+import { PATHS } from "@/router/paths";
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
@@ -22,17 +23,6 @@ vi.mock("@/stores/auth", () => ({
 
 // ─── Router helpers ───────────────────────────────────────────────────────────
 
-const stub = { template: "<div />" };
-
-const namedRoutes = [
-  { path: "/dashboard", name: "dashboard", component: stub },
-  { path: "/classes", name: "classes", component: stub },
-  { path: "/attendance", name: "attendance", component: stub },
-  { path: "/history", name: "history", component: stub },
-  { path: "/reports", name: "reports", component: stub },
-  { path: "/students/:id", name: "student-record", component: stub },
-];
-
 const routePath: Record<string, string> = {
   dashboard: "/dashboard",
   classes: "/classes",
@@ -43,11 +33,8 @@ const routePath: Record<string, string> = {
 };
 
 async function mountTopBar(routeName = "dashboard") {
-  const router = createRouter({
-    history: createMemoryHistory(),
-    routes: namedRoutes,
-  });
-  await router.push(routePath[routeName] ?? "/dashboard");
+  const router = makeRouter();
+  await router.push(routePath[routeName] ?? PATHS.dashboard);
   await router.isReady();
   return mount(TopBar, { global: { plugins: [router, makeI18n()] } });
 }
@@ -107,7 +94,7 @@ describe("TopBar — breadcrumbs", () => {
   it("'Home' link points to /dashboard", async () => {
     const wrapper = await mountTopBar("classes");
     const homeLink = wrapper.find(".breadcrumb-link");
-    expect(homeLink.attributes("href")).toBe("/dashboard");
+    expect(homeLink.attributes("href")).toBe(PATHS.dashboard);
   });
 });
 
