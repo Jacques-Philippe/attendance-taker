@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { RouterLink } from "vue-router";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 </script>
 
 <template>
   <div class="dashboard">
     <nav class="nav-links">
-      <RouterLink to="/attendance">Take Attendance</RouterLink>
-      <RouterLink to="/classes">Manage Classes</RouterLink>
-      <RouterLink to="/history">Attendance History</RouterLink>
-      <RouterLink to="/reports">Reports</RouterLink>
+      <RouterLink to="/attendance">{{
+        t("dashboard.takeAttendance")
+      }}</RouterLink>
+      <RouterLink to="/classes">{{ t("dashboard.manageClasses") }}</RouterLink>
+      <RouterLink to="/history">{{
+        t("dashboard.attendanceHistory")
+      }}</RouterLink>
+      <RouterLink to="/reports">{{ t("dashboard.reports") }}</RouterLink>
     </nav>
   </div>
 </template>
