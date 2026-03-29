@@ -38,7 +38,7 @@ const breadcrumbs = computed(() => {
   if (routeName !== "dashboard") {
     crumbs.push({
       name: t("nav.home"),
-      path: "/dashboard",
+      path: "/",
       isCurrent: false,
     });
   }

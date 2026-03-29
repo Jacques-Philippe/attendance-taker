@@ -15,7 +15,7 @@ const loading = ref(false);
 
 onMounted(() => {
   if (authStore.isAuthenticated) {
-    router.push("/dashboard");
+    router.push("/");
   }
 });
 

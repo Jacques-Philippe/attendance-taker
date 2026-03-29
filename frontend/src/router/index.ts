@@ -7,10 +7,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      redirect: "/dashboard",
-    },
-    {
       path: "/login",
       name: "login",
       component: LoginView,
@@ -25,7 +21,7 @@ const router = createRouter({
       component: AppLayout,
       children: [
         {
-          path: "/dashboard",
+          path: "",
           name: "dashboard",
           component: () => import("../views/DashboardView.vue"),
         },
@@ -74,7 +70,7 @@ router.beforeEach(async (to) => {
   }
 
   if (isPublic && authStore.isAuthenticated) {
-    return "/dashboard";
+    return "/";
   }
 
   if (!isPublic && !authStore.isAuthenticated) {

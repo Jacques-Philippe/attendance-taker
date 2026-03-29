@@ -1,8 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+</script>
 
 <template>
   <div>
-    <h1>404 — Page Not Found</h1>
-    <RouterLink to="/">Go home</RouterLink>
+    <h1>{{ t("common.notFound") }}</h1>
+    <RouterLink to="/">{{ t("common.goHome") }}</RouterLink>
   </div>
 </template>

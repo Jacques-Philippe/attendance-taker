@@ -13,7 +13,7 @@ export const useAuthStore = defineStore("auth", () => {
   async function login(username: string, password: string): Promise<void> {
     const response = await authApi.login({ username, password });
     user.value = response.user;
-    await router.push("/dashboard");
+    await router.push("/");
   }
 
   async function logout(): Promise<void> {
@@ -25,7 +25,7 @@ export const useAuthStore = defineStore("auth", () => {
   async function register(username: string, password: string): Promise<void> {
     const registeredUser = await authApi.register({ username, password });
     user.value = registeredUser;
-    await router.push("/dashboard");
+    await router.push("/");
   }
 
   async function fetchCurrentUser(): Promise<void> {
