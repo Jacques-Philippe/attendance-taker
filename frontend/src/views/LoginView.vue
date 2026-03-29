@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useAuthStore } from "../stores/auth";
 
+const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -23,7 +25,7 @@ async function handleSubmit() {
   try {
     await authStore.login(username.value, password.value);
   } catch {
-    error.value = "Invalid username or password.";
+    error.value = t("auth.login.invalidCredentials");
   } finally {
     loading.value = false;
   }
@@ -33,10 +35,10 @@ async function handleSubmit() {
 <template>
   <div class="login-page">
     <div class="login-card">
-      <h1>Attendance Taker</h1>
+      <h1>{{ t("auth.appName") }}</h1>
       <form @submit.prevent="handleSubmit">
         <div class="field">
-          <label for="username">Username</label>
+          <label for="username">{{ t("auth.login.username") }}</label>
           <input
             id="username"
             v-model="username"
@@ -46,7 +48,7 @@ async function handleSubmit() {
           />
         </div>
         <div class="field">
-          <label for="password">Password</label>
+          <label for="password">{{ t("auth.login.password") }}</label>
           <input
             id="password"
             v-model="password"
@@ -57,12 +59,12 @@ async function handleSubmit() {
         </div>
         <p v-if="error" class="error">{{ error }}</p>
         <button type="submit" :disabled="loading">
-          {{ loading ? "Signing in…" : "Sign In" }}
+          {{ loading ? t("auth.login.submitting") : t("auth.login.submit") }}
         </button>
       </form>
       <p class="register-link">
-        Don't have an account?
-        <RouterLink to="/register">Create one</RouterLink>
+        {{ t("auth.login.noAccount") }}
+        <RouterLink to="/register">{{ t("auth.login.createOne") }}</RouterLink>
       </p>
     </div>
   </div>

@@ -38,7 +38,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 
 ## Phase 5 — Replace Hardcoded Strings
 
-- [ ] `LoginView.vue` — replace all inline text with `t('auth.login.*')`
+- [x] `LoginView.vue` — replace all inline text with `t('auth.login.*')`
 - [ ] `RegisterView.vue` — replace all inline text with `t('auth.register.*')`
 - [ ] `DashboardView.vue` — replace all inline text with `t('dashboard.*')`
 - [ ] `ClassManagementView.vue` — replace all inline text with `t('classes.*')`
