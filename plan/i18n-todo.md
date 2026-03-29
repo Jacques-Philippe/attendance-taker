@@ -45,7 +45,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 - [x] `TakeAttendanceView.vue` — replace all inline text with `t('attendance.*')`
 - [x] `AttendanceHistoryView.vue` — replace all inline text with `t('history.*')`
 - [x] `ReportsView.vue` — replace all inline text with `t('reports.*')`
-- [ ] `StudentRecordView.vue` — replace all inline text with `t('studentRecord.*')`
+- [x] `StudentRecordView.vue` — replace all inline text with `t('studentRecord.*')`
 - [ ] `NotFoundView.vue` — replace all inline text with `t('common.notFound')`
 - [x] `AttendanceRoster.vue` — replace all inline text with appropriate `t()` keys
 - [x] `AttendanceStatusBadge.vue` — replace all inline text with appropriate `t()` keys
