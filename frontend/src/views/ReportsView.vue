@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import { PATHS } from "../router/paths";
 import ClassSelector from "../components/ClassSelector.vue";
 import StatCard from "../components/StatCard.vue";
 import { useAttendanceStore } from "../stores/attendance";
 import { downloadReportsCsv } from "../api/attendance";
 
+const { t } = useI18n();
 const attendanceStore = useAttendanceStore();
 
 const selectedClassId = ref<number | null>(null);
@@ -18,7 +21,7 @@ async function handleDownload() {
   try {
     await downloadReportsCsv(selectedClassId!.value!);
   } catch {
-    downloadError.value = "Download failed. Please try again.";
+    downloadError.value = t("reports.downloadFailed");
   } finally {
     downloading.value = false;
   }
@@ -42,7 +45,7 @@ watch(selectedClassId, (id) => {
   <div class="page">
     <div class="controls">
       <div class="control-group">
-        <label>Class</label>
+        <label>{{ t("reports.classLabel") }}</label>
         <ClassSelector v-model="selectedClassId" />
       </div>
     </div>
@@ -50,23 +53,30 @@ watch(selectedClassId, (id) => {
     <p v-if="attendanceStore.error" class="error">
       {{ attendanceStore.error }}
     </p>
-    <p v-else-if="attendanceStore.loading" class="muted">Loading…</p>
+    <p v-else-if="attendanceStore.loading" class="muted">
+      {{ t("reports.loading") }}
+    </p>
     <p v-else-if="selectedClassId === null" class="muted">
-      Select a class to view its report.
+      {{ t("reports.selectClass") }}
     </p>
 
     <template v-else-if="attendanceStore.reports">
       <div class="report-toolbar">
         <div class="stat-cards">
           <StatCard
-            label="Total Sessions"
+            :label="t('reports.totalSessions')"
             :value="attendanceStore.reports.totalSessions"
           />
-          <StatCard label="Class Present Rate" :value="presentRate" />
+          <StatCard
+            :label="t('reports.classPresentRate')"
+            :value="presentRate"
+          />
         </div>
         <div class="download-group">
           <button :disabled="downloading" @click="handleDownload">
-            {{ downloading ? "Downloading…" : "Download CSV" }}
+            {{
+              downloading ? t("reports.downloading") : t("reports.downloadCsv")
+            }}
           </button>
           <p v-if="downloadError" class="error download-error">
             {{ downloadError }}
@@ -77,13 +87,13 @@ watch(selectedClassId, (id) => {
       <table>
         <thead>
           <tr>
-            <th>Student</th>
-            <th>Total</th>
-            <th>Present</th>
-            <th>Absent</th>
-            <th>Late</th>
-            <th>Excused</th>
-            <th>Present %</th>
+            <th>{{ t("reports.colStudent") }}</th>
+            <th>{{ t("reports.colTotal") }}</th>
+            <th>{{ t("reports.colPresent") }}</th>
+            <th>{{ t("reports.colAbsent") }}</th>
+            <th>{{ t("reports.colLate") }}</th>
+            <th>{{ t("reports.colExcused") }}</th>
+            <th>{{ t("reports.colPresentPct") }}</th>
           </tr>
         </thead>
         <tbody>
@@ -93,7 +103,7 @@ watch(selectedClassId, (id) => {
           >
             <td>
               <RouterLink
-                :to="`/students/${student.studentId}`"
+                :to="PATHS.studentRecord(student.studentId)"
                 class="student-link"
               >
                 {{ student.studentName }}

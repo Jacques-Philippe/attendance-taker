@@ -1,0 +1,136 @@
+{
+  "topbar": {
+    "language": "Language",
+    "logout": "Logout",
+    "changeLanguage": "Change language"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "classes": "Classes",
+    "attendance": "Take Attendance",
+    "history": "History",
+    "reports": "Reports",
+    "studentRecord": "Student Record"
+  },
+  "auth": {
+    "appName": "Attendance Taker",
+    "login": {
+      "username": "Username",
+      "password": "Password",
+      "submit": "Sign In",
+      "submitting": "Signing in…",
+      "invalidCredentials": "Invalid username or password.",
+      "noAccount": "Don't have an account?",
+      "createOne": "Create one"
+    },
+    "register": {
+      "title": "Create Account",
+      "username": "Username",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "submitting": "Creating account…",
+      "passwordMismatch": "Passwords do not match.",
+      "usernameTaken": "Username is already taken.",
+      "failed": "Registration failed. Please try again.",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in"
+    }
+  },
+  "dashboard": {
+    "takeAttendance": "Take Attendance",
+    "manageClasses": "Manage Classes",
+    "attendanceHistory": "Attendance History",
+    "reports": "Reports"
+  },
+  "classes": {
+    "newClass": "+ New class",
+    "classNamePlaceholder": "Class name",
+    "periodPlaceholder": "Period",
+    "namePlaceholder": "Name",
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "manageStudents": "Manage students",
+    "hideStudents": "Hide students",
+    "studentNamePlaceholder": "Student name",
+    "addStudent": "Add student",
+    "rename": "Rename",
+    "remove": "Remove",
+    "confirmDeleteClass": "Delete class \"{name}\" and all its students?",
+    "confirmRemoveStudent": "Remove student \"{name}\"?"
+  },
+  "attendance": {
+    "title": "Take Attendance",
+    "classLabel": "Class",
+    "dateLabel": "Date",
+    "loadingRoster": "Loading roster…",
+    "noStudents": "This class has no students yet.",
+    "selectClass": "Select a class to begin.",
+    "submit": "Submit Attendance",
+    "submitting": "Submitting…",
+    "successTitle": "Attendance submitted!",
+    "takeAnother": "Take another",
+    "colStudent": "Student",
+    "colStatus": "Status",
+    "statusPresent": "Present",
+    "statusAbsent": "Absent",
+    "statusLate": "Late",
+    "statusExcused": "Excused"
+  },
+  "history": {
+    "classLabel": "Class",
+    "dateRangeLabel": "Date range",
+    "loading": "Loading…",
+    "noSessions": "No sessions found.",
+    "colDate": "Date",
+    "colClass": "Class",
+    "colPeriod": "Period",
+    "sessionDetail": "Session detail — {date}",
+    "loadingRecords": "Loading records…",
+    "colStudentId": "Student ID",
+    "colStatus": "Status",
+    "dateFrom": "From",
+    "dateTo": "To"
+  },
+  "reports": {
+    "classLabel": "Class",
+    "loading": "Loading…",
+    "selectClass": "Select a class to view its report.",
+    "totalSessions": "Total Sessions",
+    "classPresentRate": "Class Present Rate",
+    "downloadCsv": "Download CSV",
+    "downloading": "Downloading…",
+    "downloadFailed": "Download failed. Please try again.",
+    "colStudent": "Student",
+    "colTotal": "Total",
+    "colPresent": "Present",
+    "colAbsent": "Absent",
+    "colLate": "Late",
+    "colExcused": "Excused",
+    "colPresentPct": "Present %"
+  },
+  "studentRecord": {
+    "backToReports": "← Reports",
+    "loading": "Loading…",
+    "noRecords": "No attendance records yet.",
+    "colDate": "Date",
+    "colPeriod": "Period",
+    "colStatus": "Status"
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong.",
+    "notFound": "404 — Page Not Found",
+    "goHome": "Go home",
+    "selectClassPlaceholder": "— Select a class —",
+    "statusPresent": "Present",
+    "statusAbsent": "Absent",
+    "statusLate": "Late",
+    "statusExcused": "Excused",
+    "close": "Close"
+  }
+}

@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import type { AttendanceStatus } from "../types/attendance";
 
-defineProps<{ status: AttendanceStatus; active: boolean }>();
+const { t } = useI18n();
+const props = defineProps<{ status: AttendanceStatus; active: boolean }>();
 const emit = defineEmits<{ click: [] }>();
+
+const label = computed(() => {
+  const map: Record<AttendanceStatus, string> = {
+    present: t("attendance.statusPresent"),
+    absent: t("attendance.statusAbsent"),
+    late: t("attendance.statusLate"),
+    excused: t("attendance.statusExcused"),
+  };
+  return map[props.status];
+});
 </script>
 
 <template>
@@ -11,7 +24,7 @@ const emit = defineEmits<{ click: [] }>();
     :class="['badge', status, { active }]"
     @click="emit('click')"
   >
-    {{ status.charAt(0).toUpperCase() + status.slice(1) }}
+    {{ label }}
   </button>
 </template>
 

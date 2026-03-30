@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import AttendanceRoster from "@/components/AttendanceRoster.vue";
 import type { AttendanceRecordDraft } from "@/types/attendance";
+import { makeI18n } from "../../utils";
 
 const students = [
   { id: 100, name: "Alice", classId: 1 },
@@ -14,7 +15,7 @@ const drafts: AttendanceRecordDraft[] = [
 ];
 
 function mountRoster(props = { students, modelValue: drafts }) {
-  return mount(AttendanceRoster, { props });
+  return mount(AttendanceRoster, { props, global: { plugins: [makeI18n()] } });
 }
 
 // ─── Rendering ────────────────────────────────────────────────────────────────

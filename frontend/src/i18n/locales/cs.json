@@ -1,0 +1,136 @@
+{
+  "topbar": {
+    "language": "Jazyk",
+    "logout": "Odhlásit se",
+    "changeLanguage": "Změnit jazyk"
+  },
+  "nav": {
+    "home": "Domů",
+    "dashboard": "Přehled",
+    "classes": "Třídy",
+    "attendance": "Zapsat docházku",
+    "history": "Historie",
+    "reports": "Přehledy",
+    "studentRecord": "Záznam studenta"
+  },
+  "auth": {
+    "appName": "Docházka",
+    "login": {
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "submit": "Přihlásit se",
+      "submitting": "Přihlašování…",
+      "invalidCredentials": "Neplatné uživatelské jméno nebo heslo.",
+      "noAccount": "Nemáte účet?",
+      "createOne": "Vytvořit účet"
+    },
+    "register": {
+      "title": "Vytvořit účet",
+      "username": "Uživatelské jméno",
+      "password": "Heslo",
+      "confirmPassword": "Potvrdit heslo",
+      "submit": "Vytvořit účet",
+      "submitting": "Vytváření účtu…",
+      "passwordMismatch": "Hesla se neshodují.",
+      "usernameTaken": "Toto uživatelské jméno je již obsazeno.",
+      "failed": "Registrace se nezdařila. Zkuste to prosím znovu.",
+      "hasAccount": "Již máte účet?",
+      "signIn": "Přihlásit se"
+    }
+  },
+  "dashboard": {
+    "takeAttendance": "Zapsat docházku",
+    "manageClasses": "Správa tříd",
+    "attendanceHistory": "Historie docházky",
+    "reports": "Přehledy"
+  },
+  "classes": {
+    "newClass": "+ Nová třída",
+    "classNamePlaceholder": "Název třídy",
+    "periodPlaceholder": "Hodina",
+    "namePlaceholder": "Jméno",
+    "create": "Vytvořit",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "manageStudents": "Spravovat studenty",
+    "hideStudents": "Skrýt studenty",
+    "studentNamePlaceholder": "Jméno studenta",
+    "addStudent": "Přidat studenta",
+    "rename": "Přejmenovat",
+    "remove": "Odebrat",
+    "confirmDeleteClass": "Smazat třídu „{name}“ a všechny její studenty?",
+    "confirmRemoveStudent": "Odebrat studenta „{name}“?"
+  },
+  "attendance": {
+    "title": "Zapsat docházku",
+    "classLabel": "Třída",
+    "dateLabel": "Datum",
+    "loadingRoster": "Načítání seznamu…",
+    "noStudents": "Tato třída zatím nemá žádné studenty.",
+    "selectClass": "Vyberte třídu pro začátek.",
+    "submit": "Odeslat docházku",
+    "submitting": "Odesílání…",
+    "successTitle": "Docházka odeslána!",
+    "takeAnother": "Zapsat další",
+    "colStudent": "Student",
+    "colStatus": "Stav",
+    "statusPresent": "Přítomen",
+    "statusAbsent": "Nepřítomen",
+    "statusLate": "Pozdě",
+    "statusExcused": "Omluven"
+  },
+  "history": {
+    "classLabel": "Třída",
+    "dateRangeLabel": "Rozsah dat",
+    "loading": "Načítání…",
+    "noSessions": "Žádné záznamy nenalezeny.",
+    "colDate": "Datum",
+    "colClass": "Třída",
+    "colPeriod": "Hodina",
+    "sessionDetail": "Detail záznamu — {date}",
+    "loadingRecords": "Načítání záznamů…",
+    "colStudentId": "ID studenta",
+    "colStatus": "Stav",
+    "dateFrom": "Od",
+    "dateTo": "Do"
+  },
+  "reports": {
+    "classLabel": "Třída",
+    "loading": "Načítání…",
+    "selectClass": "Vyberte třídu pro zobrazení přehledu.",
+    "totalSessions": "Celkem hodin",
+    "classPresentRate": "Přítomnost ve třídě",
+    "downloadCsv": "Stáhnout CSV",
+    "downloading": "Stahování…",
+    "downloadFailed": "Stažení se nezdařilo. Zkuste to prosím znovu.",
+    "colStudent": "Student",
+    "colTotal": "Celkem",
+    "colPresent": "Přítomen",
+    "colAbsent": "Nepřítomen",
+    "colLate": "Pozdě",
+    "colExcused": "Omluven",
+    "colPresentPct": "% Přítomnosti"
+  },
+  "studentRecord": {
+    "backToReports": "← Přehledy",
+    "loading": "Načítání…",
+    "noRecords": "Zatím žádné záznamy docházky.",
+    "colDate": "Datum",
+    "colPeriod": "Hodina",
+    "colStatus": "Stav"
+  },
+  "common": {
+    "loading": "Načítání…",
+    "error": "Něco se pokazilo.",
+    "notFound": "404 — Stránka nenalezena",
+    "goHome": "Zpět domů",
+    "selectClassPlaceholder": "— Vyberte třídu —",
+    "statusPresent": "Přítomen",
+    "statusAbsent": "Nepřítomen",
+    "statusLate": "Pozdě",
+    "statusExcused": "Omluven",
+    "close": "Zavřít"
+  }
+}

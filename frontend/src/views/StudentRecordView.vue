@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { RouterLink, useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
 import AttendanceStatusBadge from "../components/AttendanceStatusBadge.vue";
 import { useAttendanceStore } from "../stores/attendance";
+import { PATHS } from "../router/paths";
 
+const { t } = useI18n();
 const route = useRoute();
 const attendanceStore = useAttendanceStore();
 
@@ -14,12 +17,16 @@ onMounted(() => {
 
 <template>
   <div class="page">
-    <RouterLink to="/reports" class="back-link">← Reports</RouterLink>
+    <RouterLink :to="PATHS.reports" class="back-link">{{
+      t("studentRecord.backToReports")
+    }}</RouterLink>
 
     <p v-if="attendanceStore.error" class="error">
       {{ attendanceStore.error }}
     </p>
-    <p v-else-if="attendanceStore.loading" class="muted">Loading…</p>
+    <p v-else-if="attendanceStore.loading" class="muted">
+      {{ t("studentRecord.loading") }}
+    </p>
 
     <template v-else-if="attendanceStore.studentHistory">
       <div class="header">
@@ -33,14 +40,14 @@ onMounted(() => {
         v-if="attendanceStore.studentHistory.records.length === 0"
         class="muted"
       >
-        No attendance records yet.
+        {{ t("studentRecord.noRecords") }}
       </p>
       <table v-else>
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Period</th>
-            <th>Status</th>
+            <th>{{ t("studentRecord.colDate") }}</th>
+            <th>{{ t("studentRecord.colPeriod") }}</th>
+            <th>{{ t("studentRecord.colStatus") }}</th>
           </tr>
         </thead>
         <tbody>

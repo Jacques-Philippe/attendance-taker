@@ -1,0 +1,136 @@
+{
+  "topbar": {
+    "language": "Langue",
+    "logout": "Déconnexion",
+    "changeLanguage": "Changer de langue"
+  },
+  "nav": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "classes": "Classes",
+    "attendance": "Prendre les présences",
+    "history": "Historique",
+    "reports": "Rapports",
+    "studentRecord": "Dossier étudiant"
+  },
+  "auth": {
+    "appName": "Gestionnaire de présences",
+    "login": {
+      "username": "Nom d’utilisateur",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours…",
+      "invalidCredentials": "Nom d’utilisateur ou mot de passe invalide.",
+      "noAccount": "Pas encore de compte ?",
+      "createOne": "Créer un compte"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "username": "Nom d’utilisateur",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Créer un compte",
+      "submitting": "Création du compte…",
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "usernameTaken": "Ce nom d’utilisateur est déjà pris.",
+      "failed": "L’inscription a échoué. Veuillez réessayer.",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signIn": "Se connecter"
+    }
+  },
+  "dashboard": {
+    "takeAttendance": "Prendre les présences",
+    "manageClasses": "Gérer les classes",
+    "attendanceHistory": "Historique des présences",
+    "reports": "Rapports"
+  },
+  "classes": {
+    "newClass": "+ Nouvelle classe",
+    "classNamePlaceholder": "Nom de la classe",
+    "periodPlaceholder": "Période",
+    "namePlaceholder": "Nom",
+    "create": "Créer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "manageStudents": "Gérer les élèves",
+    "hideStudents": "Masquer les élèves",
+    "studentNamePlaceholder": "Nom de l’élève",
+    "addStudent": "Ajouter un élève",
+    "rename": "Renommer",
+    "remove": "Retirer",
+    "confirmDeleteClass": "Supprimer la classe « {name} » et tous ses élèves ?",
+    "confirmRemoveStudent": "Retirer l’élève « {name} » ?"
+  },
+  "attendance": {
+    "title": "Prendre les présences",
+    "classLabel": "Classe",
+    "dateLabel": "Date",
+    "loadingRoster": "Chargement de la liste…",
+    "noStudents": "Cette classe n’a pas encore d’élèves.",
+    "selectClass": "Sélectionnez une classe pour commencer.",
+    "submit": "Soumettre les présences",
+    "submitting": "Envoi en cours…",
+    "successTitle": "Présences soumises !",
+    "takeAnother": "Nouvelle saisie",
+    "colStudent": "Élève",
+    "colStatus": "Statut",
+    "statusPresent": "Présent",
+    "statusAbsent": "Absent",
+    "statusLate": "En retard",
+    "statusExcused": "Excusé"
+  },
+  "history": {
+    "classLabel": "Classe",
+    "dateRangeLabel": "Plage de dates",
+    "loading": "Chargement…",
+    "noSessions": "Aucune session trouvée.",
+    "colDate": "Date",
+    "colClass": "Classe",
+    "colPeriod": "Période",
+    "sessionDetail": "Détail de la session — {date}",
+    "loadingRecords": "Chargement des enregistrements…",
+    "colStudentId": "ID étudiant",
+    "colStatus": "Statut",
+    "dateFrom": "Du",
+    "dateTo": "Au"
+  },
+  "reports": {
+    "classLabel": "Classe",
+    "loading": "Chargement…",
+    "selectClass": "Sélectionnez une classe pour voir son rapport.",
+    "totalSessions": "Total des sessions",
+    "classPresentRate": "Taux de présence",
+    "downloadCsv": "Télécharger CSV",
+    "downloading": "Téléchargement…",
+    "downloadFailed": "Échec du téléchargement. Veuillez réessayer.",
+    "colStudent": "Élève",
+    "colTotal": "Total",
+    "colPresent": "Présent",
+    "colAbsent": "Absent",
+    "colLate": "En retard",
+    "colExcused": "Excusé",
+    "colPresentPct": "% Présence"
+  },
+  "studentRecord": {
+    "backToReports": "← Rapports",
+    "loading": "Chargement…",
+    "noRecords": "Aucun enregistrement de présence pour l’instant.",
+    "colDate": "Date",
+    "colPeriod": "Période",
+    "colStatus": "Statut"
+  },
+  "common": {
+    "loading": "Chargement…",
+    "error": "Une erreur s’est produite.",
+    "notFound": "404 — Page introuvable",
+    "goHome": "Retour à l’accueil",
+    "selectClassPlaceholder": "— Sélectionner une classe —",
+    "statusPresent": "Présent",
+    "statusAbsent": "Absent",
+    "statusLate": "En retard",
+    "statusExcused": "Excusé",
+    "close": "Fermer"
+  }
+}

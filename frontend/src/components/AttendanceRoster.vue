@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import type { Student } from "../types/class";
 import type {
   AttendanceRecordDraft,
   AttendanceStatus,
 } from "../types/attendance";
 import AttendanceStatusBadge from "./AttendanceStatusBadge.vue";
+
+const { t } = useI18n();
 
 const STATUSES: AttendanceStatus[] = ["present", "absent", "late", "excused"];
 
@@ -33,8 +36,8 @@ function currentStatus(studentId: number): AttendanceStatus | undefined {
   <table class="roster">
     <thead>
       <tr>
-        <th class="col-name">Student</th>
-        <th class="col-status">Status</th>
+        <th class="col-name">{{ t("attendance.colStudent") }}</th>
+        <th class="col-status">{{ t("attendance.colStatus") }}</th>
       </tr>
     </thead>
     <tbody>

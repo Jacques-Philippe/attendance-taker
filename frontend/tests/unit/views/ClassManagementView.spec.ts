@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import ClassManagementView from "@/views/ClassManagementView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n } from "../../utils";
+import { PATHS } from "@/router/paths";
 
 const { mockFetchClasses, mockCreateClass, mockDeleteClass } = vi.hoisted(
   () => ({
@@ -36,7 +37,8 @@ function mountView() {
   return mount(ClassManagementView, {
     global: {
       plugins: [
-        makeRouter({ path: "/classes", component: ClassManagementView }),
+        makeRouter({ path: PATHS.classes, component: ClassManagementView }),
+        makeI18n(),
       ],
     },
   });

@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import { useAuthStore } from "../stores/auth";
+import { PATHS } from "../router/paths";
 
+const { t } = useI18n();
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -14,13 +17,13 @@ const loading = ref(false);
 
 onMounted(() => {
   if (authStore.isAuthenticated) {
-    router.push("/dashboard");
+    router.push(PATHS.dashboard);
   }
 });
 
 async function handleSubmit() {
   if (password.value !== confirmPassword.value) {
-    error.value = "Passwords do not match.";
+    error.value = t("auth.register.passwordMismatch");
     return;
   }
   error.value = "";
@@ -37,13 +40,13 @@ async function handleSubmit() {
       }
     )?.response;
     if (res?.status === 409) {
-      error.value = "Username is already taken.";
+      error.value = t("auth.register.usernameTaken");
     } else if (res?.status === 422 && Array.isArray(res.data?.detail)) {
       error.value = res.data.detail.map((d) => d.msg).join(" ");
     } else if (res?.status === 422 && typeof res.data?.detail === "string") {
       error.value = res.data.detail;
     } else {
-      error.value = "Registration failed. Please try again.";
+      error.value = t("auth.register.failed");
     }
   } finally {
     loading.value = false;
@@ -54,10 +57,10 @@ async function handleSubmit() {
 <template>
   <div class="register-page">
     <div class="register-card">
-      <h1>Create Account</h1>
+      <h1>{{ t("auth.register.title") }}</h1>
       <form @submit.prevent="handleSubmit">
         <div class="field">
-          <label for="username">Username</label>
+          <label for="username">{{ t("auth.register.username") }}</label>
           <input
             id="username"
             v-model="username"
@@ -67,7 +70,7 @@ async function handleSubmit() {
           />
         </div>
         <div class="field">
-          <label for="password">Password</label>
+          <label for="password">{{ t("auth.register.password") }}</label>
           <input
             id="password"
             v-model="password"
@@ -77,7 +80,9 @@ async function handleSubmit() {
           />
         </div>
         <div class="field">
-          <label for="confirm-password">Confirm Password</label>
+          <label for="confirm-password">{{
+            t("auth.register.confirmPassword")
+          }}</label>
           <input
             id="confirm-password"
             v-model="confirmPassword"
@@ -88,11 +93,16 @@ async function handleSubmit() {
         </div>
         <p v-if="error" class="error">{{ error }}</p>
         <button type="submit" :disabled="loading">
-          {{ loading ? "Creating account…" : "Create Account" }}
+          {{
+            loading ? t("auth.register.submitting") : t("auth.register.submit")
+          }}
         </button>
       </form>
       <p class="login-link">
-        Already have an account? <RouterLink to="/login">Sign in</RouterLink>
+        {{ t("auth.register.hasAccount") }}
+        <RouterLink :to="PATHS.login">{{
+          t("auth.register.signIn")
+        }}</RouterLink>
       </p>
     </div>
   </div>

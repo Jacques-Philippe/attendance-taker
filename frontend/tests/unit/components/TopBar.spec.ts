@@ -2,8 +2,9 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mount, enableAutoUnmount } from "@vue/test-utils";
 
 enableAutoUnmount(afterEach);
-import { createRouter, createMemoryHistory } from "vue-router";
 import TopBar from "@/components/TopBar.vue";
+import { makeI18n, makeRouter } from "../../utils";
+import { PATHS } from "@/router/paths";
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
@@ -21,34 +22,20 @@ vi.mock("@/stores/auth", () => ({
 
 // ─── Router helpers ───────────────────────────────────────────────────────────
 
-const stub = { template: "<div />" };
-
-const namedRoutes = [
-  { path: "/dashboard", name: "dashboard", component: stub },
-  { path: "/classes", name: "classes", component: stub },
-  { path: "/attendance", name: "attendance", component: stub },
-  { path: "/history", name: "history", component: stub },
-  { path: "/reports", name: "reports", component: stub },
-  { path: "/students/:id", name: "student-record", component: stub },
-];
-
 const routePath: Record<string, string> = {
-  dashboard: "/dashboard",
-  classes: "/classes",
-  attendance: "/attendance",
-  history: "/history",
-  reports: "/reports",
+  dashboard: PATHS.dashboard,
+  classes: PATHS.classes,
+  attendance: PATHS.attendance,
+  history: PATHS.history,
+  reports: PATHS.reports,
   "student-record": "/students/1",
 };
 
 async function mountTopBar(routeName = "dashboard") {
-  const router = createRouter({
-    history: createMemoryHistory(),
-    routes: namedRoutes,
-  });
-  await router.push(routePath[routeName] ?? "/dashboard");
+  const router = makeRouter();
+  await router.push(routePath[routeName] ?? PATHS.dashboard);
   await router.isReady();
-  return mount(TopBar, { global: { plugins: [router] } });
+  return mount(TopBar, { global: { plugins: [router, makeI18n()] } });
 }
 
 // ─── Avatar letter ────────────────────────────────────────────────────────────
@@ -106,7 +93,7 @@ describe("TopBar — breadcrumbs", () => {
   it("'Home' link points to /dashboard", async () => {
     const wrapper = await mountTopBar("classes");
     const homeLink = wrapper.find(".breadcrumb-link");
-    expect(homeLink.attributes("href")).toBe("/dashboard");
+    expect(homeLink.attributes("href")).toBe(PATHS.dashboard);
   });
 });
 
@@ -190,5 +177,28 @@ describe("TopBar — click outside", () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.find(".dropdown-menu").exists()).toBe(false);
+  });
+});
+
+// ─── Language switcher ────────────────────────────────────────────────────────
+
+describe("TopBar — language switcher", () => {
+  beforeEach(() => {
+    mockAuthStore = { user: testUser, logout: mockLogout };
+  });
+
+  it("clicking 'Change language' shows LocaleModal", async () => {
+    const router = makeRouter();
+    await router.push(PATHS.dashboard);
+    await router.isReady();
+    const wrapper = mount(TopBar, {
+      global: {
+        plugins: [router, makeI18n()],
+        stubs: { LocaleModal: true },
+      },
+    });
+    await wrapper.find(".avatar-button").trigger("click");
+    await wrapper.find('[data-testid="change-language-btn"]').trigger("click");
+    expect(wrapper.findComponent({ name: "LocaleModal" }).exists()).toBe(true);
   });
 });

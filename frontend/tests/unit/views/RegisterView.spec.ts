@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mount } from "@vue/test-utils";
 import RegisterView from "@/views/RegisterView.vue";
-import { makeRouter } from "../../utils";
+import { makeRouter, makeI18n, TEST_LOCALES } from "../../utils";
+import { PATHS } from "@/router/paths";
 
 const { mockRegister } = vi.hoisted(() => ({ mockRegister: vi.fn() }));
 
@@ -15,7 +16,10 @@ vi.mock("@/stores/auth", () => ({
 function mountRegisterView() {
   return mount(RegisterView, {
     global: {
-      plugins: [makeRouter({ path: "/register", component: RegisterView })],
+      plugins: [
+        makeRouter({ path: PATHS.register, component: RegisterView }),
+        makeI18n(),
+      ],
     },
   });
 }
@@ -30,6 +34,25 @@ async function fillForm(
   await wrapper.find("#password").setValue(password);
   await wrapper.find("#confirm-password").setValue(confirmPassword);
 }
+
+// ─── non-English smoke test ────────────────────────────────────────────────────
+
+describe("RegisterView — French locale", () => {
+  it("renders translated heading and submit button in French", () => {
+    const wrapper = mount(RegisterView, {
+      global: {
+        plugins: [
+          makeRouter({ path: PATHS.register, component: RegisterView }),
+          makeI18n({ locale: "fr", messages: TEST_LOCALES }),
+        ],
+      },
+    });
+    expect(wrapper.find("h1").text()).toBe("Créer un compte");
+    expect(wrapper.find('button[type="submit"]').text()).toBe(
+      "Créer un compte",
+    );
+  });
+});
 
 // ─── render tests ──────────────────────────────────────────────────────────────
 

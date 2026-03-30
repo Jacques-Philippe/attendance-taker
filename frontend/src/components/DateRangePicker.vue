@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 const props = defineProps<{ modelValue: { from: string; to: string } }>();
 const emit = defineEmits<{
   "update:modelValue": [value: { from: string; to: string }];
@@ -22,11 +25,11 @@ function setTo(e: Event) {
 <template>
   <div class="date-range-picker">
     <label class="range-field">
-      <span>From</span>
+      <span>{{ t("history.dateFrom") }}</span>
       <input type="date" :value="modelValue.from" @change="setFrom" />
     </label>
     <label class="range-field">
-      <span>To</span>
+      <span>{{ t("history.dateTo") }}</span>
       <input type="date" :value="modelValue.to" @change="setTo" />
     </label>
   </div>

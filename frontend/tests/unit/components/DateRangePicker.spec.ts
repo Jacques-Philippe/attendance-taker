@@ -1,11 +1,15 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import DateRangePicker from "@/components/DateRangePicker.vue";
+import { makeI18n } from "../../utils";
 
 const initial = { from: "2026-01-01", to: "2026-01-31" };
 
 function mountPicker() {
-  return mount(DateRangePicker, { props: { modelValue: initial } });
+  return mount(DateRangePicker, {
+    props: { modelValue: initial },
+    global: { plugins: [makeI18n()] },
+  });
 }
 
 describe("DateRangePicker — rendering", () => {

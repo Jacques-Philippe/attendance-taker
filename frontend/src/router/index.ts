@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "../stores/auth";
+import { PATHS } from "./paths";
 import LoginView from "../views/LoginView.vue";
 import AppLayout from "../components/AppLayout.vue";
 
@@ -7,16 +8,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      redirect: "/dashboard",
-    },
-    {
-      path: "/login",
+      path: PATHS.login,
       name: "login",
       component: LoginView,
     },
     {
-      path: "/register",
+      path: PATHS.register,
       name: "register",
       component: () => import("../views/RegisterView.vue"),
     },
@@ -25,32 +22,32 @@ const router = createRouter({
       component: AppLayout,
       children: [
         {
-          path: "/dashboard",
+          path: "",
           name: "dashboard",
           component: () => import("../views/DashboardView.vue"),
         },
         {
-          path: "/classes",
+          path: PATHS.classes,
           name: "classes",
           component: () => import("../views/ClassManagementView.vue"),
         },
         {
-          path: "/attendance",
+          path: PATHS.attendance,
           name: "attendance",
           component: () => import("../views/TakeAttendanceView.vue"),
         },
         {
-          path: "/history",
+          path: PATHS.history,
           name: "history",
           component: () => import("../views/AttendanceHistoryView.vue"),
         },
         {
-          path: "/reports",
+          path: PATHS.reports,
           name: "reports",
           component: () => import("../views/ReportsView.vue"),
         },
         {
-          path: "/students/:id",
+          path: PATHS.studentRecordPattern,
           name: "student-record",
           component: () => import("../views/StudentRecordView.vue"),
         },
@@ -64,21 +61,24 @@ const router = createRouter({
   ],
 });
 
+let sessionChecked = false;
+
 router.beforeEach(async (to) => {
   const authStore = useAuthStore();
   const publicRoutes = ["login", "register"];
   const isPublic = publicRoutes.includes(to.name as string);
 
-  if (!isPublic) {
+  if (!sessionChecked) {
     await authStore.fetchCurrentUser();
+    sessionChecked = true;
   }
 
   if (isPublic && authStore.isAuthenticated) {
-    return "/dashboard";
+    return PATHS.dashboard;
   }
 
   if (!isPublic && !authStore.isAuthenticated) {
-    return "/login";
+    return PATHS.login;
   }
 });
 
