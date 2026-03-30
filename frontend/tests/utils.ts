@@ -1,5 +1,6 @@
 import { createRouter, createMemoryHistory } from "vue-router";
 import { createI18n } from "vue-i18n";
+import type { LocaleMessages, VueMessageType } from "vue-i18n";
 import type { Component } from "vue";
 import en from "@/i18n/locales/en.json";
 import fr from "@/i18n/locales/fr.json";
@@ -8,7 +9,10 @@ import { PATHS } from "@/router/paths";
 
 const stub = { template: "<div />" };
 
-export const TEST_LOCALES = { en, fr, cs };
+export const TEST_LOCALES = { en, fr, cs } as unknown as Record<
+  string,
+  LocaleMessages<VueMessageType>
+>;
 
 /**
  * Creates a fresh vue-i18n instance for use in unit tests.
@@ -16,7 +20,7 @@ export const TEST_LOCALES = { en, fr, cs };
  */
 export function makeI18n(opts?: {
   locale?: string;
-  messages?: Record<string, unknown>;
+  messages?: Record<string, LocaleMessages<VueMessageType>>;
 }) {
   return createI18n({
     legacy: false,
