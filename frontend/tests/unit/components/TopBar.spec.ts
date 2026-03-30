@@ -180,3 +180,29 @@ describe("TopBar — click outside", () => {
     expect(wrapper.find(".dropdown-menu").exists()).toBe(false);
   });
 });
+
+// ─── Language switcher ────────────────────────────────────────────────────────
+
+describe("TopBar — language switcher", () => {
+  beforeEach(() => {
+    mockAuthStore = { user: testUser, logout: mockLogout };
+  });
+
+  it("clicking 'Change language' shows LocaleModal", async () => {
+    const router = makeRouter();
+    await router.push(PATHS.dashboard);
+    await router.isReady();
+    const wrapper = mount(TopBar, {
+      global: {
+        plugins: [router, makeI18n()],
+        stubs: { LocaleModal: true },
+      },
+    });
+    await wrapper.find(".avatar-button").trigger("click");
+    const changeLanguageBtn = wrapper
+      .findAll(".dropdown-button")
+      .find((b) => b.text() === "Change language");
+    await changeLanguageBtn!.trigger("click");
+    expect(wrapper.findComponent({ name: "LocaleModal" }).exists()).toBe(true);
+  });
+});

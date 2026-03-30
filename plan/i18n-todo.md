@@ -84,7 +84,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 ## Phase 7 — Tests
 
 - [x] Add `i18n` plugin (real `createI18n` with English locale) to the `global.plugins` array in the `mountTopBar` helper in `TopBar.spec.ts`
-- [ ] Add `TopBar — language switcher` describe block with one test: clicking the "Change language" dropdown button shows `LocaleModal`
+- [x] Add `TopBar — language switcher` describe block with one test: clicking the "Change language" dropdown button shows `LocaleModal`
 - [ ] Create `tests/unit/components/LocaleModal.spec.ts` with tests:
   - [ ] Renders one `.locale-button` per supported locale
   - [ ] Clicking a locale button calls `localeStore.setLocale` with the correct code
