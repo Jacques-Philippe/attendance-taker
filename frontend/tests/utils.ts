@@ -2,15 +2,27 @@ import { createRouter, createMemoryHistory } from "vue-router";
 import { createI18n } from "vue-i18n";
 import type { Component } from "vue";
 import en from "@/i18n/locales/en.json";
+import fr from "@/i18n/locales/fr.json";
+import cs from "@/i18n/locales/cs.json";
 import { PATHS } from "@/router/paths";
 
 const stub = { template: "<div />" };
 
+export const TEST_LOCALES = { en, fr, cs };
+
 /**
- * Creates a fresh vue-i18n instance for use in unit tests (English locale).
+ * Creates a fresh vue-i18n instance for use in unit tests.
+ * Defaults to English. Pass `locale` and/or `messages` to override.
  */
-export function makeI18n() {
-  return createI18n({ legacy: false, locale: "en", messages: { en } });
+export function makeI18n(opts?: {
+  locale?: string;
+  messages?: Record<string, unknown>;
+}) {
+  return createI18n({
+    legacy: false,
+    locale: opts?.locale ?? "en",
+    messages: opts?.messages ?? TEST_LOCALES,
+  });
 }
 
 /**

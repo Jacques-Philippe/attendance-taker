@@ -5,8 +5,14 @@ import cs from "./locales/cs.json";
 
 const STORAGE_KEY = "locale";
 const DEFAULT_LOCALE = "en";
+const VALID_LOCALES = ["en", "fr", "cs"] as const;
 
-const savedLocale = localStorage.getItem(STORAGE_KEY) ?? DEFAULT_LOCALE;
+const stored = localStorage.getItem(STORAGE_KEY);
+const savedLocale = VALID_LOCALES.includes(
+  stored as (typeof VALID_LOCALES)[number],
+)
+  ? (stored as string)
+  : DEFAULT_LOCALE;
 
 export const i18n = createI18n({
   legacy: false,
