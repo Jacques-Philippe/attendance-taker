@@ -61,12 +61,17 @@ const router = createRouter({
   ],
 });
 
+let sessionChecked = false;
+
 router.beforeEach(async (to) => {
   const authStore = useAuthStore();
   const publicRoutes = ["login", "register"];
   const isPublic = publicRoutes.includes(to.name as string);
 
-  await authStore.fetchCurrentUser();
+  if (!sessionChecked) {
+    await authStore.fetchCurrentUser();
+    sessionChecked = true;
+  }
 
   if (isPublic && authStore.isAuthenticated) {
     return PATHS.dashboard;
