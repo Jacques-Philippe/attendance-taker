@@ -199,10 +199,7 @@ describe("TopBar — language switcher", () => {
       },
     });
     await wrapper.find(".avatar-button").trigger("click");
-    const changeLanguageBtn = wrapper
-      .findAll(".dropdown-button")
-      .find((b) => b.text() === "Change language");
-    await changeLanguageBtn!.trigger("click");
+    await wrapper.find('[data-testid="change-language-btn"]').trigger("click");
     expect(wrapper.findComponent({ name: "LocaleModal" }).exists()).toBe(true);
   });
 });

@@ -144,7 +144,11 @@ onUnmounted(() => {
           <div class="dropdown-header">
             <span class="username">{{ authStore.user?.username }}</span>
           </div>
-          <button class="dropdown-button" @click="openLocaleModal">
+          <button
+            class="dropdown-button"
+            data-testid="change-language-btn"
+            @click="openLocaleModal"
+          >
             {{ t("topbar.changeLanguage") }}
           </button>
           <hr class="dropdown-divider" />
