@@ -9,7 +9,13 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-VENV_PIP = ROOT / "backend" / ".venv" / "bin" / "pip"
+VENV_DIR = ROOT / "backend" / ".venv"
+# Windows: Scripts/pip.exe  |  Unix: bin/pip
+VENV_PIP = (
+    VENV_DIR / "Scripts" / "pip.exe"
+    if sys.platform == "win32"
+    else VENV_DIR / "bin" / "pip"
+)
 REQUIREMENTS = ROOT / "backend" / "requirements.txt"
 
 
@@ -23,7 +29,7 @@ def normalise(lines: list[str]) -> set[str]:
 
 
 def main() -> int:
-    if not VENV_PIP.is_file() or not VENV_PIP.stat().st_mode & 0o111:
+    if not VENV_PIP.is_file():
         print(f"ERROR: Virtual environment not found at {VENV_PIP}")
         print(
             "Create it with: cd backend && python -m venv .venv && .venv/bin/pip install -r requirements.txt"
