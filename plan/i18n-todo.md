@@ -93,7 +93,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
   - [x] Clicking the `.close-button` emits `close`
   - [x] Clicking the backdrop emits `close`
   - [x] Pressing Escape emits `close`
-- [ ] Add `i18n` plugin to `global.plugins` in each view spec's mount helper
+- [x] Add `i18n` plugin to `global.plugins` in each view spec's mount helper
 
 ---
 
