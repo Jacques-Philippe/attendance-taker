@@ -17,7 +17,7 @@ repos:
 
       - id: check-requirements
         name: Backend requirements in sync
-        entry: scripts/check-requirements.sh
+        entry: scripts/check-requirements.py
         language: script
         pass_filenames: false
         always_run: true

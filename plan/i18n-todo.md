@@ -99,7 +99,7 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 
 ## Phase 8 — Migrate `check-requirements.sh` to Python
 
-- [ ] Create `scripts/check-requirements.py` — Python equivalent of `check-requirements.sh` (venv existence check, `pip freeze` comparison against `requirements.txt`)
-- [ ] Make `scripts/check-requirements.py` executable (`chmod +x`)
-- [ ] Update the `check-requirements` hook entry in `.pre-commit-config.yaml` to point at `scripts/check-requirements.py`
-- [ ] Delete `scripts/check-requirements.sh`
+- [x] Create `scripts/check-requirements.py` — Python equivalent of `check-requirements.sh` (venv existence check, `pip freeze` comparison against `requirements.txt`)
+- [x] Make `scripts/check-requirements.py` executable (`chmod +x`)
+- [x] Update the `check-requirements` hook entry in `.pre-commit-config.yaml` to point at `scripts/check-requirements.py`
+- [x] Delete `scripts/check-requirements.sh`
