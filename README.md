@@ -149,6 +149,31 @@ npm test
 
 ---
 
+## Internationalization (i18n)
+
+The frontend is fully localized using [vue-i18n](https://vue-i18n.intlify.dev/). Three locales are supported out of the box: **English** (`en`), **French** (`fr`), and **Czech** (`cs`).
+
+### How it works
+
+- Locale files live in `frontend/src/i18n/locales/` — one JSON file per language (`en.json`, `fr.json`, `cs.json`).
+- The active locale is persisted in `localStorage` and restored on page load. If the stored value is not a recognized locale code it falls back to English.
+- Users switch language via the **Change language** button in the top-bar dropdown, which opens a modal.
+- The selected locale is managed by the `useLocaleStore` Pinia store (`frontend/src/stores/locale.ts`).
+
+### Adding a new locale
+
+1. Copy `frontend/src/i18n/locales/en.json` to a new file, e.g. `de.json`.
+2. Translate all values (keep the keys identical to `en.json`).
+3. Import the new file in `frontend/src/i18n/index.ts` and add it to the `messages` object.
+4. Add the locale code and display label to `SUPPORTED_LOCALES` in `frontend/src/stores/locale.ts`.
+5. Add the same code to `VALID_LOCALES` in `frontend/src/i18n/index.ts`.
+
+### Keeping locales in sync
+
+A pre-commit hook (`check-locales`) runs `scripts/check-locales.py` whenever a locale file changes. It verifies that every non-English locale has exactly the same keys as `en.json` and that interpolation placeholders (e.g. `{name}`) match. The commit is blocked if anything is out of sync.
+
+---
+
 ## Stack
 
 - **Frontend:** Vue 3 + TypeScript (Vite)
