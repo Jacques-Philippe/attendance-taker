@@ -22,6 +22,13 @@ repos:
         pass_filenames: false
         always_run: true
 
+      - id: check-locales
+        name: Locale files in sync
+        entry: scripts/check-locales.py
+        language: script
+        pass_filenames: false
+        files: ^frontend/src/i18n/locales/
+
   # Backend: Black (Python formatter)
   - repo: https://github.com/psf/black
     rev: 23.12.0

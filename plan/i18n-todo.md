@@ -75,9 +75,9 @@ _(Covered by the locale file creation in Phase 1 — this phase is complete once
 
 ## Phase 6 — Pre-commit Locale Key Check
 
-- [ ] Create `scripts/check-locales.py` — Python script that flattens all locale JSON files to dotted key sets and exits non-zero if any file differs from `en.json`
-- [ ] Make `scripts/check-locales.py` executable (`chmod +x`)
-- [ ] Add `check-locales` hook to the `repo: local` block in `.pre-commit-config.yaml` with `files: ^frontend/src/i18n/locales/`
+- [x] Create `scripts/check-locales.py` — Python script that flattens all locale JSON files to dotted key sets and exits non-zero if any file differs from `en.json`
+- [x] Make `scripts/check-locales.py` executable (`chmod +x`)
+- [x] Add `check-locales` hook to the `repo: local` block in `.pre-commit-config.yaml` with `files: ^frontend/src/i18n/locales/`
 
 ---
 
