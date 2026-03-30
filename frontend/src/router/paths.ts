@@ -7,4 +7,5 @@ export const PATHS = {
   history: "/history",
   reports: "/reports",
   studentRecord: (id: number | string) => `/students/${id}`,
+  studentRecordPattern: "/students/:id",
 } as const;

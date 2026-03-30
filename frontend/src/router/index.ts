@@ -47,7 +47,7 @@ const router = createRouter({
           component: () => import("../views/ReportsView.vue"),
         },
         {
-          path: "/students/:id",
+          path: PATHS.studentRecordPattern,
           name: "student-record",
           component: () => import("../views/StudentRecordView.vue"),
         },
