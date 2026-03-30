@@ -17,5 +17,5 @@ export const useLocaleStore = defineStore("locale", () => {
     localStorage.setItem("locale", code);
   }
 
-  return { current, setLocale, SUPPORTED_LOCALES };
+  return { current, setLocale };
 });

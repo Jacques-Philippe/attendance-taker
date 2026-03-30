@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
-import { useLocaleStore } from "../stores/locale";
+import { useLocaleStore, SUPPORTED_LOCALES } from "../stores/locale";
 
 const { t } = useI18n();
 const localeStore = useLocaleStore();
@@ -9,9 +9,7 @@ const emit = defineEmits<{ close: [] }>();
 
 const modalRef = ref<HTMLElement | null>(null);
 
-function selectLocale(
-  code: (typeof localeStore.SUPPORTED_LOCALES)[number]["code"],
-) {
+function selectLocale(code: (typeof SUPPORTED_LOCALES)[number]["code"]) {
   localeStore.setLocale(code);
   emit("close");
 }
@@ -68,7 +66,7 @@ onUnmounted(() => {
       <p class="modal-title">{{ t("topbar.language") }}</p>
       <div class="locale-list">
         <button
-          v-for="loc in localeStore.SUPPORTED_LOCALES"
+          v-for="loc in SUPPORTED_LOCALES"
           :key="loc.code"
           class="locale-button"
           :class="{ active: localeStore.current === loc.code }"

@@ -7,19 +7,20 @@ enableAutoUnmount(afterEach);
 
 // ─── Mocks ────────────────────────────────────────────────────────────────────
 
-const { mockSetLocale } = vi.hoisted(() => ({ mockSetLocale: vi.fn() }));
-
-const SUPPORTED_LOCALES = [
-  { code: "en", label: "English" },
-  { code: "fr", label: "Français" },
-  { code: "cs", label: "Čeština" },
-] as const;
+const { mockSetLocale, SUPPORTED_LOCALES } = vi.hoisted(() => ({
+  mockSetLocale: vi.fn(),
+  SUPPORTED_LOCALES: [
+    { code: "en", label: "English" },
+    { code: "fr", label: "Français" },
+    { code: "cs", label: "Čeština" },
+  ] as const,
+}));
 
 let mockCurrentLocale = "en";
 
 vi.mock("@/stores/locale", () => ({
+  SUPPORTED_LOCALES,
   useLocaleStore: () => ({
-    SUPPORTED_LOCALES,
     get current() {
       return mockCurrentLocale;
     },
