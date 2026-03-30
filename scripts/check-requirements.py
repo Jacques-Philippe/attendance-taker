@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Verify that backend/.venv-backend is in sync with backend/requirements.txt.
+Verify that backend/.venv is in sync with backend/requirements.txt.
 Exits non-zero if the venv is missing or its installed packages differ.
 """
 
@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-VENV_PIP = ROOT / "backend" / ".venv-backend" / "bin" / "pip"
+VENV_PIP = ROOT / "backend" / ".venv" / "bin" / "pip"
 REQUIREMENTS = ROOT / "backend" / "requirements.txt"
 
 
@@ -26,7 +26,7 @@ def main() -> int:
     if not VENV_PIP.is_file() or not VENV_PIP.stat().st_mode & 0o111:
         print(f"ERROR: Virtual environment not found at {VENV_PIP}")
         print(
-            "Create it with: cd backend && python -m venv .venv-backend && .venv-backend/bin/pip install -r requirements.txt"
+            "Create it with: cd backend && python -m venv .venv && .venv/bin/pip install -r requirements.txt"
         )
         return 1
 
@@ -46,12 +46,12 @@ def main() -> int:
     extra = installed - expected
 
     if missing or extra:
-        print("\nERROR: backend/requirements.txt is out of sync with .venv-backend.")
+        print("\nERROR: backend/requirements.txt is out of sync with .venv.")
         for pkg in sorted(missing):
             print(f"  missing : {pkg}")
         for pkg in sorted(extra):
             print(f"  extra   : {pkg}")
-        print("\nRun:  cd backend && .venv-backend/bin/pip freeze > requirements.txt")
+        print("\nRun:  cd backend && .venv/bin/pip freeze > requirements.txt")
         return 1
 
     return 0

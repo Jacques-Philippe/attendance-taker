@@ -74,6 +74,11 @@ export function makeRouter(current?: { path: string; component: Component }) {
         name: "student-record",
         component: resolve("/students/:id"),
       },
+      {
+        path: "/:pathMatch(.*)*",
+        name: "not-found",
+        component: stub,
+      },
     ],
   });
 }
